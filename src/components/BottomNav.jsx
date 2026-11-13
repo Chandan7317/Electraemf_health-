@@ -11,7 +11,10 @@ export default function BottomNav({ activeTab, onTabChange }) {
   ];
 
   return (
-    <div className="shrink-0 z-30 px-3.5 pb-3.5 pt-1 select-none pointer-events-auto bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/90 to-transparent">
+    <div 
+      className="shrink-0 z-30 px-3.5 pt-1 select-none pointer-events-auto bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent"
+      style={{ paddingBottom: 'max(0.625rem, env(safe-area-inset-bottom, 0.625rem))' }}
+    >
       {/* Stabilized fixed-height pill navigation with equal 20% slots (No layout shift) */}
       <nav 
         className="w-full h-[54px] bg-[#0b162c] border border-white/10 shadow-2xl shadow-blue-950/50 rounded-full p-1.5 flex items-center"
