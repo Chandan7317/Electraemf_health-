@@ -212,7 +212,7 @@ export default function HomeDashboard({
 
       {/* 3. HERO SECTION – AUTOMATIC IMAGE CAROUSEL */}
       <div 
-        className="relative overflow-hidden rounded-3xl bg-slate-950 text-white shadow-xl select-none"
+        className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-950 text-white shadow-lg select-none"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
@@ -220,7 +220,7 @@ export default function HomeDashboard({
         onTouchEnd={handleTouchEnd}
       >
         {/* Background Image with Dynamic Fade Transition */}
-        <div className="relative h-64 sm:h-72 w-full overflow-hidden">
+        <div className="relative h-52 sm:h-60 w-full overflow-hidden">
           {heroSlides.map((slide, index) => (
             <div
               key={slide.id}
@@ -237,43 +237,43 @@ export default function HomeDashboard({
                 }}
               />
               {/* High Contrast Multi-Layer Vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071328] via-[#071328]/80 to-black/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071328] via-[#071328]/75 to-black/35" />
             </div>
           ))}
 
           {/* Top Floating Pill Tags */}
-          <div className="absolute top-3 left-3 right-3 z-20 flex items-center justify-between text-[9px] font-bold">
-            <span className="bg-slate-900/80 backdrop-blur-md px-2.5 py-1 rounded-full text-white border border-white/15 flex items-center gap-1 shadow-xs">
+          <div className="absolute top-2.5 left-2.5 right-2.5 z-20 flex items-center justify-between text-[8.5px] font-bold">
+            <span className="bg-slate-900/80 backdrop-blur-md px-2 py-0.5 rounded-full text-white border border-white/15 flex items-center gap-1 shadow-xs">
               <span className={activeSlideData.badgeColor}>{activeSlideData.badgeIcon}</span>
               <span>{activeSlideData.badge}</span>
             </span>
-            <span className="bg-blue-600/90 backdrop-blur-md px-2 py-0.5 rounded-full text-white shadow-xs font-black">
+            <span className="bg-blue-600/90 backdrop-blur-md px-1.5 py-0.5 rounded-full text-white shadow-xs font-black">
               {currentSlide + 1} / {heroSlides.length}
             </span>
           </div>
 
           {/* Slide Content Overlay */}
-          <div className="absolute inset-0 z-20 flex flex-col justify-end p-4 sm:p-5">
-            <div className="space-y-1.5 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <h1 className="text-base sm:text-lg font-heading font-extrabold text-white leading-tight drop-shadow-sm line-clamp-2">
+          <div className="absolute inset-0 z-20 flex flex-col justify-end p-3.5 sm:p-4">
+            <div className="space-y-1 animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <h1 className="text-sm sm:text-base font-heading font-extrabold text-white leading-tight drop-shadow-sm line-clamp-2">
                 {activeSlideData.title}
               </h1>
 
-              <p className="text-[11px] text-blue-100/90 leading-relaxed line-clamp-2 drop-shadow-xs max-w-sm">
+              <p className="text-[10.5px] text-blue-100/90 leading-tight line-clamp-1 sm:line-clamp-2 drop-shadow-xs max-w-sm">
                 {activeSlideData.subtitle}
               </p>
 
               {/* Action Buttons in Hero */}
-              <div className="flex items-center gap-2 pt-2">
+              <div className="flex items-center gap-2 pt-1">
                 <button
                   onClick={() => {
                     if (activeSlideData.primaryTarget === 'call') onOpenCall();
                     else onNavigate(activeSlideData.primaryTarget);
                   }}
-                  className="flex-1 sm:flex-none h-10 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-extrabold shadow-md shadow-blue-950/40 active:scale-95 transition-all flex items-center justify-center gap-1.5"
+                  className="flex-1 sm:flex-none h-8.5 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-extrabold shadow-md shadow-blue-950/40 active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span>{activeSlideData.primaryCta}</span>
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <ArrowRight className="w-3 h-3 stroke-[2.5]" />
                 </button>
 
                 <button
@@ -281,7 +281,7 @@ export default function HomeDashboard({
                     if (activeSlideData.secondaryTarget === 'call') onOpenCall();
                     else onNavigate(activeSlideData.secondaryTarget);
                   }}
-                  className="flex-1 sm:flex-none h-10 px-3.5 rounded-xl bg-white/15 hover:bg-white/20 text-white text-xs font-bold border border-white/25 active:scale-95 transition-all flex items-center justify-center text-center backdrop-blur-xs"
+                  className="flex-1 sm:flex-none h-8.5 px-3 rounded-xl bg-white/15 hover:bg-white/20 text-white text-[11px] font-bold border border-white/25 active:scale-95 transition-all flex items-center justify-center text-center backdrop-blur-xs cursor-pointer"
                 >
                   {activeSlideData.secondaryCta}
                 </button>
@@ -292,23 +292,23 @@ export default function HomeDashboard({
           {/* Carousel Left / Right Navigation Chevrons */}
           <button
             onClick={handlePrevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10"
+            className="absolute left-1.5 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10"
             aria-label="Previous Slide"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5" />
           </button>
 
           <button
             onClick={handleNextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10"
             aria-label="Next Slide"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
         {/* Carousel Pagination Indicators */}
-        <div className="bg-[#071328] px-4 py-2 flex items-center justify-between border-t border-white/10 text-[10px]">
+        <div className="bg-[#071328] px-3.5 py-1.5 flex items-center justify-between border-t border-white/10 text-[9.5px]">
           <div className="flex items-center gap-1.5">
             {heroSlides.map((_, idx) => (
               <button
@@ -316,8 +316,8 @@ export default function HomeDashboard({
                 onClick={() => setCurrentSlide(idx)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
                   idx === currentSlide 
-                    ? 'w-6 bg-blue-500 shadow-xs' 
-                    : 'w-2 bg-white/30 hover:bg-white/50'
+                    ? 'w-5 bg-blue-500 shadow-xs' 
+                    : 'w-1.5 bg-white/30 hover:bg-white/50'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
