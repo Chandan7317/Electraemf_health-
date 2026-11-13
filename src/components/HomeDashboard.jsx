@@ -241,17 +241,6 @@ export default function HomeDashboard({
             </div>
           ))}
 
-          {/* Top Floating Pill Tags */}
-          <div className="absolute top-2.5 left-2.5 right-2.5 z-20 flex items-center justify-between text-[8.5px] font-bold">
-            <span className="bg-slate-900/80 backdrop-blur-md px-2 py-0.5 rounded-full text-white border border-white/15 flex items-center gap-1 shadow-xs">
-              <span className={activeSlideData.badgeColor}>{activeSlideData.badgeIcon}</span>
-              <span>{activeSlideData.badge}</span>
-            </span>
-            <span className="bg-blue-600/90 backdrop-blur-md px-1.5 py-0.5 rounded-full text-white shadow-xs font-black">
-              {currentSlide + 1} / {heroSlides.length}
-            </span>
-          </div>
-
           {/* Slide Content Overlay */}
           <div className="absolute inset-0 z-20 flex flex-col justify-end p-3.5 sm:p-4">
             <div className="space-y-1 animate-in fade-in slide-in-from-bottom-2 duration-300">
