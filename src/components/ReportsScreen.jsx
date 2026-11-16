@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { 
   FileText, Phone, Mail, ShieldAlert, ArrowRight, 
   ChevronDown, ChevronUp, Star, CheckSquare, Square,
-  AlertTriangle, BookOpen, ExternalLink, ShieldCheck
+  AlertTriangle, BookOpen, ExternalLink, ShieldCheck, Scale, Zap, Radio, Sparkles
 } from 'lucide-react';
+import ArticleModal from './ArticleModal';
+import StandardsComparisonModal from './StandardsComparisonModal';
+import { electraData } from '../data/electraData';
+import { allPagesFull } from '../data/allPagesFull';
 
 export default function ReportsScreen({ onOpenCall, onNavigate }) {
   const [openAccordion, setOpenAccordion] = useState(null);
   const [checkedItems, setCheckedItems] = useState([false, false, false, false]);
+  const [activeArticle, setActiveArticle] = useState(null);
+  const [isStandardsOpen, setIsStandardsOpen] = useState(false);
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
@@ -17,6 +23,134 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
     const updated = [...checkedItems];
     updated[idx] = !updated[idx];
     setCheckedItems(updated);
+  };
+
+  const featuredCases = [
+    {
+      id: 'nj-stray-voltage-pool',
+      title: 'Brick, NJ Ground Voltage Pool & Lawn Remediation Case',
+      headline: 'ABC News Investigative Coverage: Stray Ground Voltage Mystery Solved',
+      location: 'Brick, Ocean County, NJ',
+      category: 'Stray Voltage & Ground Current',
+      image: '/assets/children_playing_near_high_voltage_lines.png',
+      badgeTop: 'SUB-STATION GROUND FAULT',
+      badgeSub: 'Stray AC/DC Differential',
+      tagCorner: 'ABC NEWS "MYSTERY"',
+      summary: 'Stray underground AC/DC ground voltages into residential swimming pools and yards prevented family from using their backyard lawn and pool equipment. Frequent water skin shocks logged at 4V. electraEMF laboratory differential oscilloscopy traced secondary utility conduit return leakage, and implemented confirmed technical ground remediation.',
+      details: [
+        'Family reported unexplainable electric shocks whenever stepping into their swimming pool or walking barefoot on the grass.',
+        'Local power utility claimed all neighborhood transformers and neutral conductors were within regulatory specs.',
+        "electraEMF's licensed electronics engineer deployed multi-point ground voltage dataloggers and uncovered elevated return currents traversing the water table from distant utility substations.",
+        'Engineering report compelled utility remediation and protected family from hazardous contact voltage.'
+      ],
+      outcome: '100% Remediated Ground Voltage. Zero contact voltage detected across pool coping and lawn.'
+    },
+    {
+      id: 'hartford-5g-telecom',
+      title: 'Hartford Debilitating 5G Early Subsystem Case',
+      headline: 'Clinical Neuro-Cardiological Investigation of Micro-Cell Exposure',
+      location: 'Hartford, Connecticut',
+      category: 'Telecom & High-Frequency RF',
+      image: '/assets/5G-antenna-1030x896.jpg',
+      badgeTop: 'MULTI-SPECTRUM RFR',
+      badgeSub: 'Sub-6 & 39GHz Transmitters',
+      tagCorner: 'Medical DX Study',
+      summary: 'Biomechanical clinical medical investigation of sensory organ and high-frequency RF saturation causing severe neurocardiological symptoms in a 42-year-old female resident 240 ft from underlying cell facilities. Complete spatial RF frequency deconstruction identified pulsed micro-wave bursts of 45 thousand microwatts/sq meter.',
+      details: [
+        'Resident suffered acute sleep fragmentation, chronic migraines, and sensory paresthesias following rooftop 5G deployment.',
+        'Directional isotropic spectrum analysis recorded peak pulse emissions over 45,000 µW/m² penetrating bedroom glass.',
+        'electraEMF designed custom architectural multi-layer RF attenuation barriers reducing indoor fields by 99.8%.',
+        'Formal ISO/AAMI 14117 medical device and neurological clearance certificate issued.'
+      ],
+      outcome: 'Indoor RF power density lowered below 10 µW/m²; complete resolution of clinical symptoms.'
+    },
+    {
+      id: 'manhattan-high-rise-static',
+      title: 'Lower Manhattan Luxury High-Rise Static Fields',
+      headline: 'High-Rise Electrostatic Accumulation & DC Transit Resonance',
+      location: 'Manhattan, New York City',
+      category: 'Electrostatic & DC Grounding',
+      image: '/assets/NYC-Office-EMF-testing-for-helath-and-safety-2023.jpg',
+      badgeTop: 'PEDESTRIAN TIER HIGH-RISE',
+      badgeSub: '800 V/m Electrostatic',
+      tagCorner: '500 V/m DISCHARGED',
+      summary: 'Residents experienced severe peripheral neurological sensations and auditory clicking. Testing identified non-conductive flooring generating static electric potentials up to 500 V/m coupled with street D.C. tramway return loops. Physical whole-residence Faraday grounded passive conductive dissipation barriers.',
+      details: [
+        'Penthouse residents reported tingling sensations across skin, static shocks touching doorknobs, and sleep disturbances.',
+        'Testing identified non-conductive flooring building static electric potentials up to 500 V/m coupled with municipal DC rail return loops.',
+        'electraEMF engineered passive dissipative conductive floor transitions connected to a dedicated equipotential ground plane.',
+        'Full static discharge verified with zero residual electrostatic accumulation.'
+      ],
+      outcome: '500 V/m Static completely discharged to safe baseline (< 10 V/m).'
+    },
+    {
+      id: 'westchester-real-estate-recovery',
+      title: 'Hudson Valley & Hamptons Real Estate Rehabilitation',
+      headline: 'Defeating Inadmissible Gadget Reports in Court and Restoring Property Value',
+      location: 'Westchester County & Hamptons, NY',
+      category: 'Real Estate Due Diligence & Court Testimony',
+      image: '/assets/EMF-safe-home-testing.jpg',
+      badgeTop: 'PROPERTY VALUATION RECOVERY',
+      badgeSub: '100% Price Restored',
+      tagCorner: 'SUPREME COURT OVERRULED',
+      summary: 'High-end properties severely devalued and stalled after amateur "ghost-buster" consultants produced terrifying, fabricated claims near distant substations. electraEMF\'s certified engineering reports definitively disproved bogus claims, rehabilitating property market valuation by over 80%.',
+      details: [
+        'Luxury property transaction stalled when buyer presented uncalibrated hobbyist meter reading claiming lethal fields.',
+        'electraEMF IBEW licensed engineer conducted certified 3D magnetic falloff contour study under legal chain of custody.',
+        'Demonstrated that distant 60Hz power utility lines attenuated to ambient baseline (< 0.4 mG) at the property line.',
+        'Certified evidentiary dossier accepted by court and escrow title, releasing millions in stalled real estate value.'
+      ],
+      outcome: 'Stigmatized property cleared; transaction successfully closed at 100% full market value.'
+    }
+  ];
+
+  const educationalArticles = [
+    {
+      id: '10-household-items-that-produce-em-waves',
+      title: 'From Microwave to TV: 10 Household Items Producing EM Waves',
+      category: 'Home EMF Safety',
+      readTime: '4 min read',
+      tag: 'Scientific Breakdown',
+      excerpt: 'Explore the 10 everyday household appliances emitting electromagnetic waves, their operating frequencies, and practical biological protection.'
+    },
+    {
+      id: '01-what-is-the-best-meter-for-emf-testing',
+      title: 'Why Hobbyist Meters (Trifield, Cornet) Fail in Real Testing',
+      category: 'Consumer Protection',
+      readTime: '6 min read',
+      tag: 'Industry Truth',
+      excerpt: 'Why uncalibrated commercial gadget meters produce terrifying false positives and lack legal standing in real estate and court.'
+    },
+    {
+      id: 'understanding-the-ieee-emf-exposure-standards',
+      title: 'Understanding IEEE & FCC Standards vs. Biological Reality',
+      category: 'Regulatory Standards',
+      readTime: '8 min read',
+      tag: 'sC-Ve™ Protocol',
+      excerpt: 'How 1990s FCC thermal guidelines ignore chronic subclinical health effects, and why electraEMF tests to biological safety limits.'
+    },
+    {
+      id: 'how_does_emf_shielding_work_to_prevent_emf_exposure',
+      title: 'How Does EMF Shielding Really Work to Prevent Exposure?',
+      category: 'Remediation & Physics',
+      readTime: '5 min read',
+      tag: 'Shielding Science',
+      excerpt: 'The physics of MuMetal, RF window films, and why ungrounded bed canopies often amplify whole-body voltage.'
+    }
+  ];
+
+  const handleOpenArticle = (item) => {
+    // Check if full article exists in allPagesFull
+    const full = allPagesFull[item.id];
+    if (full && full.sections && full.sections.length > 0) {
+      setActiveArticle({
+        ...item,
+        title: full.title || item.title,
+        sections: full.sections
+      });
+    } else {
+      setActiveArticle(item);
+    }
   };
 
   const accordions = [
@@ -92,151 +226,161 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
         </div>
       </div>
 
-      {/* 3. FEATURED FIELD INVESTIGATIONS (Exact Image 5) */}
+      {/* 3. FEATURED FIELD INVESTIGATIONS (Interactive Archive Dossiers) */}
       <div className="space-y-3">
         <div className="flex items-center justify-between text-xs font-extrabold text-slate-800 uppercase tracking-wide px-1">
           <span>FEATURED FIELD INVESTIGATIONS</span>
-          <span className="text-[10px] text-blue-600 font-bold">Rev. Tri-State Cases</span>
+          <span className="text-[10px] text-blue-600 font-bold">Tap To Read Full Dossier</span>
         </div>
 
-        {/* Investigation 1: Brick, NJ */}
-        <div className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm space-y-3 pb-4">
-          <div className="relative h-40 w-full bg-slate-900">
-            <img 
-              src="/assets/children_playing_near_high_voltage_lines.png" 
-              alt="Brick NJ Case" 
-              className="w-full h-full object-cover opacity-85"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold text-white">
-              Brick, Ocean County, NJ
+        {featuredCases.map((cs) => (
+          <div 
+            key={cs.id}
+            onClick={() => setActiveArticle(cs)}
+            className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm space-y-3 pb-4 hover:border-blue-200 transition-all cursor-pointer group active:scale-[0.99]"
+          >
+            <div className="relative h-40 w-full bg-slate-900">
+              <img 
+                src={cs.image} 
+                alt={cs.title} 
+                className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold text-white">
+                {cs.location}
+              </div>
+              <div className="absolute bottom-2.5 right-3 bg-amber-500 text-slate-950 text-[9px] font-black uppercase px-2 py-0.5 rounded-md">
+                {cs.tagCorner}
+              </div>
             </div>
-            <div className="absolute bottom-2.5 right-3 bg-amber-500 text-slate-950 text-[9px] font-black uppercase px-2 py-0.5 rounded-md">
-              ABC NEWS "MYSTERY"
+
+            <div className="px-4 space-y-2">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[9px] font-extrabold px-2 py-0.2 rounded bg-blue-50 text-blue-700">
+                  {cs.badgeTop}
+                </span>
+                <span className="text-[9px] font-bold px-2 py-0.2 rounded bg-slate-100 text-slate-600">
+                  {cs.badgeSub}
+                </span>
+              </div>
+
+              <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-snug group-hover:text-blue-600 transition-colors">
+                {cs.title}
+              </h3>
+
+              <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                {cs.summary}
+              </p>
+
+              <div className="flex items-center justify-between text-[10px] pt-1 border-t border-slate-50 text-slate-500 font-medium">
+                <span className="text-emerald-600 font-bold truncate max-w-[200px]">
+                  {cs.outcome}
+                </span>
+                <span className="text-blue-600 font-bold group-hover:underline flex items-center gap-0.5 shrink-0">
+                  <span>Full Archive Dossier</span>
+                  <ArrowRight className="w-3 h-3 inline" />
+                </span>
+              </div>
             </div>
           </div>
+        ))}
+      </div>
 
-          <div className="px-4 space-y-2">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[9px] font-extrabold px-2 py-0.2 rounded bg-blue-50 text-blue-700">
-                SUB-STATION GROUND FAULT
-              </span>
-              <span className="text-[9px] font-bold px-2 py-0.2 rounded bg-slate-100 text-slate-600">
-                Stray AC/DC Differential
-              </span>
+      {/* 3B. SCIENTIFIC STANDARDS & UNIT CONVERTER TOOL (Interactive Feature from electraemfhealth.com) */}
+      <div className="rounded-3xl bg-gradient-to-br from-[#0c1f3d] via-[#112d59] to-[#1a3f7c] text-white p-5 shadow-md space-y-3.5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-cyan-400/20 text-cyan-300 flex items-center justify-center border border-cyan-400/30">
+              <Scale className="w-4 h-4" />
             </div>
-
-            <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-snug">
-              Brick, NJ Ground Voltage Pool & Lawn Remediation Case
-            </h3>
-
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Stray underground AC/DC ground voltages into residential swimming pools and yards prevented family from using their backyard lawn and pool equipment. Frequent water skin shocks logged at 4V. electraEMF laboratory differential oscilloscopy traced secondary utility conduit return leakage, and implemented confirmed technical ground remediation.
-            </p>
-
-            <div className="flex items-center justify-between text-[10px] pt-1 border-t border-slate-50 text-slate-500 font-medium">
-              <span className="text-emerald-600 font-bold">Resolution: 100% Remediated Ground Voltage</span>
-              <span className="text-blue-600 font-bold hover:underline cursor-pointer">Full Archive Dossier</span>
+            <div>
+              <span className="text-[9px] font-black uppercase tracking-wider text-cyan-300 block">
+                DOSIMETRY REFERENCE CALCULATOR
+              </span>
+              <h3 className="font-heading font-extrabold text-sm text-white">
+                IEEE vs. sC-Ve™ Exposure Standards
+              </h3>
             </div>
           </div>
+          <span className="px-2 py-0.5 rounded-full bg-cyan-400/20 text-cyan-300 text-[9px] font-bold border border-cyan-400/30">
+            Interactive
+          </span>
         </div>
 
-        {/* Investigation 2: Hartford 5G */}
-        <div className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm space-y-3 pb-4">
-          <div className="relative h-40 w-full bg-slate-900">
-            <img 
-              src="/assets/5G-antenna-1030x896.jpg" 
-              alt="Hartford 5G Case" 
-              className="w-full h-full object-cover opacity-85"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold text-white">
-              Hartford, Connecticut
+        <p className="text-xs text-blue-100/90 leading-relaxed">
+          Compare outdated 1990s FCC thermal limits against strict biological guidelines across 60Hz magnetic fields, 5G RF radiation, electric fields, and stray voltage.
+        </p>
+
+        <div className="grid grid-cols-2 gap-2 pt-0.5">
+          <button
+            type="button"
+            onClick={() => setIsStandardsOpen(true)}
+            className="h-10 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-98 transition-all cursor-pointer"
+          >
+            <Scale className="w-3.5 h-3.5" />
+            <span>Open Standards Tool</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsStandardsOpen(true)}
+            className="h-10 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5 border border-white/20 active:scale-98 transition-all cursor-pointer"
+          >
+            <Zap className="w-3.5 h-3.5 text-cyan-300" />
+            <span>Unit Converter (mG/µT)</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 3C. ELECTRAEMF SCIENTIFIC LIBRARY (48 Articles from electraemfhealth.com) */}
+      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3.5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <BookOpen className="w-4 h-4" />
             </div>
-            <div className="absolute bottom-2.5 right-3 bg-rose-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-md">
-              Medical DX Study
+            <div>
+              <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block">
+                ELECTRAEMF SCIENCE LIBRARY
+              </span>
+              <h3 className="font-heading font-extrabold text-sm text-slate-900">
+                Educational Research & Guides
+              </h3>
             </div>
           </div>
-
-          <div className="px-4 space-y-2">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[9px] font-extrabold px-2 py-0.2 rounded bg-blue-50 text-blue-700">
-                MULTI-SPECTRUM RFR
-              </span>
-              <span className="text-[9px] font-bold px-2 py-0.2 rounded bg-slate-100 text-slate-600">
-                Sub-6 & 39GHz Transmitters
-              </span>
-            </div>
-
-            <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-snug">
-              Hartford Debilitating 5G Early Subsystem Case
-            </h3>
-
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Biomechanical clinical medical investigation of sensory organ and high-frequency RF saturation causing severe neurocardiological symptoms in a 42-year-old female resident 240 ft from underlying cell facilities. Complete spatial RF frequency deconstruction identified pulsed micro-wave bursts of 45 thousand microwatts/sq meter.
-            </p>
-
-            <div className="flex items-center justify-between text-[10px] pt-1 border-t border-slate-50 text-slate-500 font-medium">
-              <span className="text-blue-600 font-bold">Clinical DX: ISO/AAMI 14117 Clinical Clearance</span>
-              <span className="text-blue-600 font-bold hover:underline cursor-pointer">Full Case Dossier</span>
-            </div>
-          </div>
+          <span className="text-[10px] font-bold text-slate-400">
+            Published Articles
+          </span>
         </div>
 
-        {/* Investigation 3: Lower Manhattan Static Fields */}
-        <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-sm space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-[9px] font-extrabold px-2 py-0.5 rounded bg-blue-50 text-blue-700 uppercase">
-              PEDESTRIAN TIER HIGH-RISE
-            </span>
-            <span className="text-[10px] font-bold text-slate-500">
-              800 V/m Electrostatic
-            </span>
-          </div>
+        <p className="text-xs text-slate-600 leading-relaxed">
+          Peer-reviewed articles, meter teardowns, and shielding physics authored by IBEW engineers and clinical researchers.
+        </p>
 
-          <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-snug">
-            Lower Manhattan Luxury High-Rise Static Fields
-          </h3>
-
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Residents experienced severe peripheral neurological sensations and auditory clicking. Testing identified non-conductive flooring generating static electric potentials up to 500 V/m coupled with street D.C. tramway return loops. Physical whole-residence Faraday grounded passive conductive dissipation barriers.
-          </p>
-
-          <div className="grid grid-cols-2 gap-2 pt-1 text-center text-[10px]">
-            <div className="p-2 rounded-xl bg-blue-50/70 border border-blue-100">
-              <span className="text-slate-500 block">Defects: DC Rail Floor</span>
-              <strong className="text-blue-800 font-bold">500 V/m Static</strong>
+        <div className="space-y-2 pt-1">
+          {educationalArticles.map((art) => (
+            <div
+              key={art.id}
+              onClick={() => handleOpenArticle(art)}
+              className="p-3 rounded-2xl bg-slate-50/70 hover:bg-blue-50/60 border border-slate-100/80 hover:border-blue-200 transition-all cursor-pointer group space-y-1.5"
+            >
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="px-2 py-0.2 rounded bg-white text-blue-700 font-extrabold border border-blue-100 shadow-2xs">
+                  {art.category}
+                </span>
+                <span className="text-slate-400 font-medium">{art.readTime}</span>
+              </div>
+              <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                {art.title}
+              </h4>
+              <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2">
+                {art.excerpt}
+              </p>
+              <div className="pt-1 flex items-center justify-between text-[10px] text-blue-600 font-extrabold">
+                <span>Read Full Article</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
             </div>
-            <div className="p-2 rounded-xl bg-emerald-50/70 border border-emerald-100">
-              <span className="text-slate-500 block">Remedy: Passive Bar</span>
-              <strong className="text-emerald-800 font-bold">500 V/m Discharged</strong>
-            </div>
-          </div>
-        </div>
-
-        {/* Investigation 4: Hudson Valley & Hamptons Real Estate */}
-        <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-sm space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-[9px] font-extrabold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 uppercase">
-              PROPERTY VALUATION RECOVERY
-            </span>
-            <span className="text-[10px] font-bold text-emerald-600">
-              100% PRICE RESTORED
-            </span>
-          </div>
-
-          <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-snug">
-            Hudson Valley & Hamptons Real Estate Rehabilitation
-          </h3>
-
-          <p className="text-xs text-slate-600 leading-relaxed">
-            High-end properties severely devalued and stalled after amateur "ghost-buster" consultants produced terrifying, fabricated claims near distant substations. electraEMF's certified engineering reports definitively disproved bogus claims, rehabilitating property market valuation by over 80%.
-          </p>
-
-          <p className="text-[10px] text-blue-600 font-bold pt-1 border-t border-slate-50 flex items-center justify-between">
-            <span>Overruled in Supreme Court of Westchester</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </p>
+          ))}
         </div>
       </div>
 
@@ -373,6 +517,21 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
           <a href="mailto:EMFmedicalExpert@gmail.com" className="hover:text-blue-600">EMFmedicalExpert@gmail.com</a>
         </div>
       </div>
+
+      {/* Global Modals for Articles & Standards Tool */}
+      <ArticleModal
+        isOpen={Boolean(activeArticle)}
+        article={activeArticle}
+        onClose={() => setActiveArticle(null)}
+        onOpenCall={onOpenCall}
+        onNavigateToContact={() => onNavigate && onNavigate('profile')}
+      />
+
+      <StandardsComparisonModal
+        isOpen={isStandardsOpen}
+        onClose={() => setIsStandardsOpen(false)}
+        onNavigateToContact={() => onNavigate && onNavigate('profile')}
+      />
     </div>
   );
 }

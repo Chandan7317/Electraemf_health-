@@ -1,11 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ShieldCheck, Phone, Mail, Award, CheckCircle2, 
   XCircle, AlertTriangle, BookOpen, Scale, ArrowRight,
-  ExternalLink, Building2, UserCheck, Stethoscope
+  ExternalLink, Building2, UserCheck, Stethoscope, MapPin, Clock
 } from 'lucide-react';
 
 export default function ExpertsScreen({ onOpenCall, onNavigate }) {
+  const [selectedRegion, setSelectedRegion] = useState('NY');
+
+  const regionalHubs = {
+    NY: {
+      name: "New York Metro & Long Island Division",
+      phone: "(347) 491-9867",
+      rawPhone: "3474919867",
+      response: "Same-Day Priority Triage",
+      lead: "Dr. Joseph Dumanov Direct NYC",
+      areas: "Manhattan, Brooklyn, Queens, Bronx, Staten Island, Nassau & Suffolk Counties (The Hamptons), Westchester, Rockland, and Hudson Valley.",
+      specialty: "High-rise 5G MIMO, Sub-station step-downs, luxury real estate due diligence"
+    },
+    NJ: {
+      name: "New Jersey Central & Coastal Division",
+      phone: "(973) 726-9559",
+      rawPhone: "9737269559",
+      response: "2 – 4 Hour Emergency Triage",
+      lead: "RCA Sarnoff Princeton Engineering Unit",
+      areas: "Bergen, Morris, Essex, Somerset, Union, Monmouth, Ocean County (Brick/Toms River), and Mercer (Princeton).",
+      specialty: "Stray ground voltage pool remediation, utility high-voltage line falloff contours"
+    },
+    CT: {
+      name: "Connecticut Coastal & Fairfield County",
+      phone: "(347) 491-9867",
+      rawPhone: "3474919867",
+      response: "Same-Day / 24-Hour Dispatch",
+      lead: "Tri-State Clinical Hygiene Unit",
+      areas: "Fairfield County (Greenwich, Stamford, Darien, New Canaan, Westport), New Haven, and Hartford Metro.",
+      specialty: "Estate baseline assessments, school district audits, medical implant clearance"
+    },
+    PA: {
+      name: "Pennsylvania & Delaware Valley",
+      phone: "(973) 726-9559",
+      rawPhone: "9737269559",
+      response: "24-Hour Field Dispatch",
+      lead: "Philadelphia Regional Engineering Staff",
+      areas: "Philadelphia Metro, Bucks, Montgomery, Chester, and Delaware Counties.",
+      specialty: "Industrial power utility lines, commercial data centers, residential audits"
+    },
+    DE: {
+      name: "Delaware Mid-Atlantic Corridor",
+      phone: "(973) 726-9559",
+      rawPhone: "9737269559",
+      response: "Scheduled Triage / 24 Hours",
+      lead: "Mid-Atlantic Field Engineering",
+      areas: "Wilmington, New Castle County, Newark, and Delaware River Basin.",
+      specialty: "Substation baseline studies, pre-purchase home inspections, stray voltage"
+    }
+  };
+
+  const hub = regionalHubs[selectedRegion];
   return (
     <div className="space-y-4 pb-24">
       {/* 1. TOP LICENSURE STRIP (Exact Image 3) */}
@@ -148,6 +199,79 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
             <span className="absolute bottom-2 left-2 text-[10px] font-extrabold text-white">
               5G MIMO Analysis (NYC)
             </span>
+          </div>
+        </div>
+      </div>
+
+      {/* 3B. TRI-STATE REGIONAL ENGINEERING DISPATCH HUBS (Website Architecture) */}
+      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3.5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <MapPin className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block">
+                LICENSED REGIONAL DISPATCH
+              </span>
+              <h3 className="font-heading font-extrabold text-sm text-slate-900">
+                Tri-State Engineering Hubs
+              </h3>
+            </div>
+          </div>
+          <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9.5px] font-extrabold border border-emerald-200">
+            Active On-Call
+          </span>
+        </div>
+
+        {/* State Selector Tabs */}
+        <div className="grid grid-cols-5 gap-1.5 p-1 rounded-2xl bg-slate-100">
+          {['NY', 'NJ', 'CT', 'PA', 'DE'].map(stateCode => (
+            <button
+              key={stateCode}
+              type="button"
+              onClick={() => setSelectedRegion(stateCode)}
+              className={`h-9 rounded-xl text-xs font-black transition-all active:scale-95 flex items-center justify-center ${
+                selectedRegion === stateCode
+                  ? 'bg-[#0c1f3d] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              {stateCode}
+            </button>
+          ))}
+        </div>
+
+        {/* Active Hub Card Details */}
+        <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 space-y-2.5">
+          <div className="flex items-center justify-between">
+            <h4 className="font-extrabold text-xs text-blue-950">{hub.name}</h4>
+            <span className="text-[9.5px] font-black px-2 py-0.5 rounded-md bg-blue-600 text-white">
+              {hub.response}
+            </span>
+          </div>
+
+          <div className="space-y-1.5 text-xs text-slate-600">
+            <p className="leading-relaxed">
+              <strong className="text-slate-900">Coverage:</strong> {hub.areas}
+            </p>
+            <p className="leading-relaxed text-[11px] text-slate-500">
+              <strong className="text-slate-700">Specialties:</strong> {hub.specialty}
+            </p>
+          </div>
+
+          <div className="pt-2 border-t border-blue-200/50 flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <span className="text-[9px] font-bold text-slate-400 uppercase block">Regional Direct Line</span>
+              <span className="text-xs font-black text-slate-900">{hub.phone}</span>
+            </div>
+            <a
+              href={`tel:${hub.rawPhone}`}
+              className="h-8.5 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition-all shadow-xs"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              <span>Call Hub</span>
+            </a>
           </div>
         </div>
       </div>
