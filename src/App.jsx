@@ -16,6 +16,7 @@ import AuthScreen from './components/AuthScreen';
 import QuickCallModal from './components/QuickCallModal';
 import ConsultationChatModal from './components/ConsultationChatModal';
 import EMFRiskAssessmentModal from './components/EMFRiskAssessmentModal';
+import EMFMeterModal from './components/EMFMeterModal';
 
 export default function App() {
   const getHashTab = () => {
@@ -116,6 +117,7 @@ export default function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isCallOpen, setIsCallOpen] = useState(false);
   const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
+  const [isEMFMeterOpen, setIsEMFMeterOpen] = useState(false);
 
   const handleTabChange = (tabId) => {
     setIsSearchOpen(false);
@@ -284,6 +286,7 @@ export default function App() {
                 onOpenCall={() => setIsCallOpen(true)}
                 onSelectService={() => setActiveTab('services')}
                 onOpenAssessmentModal={() => setIsAssessmentOpen(true)}
+                onOpenEMFMeter={() => setIsEMFMeterOpen(true)}
               />
             )}
 
@@ -292,6 +295,7 @@ export default function App() {
                 onNavigate={handleTabChange}
                 onOpenCall={() => setIsCallOpen(true)}
                 onBookService={handleBookService}
+                onOpenEMFMeter={() => setIsEMFMeterOpen(true)}
               />
             )}
 
@@ -365,6 +369,19 @@ export default function App() {
         onNavigateToContact={() => {
           setIsAssessmentOpen(false);
           setActiveTab('profile');
+        }}
+      />
+
+      <EMFMeterModal
+        isOpen={isEMFMeterOpen}
+        onClose={() => setIsEMFMeterOpen(false)}
+        onNavigateToContact={() => {
+          setIsEMFMeterOpen(false);
+          setActiveTab('profile');
+        }}
+        onOpenCall={() => {
+          setIsEMFMeterOpen(false);
+          setIsCallOpen(true);
         }}
       />
     </MobileFrame>

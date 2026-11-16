@@ -3,10 +3,10 @@ import { toast } from 'react-hot-toast';
 import { 
   Search, ShieldAlert, Phone, Mail, Calendar, FileText, 
   CheckCircle2, ArrowRight, ArrowLeft, X, ChevronRight, AlertTriangle,
-  Building, GraduationCap, Home, Wifi, Scale, HeartPulse, Sparkles
+  Building, GraduationCap, Home, Wifi, Scale, HeartPulse, Sparkles, Activity
 } from 'lucide-react';
 
-export default function ServicesScreen({ onNavigate, onOpenCall, onBookService }) {
+export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, onOpenEMFMeter }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [activeModalProtocol, setActiveModalProtocol] = useState(null);
@@ -202,6 +202,32 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService }
           );
         })}
       </div>
+
+      {/* LIVE EMF METER QUICK LAUNCH BANNER */}
+      {onOpenEMFMeter && (
+        <div 
+          onClick={onOpenEMFMeter}
+          className="p-3 rounded-2xl bg-gradient-to-r from-[#071328] to-[#0c244d] border border-blue-500/30 text-white flex items-center justify-between shadow-xs cursor-pointer active:scale-98 transition-all group"
+        >
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform">
+              <Activity className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-extrabold text-white">Live EMF Field Meter</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-emerald-500 text-white text-[8px] font-black uppercase">
+                  Active
+                </span>
+              </div>
+              <p className="text-[10px] text-blue-200">
+                Measure real-time 60 Hz magnetic flux (mG / µT) with your phone
+              </p>
+            </div>
+          </div>
+          <ChevronRight className="w-4 h-4 text-cyan-300 group-hover:translate-x-0.5 transition-transform shrink-0" />
+        </div>
+      )}
 
       {/* 4. PROTOCOL CARDS LISTING (Exact Image 1) */}
       <div className="space-y-4">
