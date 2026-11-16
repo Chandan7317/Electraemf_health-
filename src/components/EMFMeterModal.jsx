@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { 
   ArrowLeft, X, Activity, Radio, Volume2, VolumeX, RotateCcw, 
   Zap, ShieldAlert, ShieldCheck, AlertTriangle, Sliders, 
-  Phone, FileText, ChevronRight, ChevronLeft, Info, Compass, Sparkles,
+  Phone, FileText, Info, Compass, Sparkles,
   Play, Pause, Download, Trash2, Search, Printer, BookOpen, 
   Layers, Wifi, Laptop, Smartphone, Car, CheckCircle2
 } from 'lucide-react';
@@ -126,13 +126,6 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
     const x = e.pageX - (tabsContainerRef.current.offsetLeft || 0);
     const walk = (x - startXRef.current) * 1.5;
     tabsContainerRef.current.scrollLeft = scrollLeftRef.current - walk;
-  };
-
-  const scrollTabs = (direction) => {
-    if (tabsContainerRef.current) {
-      const scrollAmount = direction === 'left' ? -120 : 120;
-      tabsContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
   };
 
   // The 7 Required Source Categories (Section 6)
@@ -579,18 +572,7 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
       </div>
 
         {/* 5 PRIMARY SUB-TABS (Navigation Section 13) with Mouse Wheel & Drag Scroll */}
-        <div className="relative shrink-0 bg-slate-50 border-b border-slate-200/80 flex items-center px-1">
-          {/* Scroll Left Button */}
-          <button
-            type="button"
-            onClick={() => scrollTabs('left')}
-            className="w-6 h-6 rounded-full bg-white hover:bg-slate-100 shadow-2xs border border-slate-200/80 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 z-10 active:scale-90 transition-all ml-0.5 cursor-pointer"
-            aria-label="Scroll Tabs Left"
-            title="Scroll Left"
-          >
-            <ChevronLeft className="w-3.5 h-3.5 stroke-[2.2]" />
-          </button>
-
+        <div className="relative shrink-0 bg-slate-50 border-b border-slate-200/80 flex items-center px-2">
           {/* Scrollable Tabs Row */}
           <div 
             ref={tabsContainerRef}
@@ -598,7 +580,7 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
             onMouseLeave={handleTabsMouseLeave}
             onMouseUp={handleTabsMouseUp}
             onMouseMove={handleTabsMouseMove}
-            className="flex-1 px-1.5 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing select-none"
+            className="flex-1 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing select-none"
             style={{ scrollBehavior: 'smooth' }}
           >
             {[
@@ -626,17 +608,6 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
               );
             })}
           </div>
-
-          {/* Scroll Right Button */}
-          <button
-            type="button"
-            onClick={() => scrollTabs('right')}
-            className="w-6 h-6 rounded-full bg-white hover:bg-slate-100 shadow-2xs border border-slate-200/80 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 z-10 active:scale-90 transition-all mr-0.5 cursor-pointer"
-            aria-label="Scroll Tabs Right"
-            title="Scroll Right"
-          >
-            <ChevronRight className="w-3.5 h-3.5 stroke-[2.2]" />
-          </button>
         </div>
 
         {/* SCROLLABLE BODY */}
