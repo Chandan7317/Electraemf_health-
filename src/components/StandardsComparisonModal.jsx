@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Sliders, X, ShieldCheck, AlertTriangle, Scale, 
-  ArrowRight, CheckCircle2, Zap, Radio, Activity, HelpCircle 
+  ArrowRight, CheckCircle2, Zap, Radio, Activity, HelpCircle, ArrowLeft 
 } from 'lucide-react';
 
 export default function StandardsComparisonModal({ isOpen, onClose, onNavigateToContact }) {
@@ -191,7 +191,16 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
       <div className="bg-white w-full rounded-t-3xl shadow-2xl border border-slate-100 flex flex-col max-h-[92%] h-[90%] overflow-hidden animate-in slide-in-from-bottom duration-200">
         {/* Header */}
         <div className="p-3.5 px-4 bg-gradient-to-r from-[#0c1c38] to-[#122e60] text-white flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
+            <button 
+              type="button"
+              onClick={onClose}
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white active:scale-90 transition-all shrink-0 cursor-pointer"
+              aria-label="Back"
+              title="Back"
+            >
+              <ArrowLeft className="w-4 h-4 stroke-[2.4]" />
+            </button>
             <div className="w-8 h-8 rounded-xl bg-cyan-400/20 text-cyan-300 flex items-center justify-center shrink-0 border border-cyan-400/30">
               <Scale className="w-4 h-4" />
             </div>
@@ -207,6 +216,7 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
           <button 
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white active:scale-90 transition-all"
+            aria-label="Close"
           >
             <X className="w-4 h-4" />
           </button>

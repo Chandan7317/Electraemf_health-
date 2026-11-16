@@ -3,7 +3,7 @@ import {
   ShieldCheck, Phone, Mail, User, Building, MapPin, 
   CheckSquare, Square, ChevronRight, FileText, Bookmark, 
   Bell, Scale, Lock, Share2, AlertCircle, CheckCircle2,
-  Send, Sparkles, Camera, Trash2, Edit3, LogOut, Check, X
+  Send, Sparkles, Camera, Trash2, Edit3, LogOut, Check, X, ArrowLeft
 } from 'lucide-react';
 import { ShadcnSelect } from './ui/Select';
 
@@ -234,13 +234,24 @@ export default function ProfileScreen({
           {isEditing && (
             <div className="bg-white rounded-3xl p-5 border border-blue-200 shadow-sm space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
-                <div>
-                  <span className="text-[9.5px] font-black uppercase text-blue-600 tracking-wider block">
-                    ACCOUNT SETTINGS
-                  </span>
-                  <h3 className="font-heading font-extrabold text-sm text-slate-900">
-                    Edit Profile & Photo
-                  </h3>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(false)}
+                    className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center active:scale-90 transition-all shrink-0 cursor-pointer"
+                    aria-label="Back"
+                    title="Back"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5 stroke-[2.4]" />
+                  </button>
+                  <div>
+                    <span className="text-[9.5px] font-black uppercase text-blue-600 tracking-wider block">
+                      ACCOUNT SETTINGS
+                    </span>
+                    <h3 className="font-heading font-extrabold text-sm text-slate-900">
+                      Edit Profile & Photo
+                    </h3>
+                  </div>
                 </div>
                 <button
                   type="button"

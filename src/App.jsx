@@ -97,6 +97,7 @@ export default function App() {
   // Search State
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [tabHistory, setTabHistory] = useState(['home']);
 
   // Modals State
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -106,6 +107,13 @@ export default function App() {
   const handleTabChange = (tabId) => {
     setIsSearchOpen(false);
     setSearchQuery('');
+    if (tabId !== activeTab) {
+      setTabHistory(prev => {
+        // Prevent duplicate consecutive entries
+        if (prev[prev.length - 1] === tabId) return prev;
+        return [...prev, tabId];
+      });
+    }
     setActiveTab(tabId);
     if (typeof window !== 'undefined') {
       window.location.hash = tabId;
@@ -113,6 +121,34 @@ export default function App() {
     const container = document.getElementById('phone-content');
     if (container) {
       container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleBack = () => {
+    if (isSearchOpen) {
+      setIsSearchOpen(false);
+      setSearchQuery('');
+      return;
+    }
+
+    if (tabHistory.length > 1) {
+      const nextHistory = [...tabHistory];
+      nextHistory.pop(); // Remove current active tab
+      const prevTab = nextHistory[nextHistory.length - 1] || 'home';
+      setTabHistory(nextHistory);
+      setActiveTab(prevTab);
+      if (typeof window !== 'undefined') {
+        window.location.hash = prevTab;
+      }
+      const container = document.getElementById('phone-content');
+      if (container) {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      setActiveTab('home');
+      if (typeof window !== 'undefined') {
+        window.location.hash = 'home';
+      }
     }
   };
 
@@ -149,6 +185,7 @@ export default function App() {
         <Header
           activeTab={activeTab}
           onNavigate={handleTabChange}
+          onBack={handleBack}
           isSearchOpen={isSearchOpen}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -239,6 +276,7 @@ export default function App() {
             {activeTab === 'notifications' && (
               <NotificationsScreen
                 onNavigate={handleTabChange}
+                onBack={handleBack}
                 onUnreadChange={setUnreadCount}
               />
             )}

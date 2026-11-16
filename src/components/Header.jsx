@@ -12,6 +12,7 @@ export default function Header({
   onCloseSearch,
   unreadCount = 2,
   onNavigate,
+  onBack,
   currentUser = null,
   userPhoto = null
 }) {

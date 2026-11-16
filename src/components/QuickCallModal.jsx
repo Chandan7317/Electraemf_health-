@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, X, ShieldCheck, MapPin, Clock } from 'lucide-react';
+import { Phone, X, ShieldCheck, MapPin, Clock, ArrowLeft } from 'lucide-react';
 import { electraData } from '../data/electraData';
 
 export default function QuickCallModal({ isOpen, onClose }) {
@@ -11,7 +11,16 @@ export default function QuickCallModal({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <button 
+              type="button"
+              onClick={onClose}
+              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 active:scale-90 transition-all shrink-0 cursor-pointer"
+              aria-label="Back"
+              title="Back"
+            >
+              <ArrowLeft className="w-4 h-4 stroke-[2.4]" />
+            </button>
+            <div className="w-9 h-9 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
               <Phone className="w-4 h-4" />
             </div>
             <div>

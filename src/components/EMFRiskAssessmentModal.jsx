@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sliders, X, CheckCircle2, AlertTriangle, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { Sliders, X, CheckCircle2, AlertTriangle, ArrowRight, ShieldCheck, Zap, ArrowLeft } from 'lucide-react';
 
 export default function EMFRiskAssessmentModal({ isOpen, onClose, onNavigateToContact }) {
   const [step, setStep] = useState(1);
@@ -66,7 +66,16 @@ export default function EMFRiskAssessmentModal({ isOpen, onClose, onNavigateToCo
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+            <button 
+              type="button"
+              onClick={step > 1 ? () => setStep(step - 1) : onClose}
+              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 active:scale-90 transition-all shrink-0 cursor-pointer"
+              aria-label={step > 1 ? "Previous step" : "Close"}
+              title={step > 1 ? "Previous step" : "Close"}
+            >
+              <ArrowLeft className="w-4 h-4 stroke-[2.4]" />
+            </button>
+            <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
               <Sliders className="w-4 h-4" />
             </div>
             <div>

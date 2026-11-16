@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Search, ShieldAlert, Phone, Mail, Calendar, FileText, 
-  CheckCircle2, ArrowRight, X, ChevronRight, AlertTriangle,
+  CheckCircle2, ArrowRight, ArrowLeft, X, ChevronRight, AlertTriangle,
   Building, GraduationCap, Home, Wifi, Scale, HeartPulse, Sparkles
 } from 'lucide-react';
 
@@ -344,17 +344,28 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService }
         <div className="absolute inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end justify-center p-0 animate-in fade-in duration-200">
           <div className="bg-white w-full rounded-t-3xl max-h-[85%] overflow-y-auto no-scrollbar shadow-2xl p-5 space-y-4">
             <div className="flex items-start justify-between">
-              <div>
-                <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wide">
-                  {activeModalProtocol.protocolCode}
-                </span>
-                <h3 className="font-heading font-extrabold text-base text-slate-900 mt-0.5">
-                  {activeModalProtocol.title}
-                </h3>
+              <div className="flex items-start gap-2.5 min-w-0 pr-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveModalProtocol(null)}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 active:scale-90 transition-all shrink-0 cursor-pointer mt-0.5"
+                  aria-label="Back"
+                  title="Back"
+                >
+                  <ArrowLeft className="w-4 h-4 stroke-[2.4]" />
+                </button>
+                <div className="min-w-0">
+                  <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wide block">
+                    {activeModalProtocol.protocolCode}
+                  </span>
+                  <h3 className="font-heading font-extrabold text-base text-slate-900 mt-0.5">
+                    {activeModalProtocol.title}
+                  </h3>
+                </div>
               </div>
               <button
                 onClick={() => setActiveModalProtocol(null)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 shrink-0"
               >
                 <X className="w-4 h-4" />
               </button>

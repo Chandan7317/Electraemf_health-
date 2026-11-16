@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { 
   Check, Calendar, PhoneCall, HeartPulse, 
-  ChevronRight, FileText
+  ChevronRight, FileText, ArrowLeft
 } from 'lucide-react';
 
-export default function NotificationsScreen({ onNavigate, onUnreadChange }) {
+export default function NotificationsScreen({ onNavigate, onBack, onUnreadChange }) {
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -78,13 +78,24 @@ export default function NotificationsScreen({ onNavigate, onUnreadChange }) {
     <div className="space-y-2 pb-20 animate-in fade-in duration-150">
       {/* Top Header Section */}
       <div className="flex items-center justify-between px-0.5 pt-0.5 pb-0.5">
-        <div>
-          <h1 className="font-heading font-extrabold text-base sm:text-lg text-slate-900 leading-tight">
-            Notifications
-          </h1>
-          <p className="text-[10px] text-slate-500 font-medium">
-            {unreadCount > 0 ? `${unreadCount} unread updates and alerts` : 'All caught up'}
-          </p>
+        <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={onBack || (() => onNavigate('home'))}
+            className="w-8.5 h-8.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center active:scale-90 transition-all shrink-0 cursor-pointer shadow-2xs border border-slate-200/60"
+            aria-label="Back"
+            title="Go Back"
+          >
+            <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+          </button>
+          <div>
+            <h1 className="font-heading font-extrabold text-base sm:text-lg text-slate-900 leading-tight">
+              Notifications
+            </h1>
+            <p className="text-[10px] text-slate-500 font-medium">
+              {unreadCount > 0 ? `${unreadCount} unread updates and alerts` : 'All caught up'}
+            </p>
+          </div>
         </div>
 
         {unreadCount > 0 && (

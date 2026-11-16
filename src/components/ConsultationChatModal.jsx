@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, X, Send, Bot, User, Sparkles, CheckCircle2, Phone } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User, Sparkles, CheckCircle2, Phone, ArrowLeft } from 'lucide-react';
 import { electraData } from '../data/electraData';
 
 export default function ConsultationChatModal({ isOpen, onClose, onOpenCall, onNavigateToContact }) {
@@ -56,7 +56,16 @@ export default function ConsultationChatModal({ isOpen, onClose, onOpenCall, onN
       <div className="bg-white w-full rounded-t-3xl shadow-2xl border border-slate-100 flex flex-col h-[85%] overflow-hidden">
         {/* Chat Header */}
         <div className="p-4 bg-gradient-to-r from-[#0c1c38] to-[#122e60] text-white flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white active:scale-90 transition-all shrink-0 mr-0.5 cursor-pointer"
+              aria-label="Back"
+              title="Back"
+            >
+              <ArrowLeft className="w-4 h-4 stroke-[2.4]" />
+            </button>
             <div className="relative">
               <div className="w-10 h-10 rounded-2xl bg-blue-600/50 p-0.5 border border-white/20 overflow-hidden">
                 <img 
