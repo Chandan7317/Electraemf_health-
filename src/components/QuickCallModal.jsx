@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { Phone, X, ShieldCheck, MapPin, Clock, ArrowLeft } from 'lucide-react';
 import { electraData } from '../data/electraData';
 
@@ -47,6 +48,7 @@ export default function QuickCallModal({ isOpen, onClose }) {
           {/* NYC / CT / Long Island Line */}
           <a
             href="tel:3474919867"
+            onClick={() => toast.success('Connecting to NYC/CT direct line: (347) 491-9867', { id: 'call-toast' })}
             className="w-full h-13 px-4 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center justify-between shadow-md shadow-blue-600/20 active:scale-95 transition-all hover:bg-blue-700"
           >
             <div className="text-left">
@@ -61,6 +63,7 @@ export default function QuickCallModal({ isOpen, onClose }) {
           {/* NJ / PA / DE Line */}
           <a
             href="tel:9737269559"
+            onClick={() => toast.success('Connecting to NJ/PA direct line: (973) 726-9559', { id: 'call-toast' })}
             className="w-full h-13 px-4 rounded-xl bg-cyan-700 text-white font-bold text-xs flex items-center justify-between shadow-md shadow-cyan-700/20 active:scale-95 transition-all hover:bg-cyan-800"
           >
             <div className="text-left">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   FileText, Phone, Mail, ShieldAlert, ArrowRight, 
   ChevronDown, ChevronUp, Star, CheckSquare, Square,
@@ -217,7 +218,10 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
           </a>
 
           <button
-            onClick={() => onNavigate('profile')}
+            onClick={() => {
+              toast.success('Opening consultation portal to submit report...', { id: 'report-toast' });
+              onNavigate('profile');
+            }}
             className="w-full h-11 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-2 border border-white/20 active:scale-95 transition-all"
           >
             <FileText className="w-3.5 h-3.5" />

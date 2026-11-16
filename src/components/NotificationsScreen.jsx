@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   Check, Calendar, PhoneCall, HeartPulse, 
   ChevronRight, FileText, ArrowLeft
@@ -58,6 +59,7 @@ export default function NotificationsScreen({ onNavigate, onBack, onUnreadChange
     const updated = notifications.map(n => ({ ...n, unread: false }));
     setNotifications(updated);
     if (onUnreadChange) onUnreadChange(0);
+    toast.success('All notifications marked as read', { id: 'notif-toast' });
   };
 
   const handleCardClick = (notification) => {

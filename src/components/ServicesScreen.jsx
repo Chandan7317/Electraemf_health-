@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   Search, ShieldAlert, Phone, Mail, Calendar, FileText, 
   CheckCircle2, ArrowRight, ArrowLeft, X, ChevronRight, AlertTriangle,
@@ -286,6 +287,7 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService }
                     if (item.actionPhone) {
                       onOpenCall();
                     } else {
+                      toast.success(`Selected protocol: ${item.title}`, { id: 'service-toast' });
                       onBookService(item);
                     }
                   }}
@@ -391,6 +393,7 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService }
                 onClick={() => {
                   const prot = activeModalProtocol;
                   setActiveModalProtocol(null);
+                  toast.success(`Selected ${prot.protocolCode}: ${prot.title}`, { id: 'service-toast' });
                   onBookService(prot);
                 }}
                 className="py-2.5 rounded-2xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700"

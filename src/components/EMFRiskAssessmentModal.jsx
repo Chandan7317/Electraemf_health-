@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Sliders, X, CheckCircle2, AlertTriangle, ArrowRight, ShieldCheck, Zap, ArrowLeft } from 'lucide-react';
 
 export default function EMFRiskAssessmentModal({ isOpen, onClose, onNavigateToContact }) {
@@ -170,7 +171,10 @@ export default function EMFRiskAssessmentModal({ isOpen, onClose, onNavigateToCo
                 ← Back
               </button>
               <button
-                onClick={() => setStep(3)}
+                onClick={() => {
+                  setStep(3);
+                  toast.success('Assessment complete! Reviewing risk factors.', { id: 'assessment-toast' });
+                }}
                 className="flex-1 py-2.5 rounded-2xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 active:scale-95 transition-all text-center"
               >
                 Calculate Assessment Result
@@ -207,6 +211,7 @@ export default function EMFRiskAssessmentModal({ isOpen, onClose, onNavigateToCo
               <button
                 onClick={() => {
                   onClose();
+                  toast.success('Inquiry initiated with risk assessment details!', { id: 'assessment-toast' });
                   onNavigateToContact();
                 }}
                 className="w-full h-11 px-4 rounded-xl bg-blue-600 text-white font-extrabold text-xs hover:bg-blue-700 active:scale-95 transition-all text-center shadow-md shadow-blue-600/20 flex items-center justify-center"

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { MessageSquare, X, Send, Bot, User, Sparkles, CheckCircle2, Phone, ArrowLeft } from 'lucide-react';
 import { electraData } from '../data/electraData';
 
@@ -27,6 +28,7 @@ export default function ConsultationChatModal({ isOpen, onClose, onOpenCall, onN
     const newMsgs = [...messages, { sender: 'user', text: userText }];
     setMessages(newMsgs);
     if (!textToSend) setInput('');
+    toast('Consulting IBEW knowledge base...', { id: 'chat-toast', icon: '⚡', duration: 1500 });
 
     // Generate intelligent response based on electraEMF content
     setTimeout(() => {

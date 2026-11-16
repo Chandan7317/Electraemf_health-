@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   ShieldCheck, Phone, Mail, Award, CheckCircle2, 
   XCircle, AlertTriangle, BookOpen, Scale, ArrowRight,
@@ -267,6 +268,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
             </div>
             <a
               href={`tel:${hub.rawPhone}`}
+              onClick={() => toast.success(`Connecting to ${hub.name}...`, { id: 'expert-toast' })}
               className="h-8.5 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition-all shadow-xs"
             >
               <Phone className="w-3.5 h-3.5" />

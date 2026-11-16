@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   ShieldCheck, Phone, Mail, User, Building, MapPin, 
   CheckSquare, Square, ChevronRight, FileText, Bookmark, 
@@ -43,7 +44,7 @@ export default function ProfileScreen({
     if (!file) return;
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('Please select an image smaller than 5MB.');
+      toast.error('Please select an image smaller than 5MB.', { id: 'photo-toast' });
       return;
     }
 
@@ -76,6 +77,7 @@ export default function ProfileScreen({
       });
     }
     setSaveSuccess(true);
+    toast.success('Profile changes saved successfully!', { id: 'profile-toast' });
     setTimeout(() => {
       setSaveSuccess(false);
       setIsEditing(false);
@@ -142,12 +144,13 @@ export default function ProfileScreen({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.fullName || !form.phone || !form.email) {
-      alert('Please fill out your Name, Phone Number, and Email.');
+      toast.error('Please fill out your Name, Phone Number, and Email.', { id: 'inquiry-toast' });
       return;
     }
     const newTicket = Math.floor(10000 + Math.random() * 90000) + '-EMF';
     setTicketNum(newTicket);
     setSubmitted(true);
+    toast.success(`Inquiry dispatched! Ticket #${newTicket} generated.`, { id: 'inquiry-toast' });
   };
 
   return (

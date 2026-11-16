@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   ArrowLeft, Eye, EyeOff, CheckCircle2, AlertCircle 
 } from 'lucide-react';
@@ -33,10 +34,12 @@ export default function AuthScreen({ initialMode = 'login', onNavigate, onAuthSu
 
     if (!loginForm.email || !loginForm.password) {
       setErrorMsg('Please enter both email and password.');
+      toast.error('Please enter both email and password.', { id: 'auth-toast' });
       return;
     }
 
     setSuccessMsg('Authentication successful! Loading your certified client reports...');
+    toast.success('Authentication successful! Loading client portal...', { id: 'auth-toast' });
     setTimeout(() => {
       if (onAuthSuccess) {
         onAuthSuccess({ 
@@ -54,15 +57,18 @@ export default function AuthScreen({ initialMode = 'login', onNavigate, onAuthSu
 
     if (!signupForm.firstName || !signupForm.email || !signupForm.password) {
       setErrorMsg('Please complete all required fields.');
+      toast.error('Please complete all required fields.', { id: 'auth-toast' });
       return;
     }
 
     if (signupForm.password !== signupForm.confirmPassword) {
       setErrorMsg('Passwords do not match. Please verify.');
+      toast.error('Passwords do not match. Please verify.', { id: 'auth-toast' });
       return;
     }
 
     setSuccessMsg('Account created successfully! Welcome to electraEMF.');
+    toast.success('Account created successfully! Welcome to electraEMF.', { id: 'auth-toast' });
     setTimeout(() => {
       if (onAuthSuccess) {
         onAuthSuccess({ 
@@ -76,6 +82,7 @@ export default function AuthScreen({ initialMode = 'login', onNavigate, onAuthSu
 
   const handleGoogleAuth = () => {
     setSuccessMsg('Google Single Sign-On authenticated.');
+    toast.success('Google Single Sign-On authenticated.', { id: 'auth-toast' });
     setTimeout(() => {
       if (onAuthSuccess) {
         onAuthSuccess({ 
@@ -453,7 +460,10 @@ export default function AuthScreen({ initialMode = 'login', onNavigate, onAuthSu
               {!forgotSent ? (
                 <button
                   type="button"
-                  onClick={() => setForgotSent(true)}
+                  onClick={() => {
+                    setForgotSent(true);
+                    toast.success('Password reset link sent to your email!', { id: 'auth-toast' });
+                  }}
                   className="flex-1 h-9 rounded-xl bg-blue-600 text-white font-bold text-xs"
                 >
                   Send Reset Link

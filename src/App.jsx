@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Toaster, toast, useToasterStore } from 'react-hot-toast';
 import MobileFrame from './components/MobileFrame';
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
@@ -52,8 +53,10 @@ export default function App() {
     if (typeof window !== 'undefined') {
       if (photoDataUrl) {
         localStorage.setItem('electraemf_user_photo', photoDataUrl);
+        toast.success('Profile photo updated successfully!', { id: 'photo-toast' });
       } else {
         localStorage.removeItem('electraemf_user_photo');
+        toast('Profile photo removed', { icon: '🗑️', id: 'photo-toast' });
       }
     }
   };
@@ -71,6 +74,7 @@ export default function App() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('electraemf_current_user');
     }
+    toast('Signed out of client account', { icon: '👋', id: 'auth-toast' });
   };
 
   const handleUpdateUser = (updatedData) => {
@@ -82,6 +86,15 @@ export default function App() {
       return updated;
     });
   };
+
+  // Global toast deduplication: cap simultaneous toasts to 1 to prevent stacking/duplicates in mobile view
+  const { toasts } = useToasterStore();
+  useEffect(() => {
+    toasts
+      .filter((t) => t.visible)
+      .filter((_, i) => i >= 1)
+      .forEach((t) => toast.dismiss(t.id));
+  }, [toasts]);
 
   useEffect(() => {
     const handleHash = () => {
@@ -180,6 +193,41 @@ export default function App() {
 
   return (
     <MobileFrame>
+      {/* Global Toast Notification System */}
+      <Toaster
+        position="top-center"
+        containerStyle={{
+          top: 14,
+          zIndex: 99999
+        }}
+        toastOptions={{
+          duration: 3200,
+          style: {
+            background: '#0c1f3d',
+            color: '#ffffff',
+            fontSize: '12px',
+            fontWeight: '600',
+            borderRadius: '16px',
+            padding: '10px 15px',
+            boxShadow: '0 12px 28px -4px rgba(12, 31, 61, 0.4), 0 4px 10px -2px rgba(12, 31, 61, 0.3)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            maxWidth: '330px',
+          },
+          success: {
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#ffffff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#f43f5e',
+              secondary: '#ffffff',
+            },
+          },
+        }}
+      />
+
       {/* Mobile Header: Expands smoothly into search mode or standard branding; hidden on dedicated Auth screens */}
       {!isAuthView && (
         <Header

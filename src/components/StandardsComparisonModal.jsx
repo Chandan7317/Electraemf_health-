@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   Sliders, X, ShieldCheck, AlertTriangle, Scale, 
   ArrowRight, CheckCircle2, Zap, Radio, Activity, HelpCircle, ArrowLeft 
@@ -350,6 +351,7 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
             <button
               onClick={() => {
                 onClose();
+                toast.success('Proceeding to consultation for dosimetry audit...', { id: 'standards-toast' });
                 if (onNavigateToContact) onNavigateToContact();
               }}
               className="w-full h-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all shadow-md shadow-blue-600/30"

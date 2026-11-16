@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { 
   X, FileText, Phone, Calendar, User, ShieldCheck, 
   Share2, ArrowRight, CheckCircle2, AlertTriangle, ExternalLink, ArrowLeft 
@@ -13,10 +14,12 @@ export default function ArticleModal({ isOpen, onClose, article, onOpenCall, onN
         title: article.title,
         text: article.summary || article.headline || 'electraEMF Certified Engineering Dossier',
         url: window.location.href,
+      }).then(() => {
+        toast.success('Dossier link shared successfully!', { id: 'share-toast' });
       }).catch(() => {});
     } else {
       navigator.clipboard?.writeText(window.location.href);
-      alert('Link copied to clipboard!');
+      toast.success('Dossier link copied to clipboard!', { id: 'share-toast' });
     }
   };
 
