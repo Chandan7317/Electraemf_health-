@@ -29,7 +29,17 @@ export default function App() {
 
   const [activeTab, setActiveTab] = useState(getHashTab);
   const [unreadCount, setUnreadCount] = useState(2);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('electraemf_current_user');
+        return saved ? JSON.parse(saved) : null;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
   const [userPhoto, setUserPhoto] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('electraemf_user_photo') || null;
@@ -46,6 +56,31 @@ export default function App() {
         localStorage.removeItem('electraemf_user_photo');
       }
     }
+  };
+
+  const handleAuthSuccess = (user) => {
+    setCurrentUser(user);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('electraemf_current_user', JSON.stringify(user));
+    }
+    handleTabChange('profile');
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('electraemf_current_user');
+    }
+  };
+
+  const handleUpdateUser = (updatedData) => {
+    setCurrentUser(prev => {
+      const updated = { ...(prev || {}), ...updatedData };
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('electraemf_current_user', JSON.stringify(updated));
+      }
+      return updated;
+    });
   };
 
   useEffect(() => {
@@ -149,10 +184,7 @@ export default function App() {
               <AuthScreen
                 initialMode={activeTab === 'signup' ? 'signup' : 'login'}
                 onNavigate={handleTabChange}
-                onAuthSuccess={(user) => {
-                  setCurrentUser(user);
-                  handleTabChange('profile');
-                }}
+                onAuthSuccess={handleAuthSuccess}
               />
             )}
 
@@ -197,9 +229,10 @@ export default function App() {
                 onOpenCall={() => setIsCallOpen(true)}
                 onNavigate={handleTabChange}
                 currentUser={currentUser}
-                onLogout={() => setCurrentUser(null)}
+                onLogout={handleLogout}
                 userPhoto={userPhoto}
                 onUpdatePhoto={handleUpdatePhoto}
+                onUpdateUser={handleUpdateUser}
               />
             )}
 
