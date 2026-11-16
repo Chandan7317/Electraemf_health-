@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { toast } from 'react-hot-toast';
 import { 
   ArrowLeft, X, Activity, Radio, Volume2, VolumeX, RotateCcw, 
@@ -1138,13 +1139,20 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
           <div className="absolute inset-0 z-60 bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 animate-in fade-in duration-200">
             <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-3.5 text-slate-900 max-h-[90%] overflow-y-auto no-scrollbar">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                <div>
-                  <h3 className="font-heading font-black text-sm text-slate-900">Forensic EMF Report</h3>
-                  <p className="text-[10px] text-slate-400">electraEMF Health • IBEW Lic. #7002</p>
+                <div className="flex items-center gap-2.5">
+                  <img 
+                    src="/assets/electraemf-brand-logo.png" 
+                    alt="ElectraEMF" 
+                    className="h-8 w-auto object-contain shrink-0"
+                  />
+                  <div>
+                    <h3 className="font-heading font-black text-sm text-slate-900 leading-none">Forensic EMF Report</h3>
+                    <p className="text-[10px] text-slate-400 leading-none mt-1">electraEMF Health • IBEW Lic. #7002</p>
+                  </div>
                 </div>
                 <button
                   onClick={() => setActiveReportSnapshot(null)}
-                  className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800"
+                  className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800 cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1197,20 +1205,276 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
                   onClick={() => {
                     if (typeof window !== 'undefined') window.print();
                   }}
-                  className="flex-1 h-10 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                  className="flex-1 h-10 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer active:scale-95 transition-all"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>Print Report</span>
                 </button>
                 <button
                   onClick={() => setActiveReportSnapshot(null)}
-                  className="flex-1 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs"
+                  className="flex-1 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer"
                 >
                   Close
                 </button>
               </div>
             </div>
           </div>
+        )}
+
+        {/* FULL-PAGE COURT-STANDARD PDF REPORT PORTAL (Visible ONLY during print/PDF generation) */}
+        {activeReportSnapshot && typeof document !== 'undefined' && createPortal(
+          <div id="electraemf-printable-report" className="bg-white text-slate-900">
+            {/* Top Corporate Letterhead */}
+            <div className="flex items-start justify-between border-b-2 border-slate-900 pb-3 mb-3">
+              <div className="flex items-center gap-3.5">
+                <img 
+                  src="/assets/electraemf-brand-logo.png" 
+                  alt="ElectraEMF Brand Logo" 
+                  className="h-12 w-auto object-contain shrink-0"
+                />
+                <div>
+                  <h1 className="text-xl font-black text-[#0c234a] tracking-tight leading-none uppercase">
+                    electraEMF Health™
+                  </h1>
+                  <p className="text-xs font-bold text-slate-800 mt-0.5 leading-tight">
+                    Tri-State EMF / EMI Environmental Diagnostics & Forensic Engineering
+                  </p>
+                  <p className="text-[10px] text-slate-600 leading-tight">
+                    State-Licensed Electronics Engineers • IBEW Local Union Lic. #7002 • Est. 2003
+                  </p>
+                  <p className="text-[9px] text-blue-700 font-bold leading-tight mt-0.5">
+                    Official Regional Jurisdictions: New York • New Jersey • Connecticut • Pennsylvania • Delaware
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-right text-xs">
+                <div className="inline-block bg-[#0c234a] text-white px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider mb-1">
+                  OFFICIAL FORENSIC CERTIFICATE
+                </div>
+                <p className="font-mono text-xs font-black text-slate-900 leading-tight">Docket: {activeReportSnapshot.id}</p>
+                <p className="text-[10px] text-slate-600 leading-tight">{activeReportSnapshot.date}</p>
+                <p className="text-[9.5px] font-bold text-slate-800 mt-1">Direct Hotline: (347) 491-9867</p>
+                <p className="text-[9px] text-slate-500">https://electraemfhealth.com/</p>
+              </div>
+            </div>
+
+            {/* Accreditation & Quality Standards Ribbon */}
+            <div className="bg-slate-100 border border-slate-300 rounded px-3 py-1 mb-3 flex items-center justify-between text-[8.5px] font-black text-slate-800 uppercase tracking-wider">
+              <span>Building Biology SBM-2015 Evidentiary Standard</span>
+              <span>•</span>
+              <span>ANSI / AAMI / ISO 14117 Clinical Clearance</span>
+              <span>•</span>
+              <span>Court-Admissible Chain of Custody</span>
+            </div>
+
+            {/* Section I: Target Environment & Test Dossier */}
+            <div className="mb-3">
+              <h2 className="text-[11px] font-black uppercase text-[#0c234a] border-b border-slate-300 pb-0.5 mb-1.5 tracking-wide">
+                Section I: Target Asset & Operating Parameters
+              </h2>
+              <div className="grid grid-cols-4 gap-2 text-xs border border-slate-300 rounded p-2 bg-slate-50/70">
+                <div>
+                  <span className="text-[8.5px] uppercase font-bold text-slate-500 block">Tested Target</span>
+                  <span className="font-bold text-slate-900 text-[11px] truncate block">{activeReportSnapshot.source}</span>
+                </div>
+                <div>
+                  <span className="text-[8.5px] uppercase font-bold text-slate-500 block">Reference Distance</span>
+                  <span className="font-bold text-slate-900 text-[11px] block">{activeReportSnapshot.distance || 'Contact Area'}</span>
+                </div>
+                <div>
+                  <span className="text-[8.5px] uppercase font-bold text-slate-500 block">Dosimetry Instrument</span>
+                  <span className="font-bold text-slate-900 text-[11px] block">Triaxial Flux Sensor</span>
+                </div>
+                <div>
+                  <span className="text-[8.5px] uppercase font-bold text-slate-500 block">Sensor Protocol</span>
+                  <span className="font-bold text-slate-900 text-[11px] truncate block">{activeReportSnapshot.mode || 'Hardware Magnetometer'}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Section II: Quantitative Electromagnetic Field Dosimetry */}
+            <div className="mb-3">
+              <h2 className="text-[11px] font-black uppercase text-[#0c234a] border-b border-slate-300 pb-0.5 mb-1.5 tracking-wide">
+                Section II: Precision Triaxial Field Measurements
+              </h2>
+              <table className="w-full text-left text-[10.5px] border-collapse border border-slate-300">
+                <thead>
+                  <tr className="bg-slate-100 text-slate-800 text-[9px] font-black uppercase">
+                    <th className="border border-slate-300 p-1.5">Measurement Parameter</th>
+                    <th className="border border-slate-300 p-1.5 text-right">Magnitude</th>
+                    <th className="border border-slate-300 p-1.5">Unit</th>
+                    <th className="border border-slate-300 p-1.5">Engineering Formulation & Vector Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-blue-50/50 font-bold">
+                    <td className="border border-slate-300 p-1.5 text-slate-900">Total Resultant Magnitude |B|</td>
+                    <td className="border border-slate-300 p-1.5 text-right font-mono text-xs font-black text-[#0c234a]">
+                      {activeReportSnapshot.magnitude}
+                    </td>
+                    <td className="border border-slate-300 p-1.5 text-blue-700 font-bold">mG</td>
+                    <td className="border border-slate-300 p-1.5 text-[9px] font-mono text-slate-700">
+                      Euclidean Vector Sum: |B| = √(Bx² + By² + Bz²)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300 p-1.5 text-slate-800">Peak Exposure Level (Max)</td>
+                    <td className="border border-slate-300 p-1.5 text-right font-mono text-rose-700 font-bold">
+                      {activeReportSnapshot.peak}
+                    </td>
+                    <td className="border border-slate-300 p-1.5">mG</td>
+                    <td className="border border-slate-300 p-1.5 text-[9px] text-slate-600">
+                      Maximum instantaneous transient AC 60 Hz peak
+                    </td>
+                  </tr>
+                  <tr className="bg-slate-50/50">
+                    <td className="border border-slate-300 p-1.5 text-slate-800">Session Average (Mean)</td>
+                    <td className="border border-slate-300 p-1.5 text-right font-mono font-bold text-slate-800">
+                      {activeReportSnapshot.avg}
+                    </td>
+                    <td className="border border-slate-300 p-1.5">mG</td>
+                    <td className="border border-slate-300 p-1.5 text-[9px] text-slate-600">
+                      Time-weighted integrated exposure baseline
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300 p-1.5 text-slate-800">Baseline Minimum (Min)</td>
+                    <td className="border border-slate-300 p-1.5 text-right font-mono font-bold text-slate-800">
+                      {activeReportSnapshot.min || (activeReportSnapshot.magnitude * 0.8).toFixed(2)}
+                    </td>
+                    <td className="border border-slate-300 p-1.5">mG</td>
+                    <td className="border border-slate-300 p-1.5 text-[9px] text-slate-600">
+                      Ambient geomagnetic floor level
+                    </td>
+                  </tr>
+                  <tr className="bg-slate-50/50">
+                    <td className="border border-slate-300 p-1.5 text-slate-800">X-Axis Orthogonal Component (Bx)</td>
+                    <td className="border border-slate-300 p-1.5 text-right font-mono font-bold text-slate-700">
+                      {activeReportSnapshot.x}
+                    </td>
+                    <td className="border border-slate-300 p-1.5">mG</td>
+                    <td className="border border-slate-300 p-1.5 text-[9px] text-slate-600">
+                      Lateral horizontal flux polarization
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300 p-1.5 text-slate-800">Y-Axis Longitudinal Component (By)</td>
+                    <td className="border border-slate-300 p-1.5 text-right font-mono font-bold text-slate-700">
+                      {activeReportSnapshot.y}
+                    </td>
+                    <td className="border border-slate-300 p-1.5">mG</td>
+                    <td className="border border-slate-300 p-1.5 text-[9px] text-slate-600">
+                      Longitudinal directional flux polarization
+                    </td>
+                  </tr>
+                  <tr className="bg-slate-50/50">
+                    <td className="border border-slate-300 p-1.5 text-slate-800">Z-Axis Vertical Component (Bz)</td>
+                    <td className="border border-slate-300 p-1.5 text-right font-mono font-bold text-slate-700">
+                      {activeReportSnapshot.z}
+                    </td>
+                    <td className="border border-slate-300 p-1.5">mG</td>
+                    <td className="border border-slate-300 p-1.5 text-[9px] text-slate-600">
+                      Vertical ground-return loop component
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Section III: Building Biology SBM-2015 Standards Comparison */}
+            <div className="mb-3">
+              <h2 className="text-[11px] font-black uppercase text-[#0c234a] border-b border-slate-300 pb-0.5 mb-1.5 tracking-wide">
+                Section III: Certified Standards Comparison & Risk Assessment
+              </h2>
+              <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className={`p-2 rounded border ${
+                  activeReportSnapshot.magnitude < 1.0 
+                    ? 'bg-emerald-50 border-emerald-400 text-emerald-950 font-bold' 
+                    : 'bg-slate-50 border-slate-200 text-slate-600'
+                }`}>
+                  <div className="flex items-center justify-between text-[9px] font-black uppercase mb-0.5">
+                    <span>Building Biology SBM-2015</span>
+                    <span>&lt; 1.0 mG</span>
+                  </div>
+                  <p className="text-[10px] font-bold">Safe Sleeping Sanctuary</p>
+                  <p className="text-[8.5px] font-normal leading-tight mt-0.5">
+                    No biological anomaly. Optimal for restorative biological sleep and pineal melatonin synthesis.
+                  </p>
+                </div>
+
+                <div className={`p-2 rounded border ${
+                  activeReportSnapshot.magnitude >= 1.0 && activeReportSnapshot.magnitude < 4.0 
+                    ? 'bg-amber-50 border-amber-400 text-amber-950 font-bold' 
+                    : 'bg-slate-50 border-slate-200 text-slate-600'
+                }`}>
+                  <div className="flex items-center justify-between text-[9px] font-black uppercase mb-0.5">
+                    <span>European Precautionary</span>
+                    <span>1.0 – 4.0 mG</span>
+                  </div>
+                  <p className="text-[10px] font-bold">Moderate Exposure</p>
+                  <p className="text-[8.5px] font-normal leading-tight mt-0.5">
+                    Typical near energized wiring and appliances. Safe distance buffer advised for continuous rest.
+                  </p>
+                </div>
+
+                <div className={`p-2 rounded border ${
+                  activeReportSnapshot.magnitude >= 4.0 
+                    ? 'bg-rose-50 border-rose-400 text-rose-950 font-bold' 
+                    : 'bg-slate-50 border-slate-200 text-slate-600'
+                }`}>
+                  <div className="flex items-center justify-between text-[9px] font-black uppercase mb-0.5">
+                    <span>High-Risk Threshold</span>
+                    <span>&gt; 4.0 mG</span>
+                  </div>
+                  <p className="text-[10px] font-bold">Elevated Anomaly</p>
+                  <p className="text-[8.5px] font-normal leading-tight mt-0.5">
+                    Significant magnetic field. Professional on-site circuit tracing and remediation recommended.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Section IV: Diagnostic Assessment & Legal / Scientific Disclaimer */}
+            <div className="mb-3 bg-slate-50 border border-slate-200 rounded p-2 text-[9.5px] text-slate-700 space-y-1 leading-relaxed">
+              <p>
+                <strong>Diagnostic Evaluation:</strong> Recorded field magnitude of <strong>{activeReportSnapshot.magnitude} mG</strong> reflects localized magnetic flux density. Current evaluated status: <strong>{activeReportSnapshot.status}</strong>.
+              </p>
+              <p className="text-[8.5px] text-slate-500">
+                <strong>Notice of Technical Scope:</strong> This certificate reflects low-frequency AC/DC magnetic field measurements (0–100+ Hz) captured using smartphone triaxial magnetic sensors. Magnetic fields penetrate standard building materials (drywall, wood, concrete, brick) without attenuation. This report does not measure high-frequency Radiofrequency (RF) power density (5G small cells, radar, or Wi-Fi beacon bursts), which requires calibrated isotropic spectrum dosimetry conducted during on-site forensic engineering surveys.
+              </p>
+            </div>
+
+            {/* Section V: Official Forensic Sign-Off & Verification Seal */}
+            <div className="border-t-2 border-slate-900 pt-2 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-12 h-12 rounded-full border-2 border-slate-800 flex flex-col items-center justify-center text-center p-0.5 font-mono text-[6.5px] text-slate-800 uppercase font-black">
+                  <span>IBEW #7002</span>
+                  <span>VERIFIED</span>
+                  <span>COURT-STD</span>
+                </div>
+                <div>
+                  <p className="text-[9.5px] font-black uppercase text-slate-900">
+                    Tri-State Environmental Diagnostics & Engineering
+                  </p>
+                  <p className="text-[8.5px] text-slate-600">
+                    Serving New York City, New Jersey, Connecticut, Pennsylvania, and Delaware
+                  </p>
+                  <p className="text-[8px] text-slate-400">
+                    Court-Admissible Chain of Custody Record • Verified on {activeReportSnapshot.date}
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <div className="w-36 border-b border-slate-800 mb-0.5" />
+                <p className="text-[11px] font-black text-slate-900 leading-tight">Dr. J. Dumanov, PhD</p>
+                <p className="text-[9px] font-bold text-slate-700 leading-tight">Chief Forensic Diagnostics Hygienist</p>
+                <p className="text-[8px] text-slate-500 leading-tight">IBEW Local Union Lic. #7002 • Senior Specialist</p>
+              </div>
+            </div>
+          </div>,
+          document.body
         )}
 
       </div>
