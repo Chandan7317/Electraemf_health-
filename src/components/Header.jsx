@@ -84,8 +84,8 @@ export default function Header({
 
         {/* Action Icons: Search, Notifications, Profile */}
         <div className="flex items-center gap-2">
-          {/* Search Button */}
-          {onOpenSearch && (
+          {/* Search Button (Commented out per user request) */}
+          {/* {onOpenSearch && (
             <button 
               onClick={onOpenSearch}
               className="w-9 h-9 rounded-full bg-slate-50/90 hover:bg-slate-100 border border-slate-200/70 flex items-center justify-center text-slate-600 hover:text-slate-900 active:scale-95 transition-all focus:outline-none shadow-2xs"
@@ -93,7 +93,7 @@ export default function Header({
             >
               <Search className="w-4 h-4 stroke-[2.2]" />
             </button>
-          )}
+          )} */}
 
           {/* Notification Button */}
           <button 
