@@ -22,7 +22,7 @@ export default function App() {
   const getHashTab = () => {
     if (typeof window !== 'undefined' && window.location.hash) {
       const hash = window.location.hash.replace('#', '').trim();
-      if (['home', 'services', 'experts', 'reports', 'profile', 'notifications', 'login', 'signup'].includes(hash)) {
+      if (['home', 'services', 'experts', 'reports', 'meter', 'profile', 'notifications', 'login', 'signup'].includes(hash)) {
         return hash;
       }
     }
@@ -100,7 +100,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').trim();
-      if (hash && ['home', 'services', 'experts', 'reports', 'profile', 'notifications', 'login', 'signup'].includes(hash)) {
+      if (hash && ['home', 'services', 'experts', 'reports', 'meter', 'profile', 'notifications', 'login', 'signup'].includes(hash)) {
         setActiveTab(hash);
       }
     };
@@ -120,6 +120,7 @@ export default function App() {
   const [isEMFMeterOpen, setIsEMFMeterOpen] = useState(false);
 
   const handleTabChange = (tabId) => {
+    setIsEMFMeterOpen(false);
     setIsSearchOpen(false);
     setSearchQuery('');
     if (tabId !== activeTab) {
@@ -286,7 +287,7 @@ export default function App() {
                 onOpenCall={() => setIsCallOpen(true)}
                 onSelectService={() => setActiveTab('services')}
                 onOpenAssessmentModal={() => setIsAssessmentOpen(true)}
-                onOpenEMFMeter={() => setIsEMFMeterOpen(true)}
+                onOpenEMFMeter={() => handleTabChange('meter')}
               />
             )}
 
@@ -295,7 +296,7 @@ export default function App() {
                 onNavigate={handleTabChange}
                 onOpenCall={() => setIsCallOpen(true)}
                 onBookService={handleBookService}
-                onOpenEMFMeter={() => setIsEMFMeterOpen(true)}
+                onOpenEMFMeter={() => handleTabChange('meter')}
               />
             )}
 
@@ -310,6 +311,16 @@ export default function App() {
               <ReportsScreen
                 onOpenCall={() => setIsCallOpen(true)}
                 onNavigate={handleTabChange}
+              />
+            )}
+
+            {activeTab === 'meter' && (
+              <EMFMeterModal
+                isOpen={true}
+                isPage={true}
+                onClose={handleBack}
+                onNavigateToContact={() => handleTabChange('profile')}
+                onOpenCall={() => setIsCallOpen(true)}
               />
             )}
 

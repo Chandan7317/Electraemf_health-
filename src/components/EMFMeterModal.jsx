@@ -4,12 +4,12 @@ import { toast } from 'react-hot-toast';
 import { 
   ArrowLeft, X, Activity, Radio, Volume2, VolumeX, RotateCcw, 
   Zap, ShieldAlert, ShieldCheck, AlertTriangle, Sliders, 
-  Phone, FileText, ChevronRight, Info, Compass, Sparkles,
+  Phone, FileText, ChevronRight, ChevronLeft, Info, Compass, Sparkles,
   Play, Pause, Download, Trash2, Search, Printer, BookOpen, 
   Layers, Wifi, Laptop, Smartphone, Car, CheckCircle2
 } from 'lucide-react';
 
-export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, onOpenCall }) {
+export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, onOpenCall, isPage = false }) {
   if (!isOpen) return null;
 
   // Active Tab inside EMF Suite: 'meter' | 'vector' | 'sources' | 'history' | 'learn'
@@ -87,6 +87,53 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
   // Audio Context Ref
   const audioCtxRef = useRef(null);
   const lastBeepRef = useRef(0);
+
+  // Sub-tabs Mouse Scrolling & Dragging Ref (Allows mouse wheel and drag-to-scroll)
+  const tabsContainerRef = useRef(null);
+  const isDraggingTabs = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+
+  useEffect(() => {
+    const el = tabsContainerRef.current;
+    if (!el) return;
+    const onWheel = (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, []);
+
+  const handleTabsMouseDown = (e) => {
+    isDraggingTabs.current = true;
+    startXRef.current = e.pageX - (tabsContainerRef.current?.offsetLeft || 0);
+    scrollLeftRef.current = tabsContainerRef.current?.scrollLeft || 0;
+  };
+
+  const handleTabsMouseLeave = () => {
+    isDraggingTabs.current = false;
+  };
+
+  const handleTabsMouseUp = () => {
+    isDraggingTabs.current = false;
+  };
+
+  const handleTabsMouseMove = (e) => {
+    if (!isDraggingTabs.current || !tabsContainerRef.current) return;
+    const x = e.pageX - (tabsContainerRef.current.offsetLeft || 0);
+    const walk = (x - startXRef.current) * 1.5;
+    tabsContainerRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const scrollTabs = (direction) => {
+    if (tabsContainerRef.current) {
+      const scrollAmount = direction === 'left' ? -120 : 120;
+      tabsContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   // The 7 Required Source Categories (Section 6)
   const SOURCE_CATEGORIES = [
@@ -454,21 +501,26 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
     s.status.toLowerCase().includes(historySearch.toLowerCase())
   );
 
-  return (
-    <div className="absolute inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end justify-center p-0 animate-in fade-in duration-200">
-      <div 
-        className="bg-white w-full rounded-t-3xl shadow-2xl border border-slate-100 flex flex-col max-h-[92%] overflow-hidden"
-        role="dialog"
-        aria-label="ElectraEMF Health Mobile Application"
-      >
-        {/* DRAG HANDLE */}
+  const innerContent = (
+    <div 
+      className={isPage 
+        ? "bg-white w-full rounded-3xl shadow-sm border border-slate-100 flex flex-col overflow-hidden animate-in fade-in duration-200"
+        : "bg-white w-full rounded-t-3xl shadow-2xl border border-slate-100 flex flex-col max-h-[92%] overflow-hidden animate-in slide-in-from-bottom duration-300 ease-out"
+      }
+      role={isPage ? "region" : "dialog"}
+      aria-label="ElectraEMF Health Mobile Application"
+    >
+      {/* DRAG HANDLE (only in modal overlay mode) */}
+      {!isPage && (
         <div className="pt-2.5 pb-1 flex justify-center">
           <div className="w-10 h-1 bg-slate-300 rounded-full" />
         </div>
+      )}
 
-        {/* TOP HEADER BAR */}
-        <div className="shrink-0 px-4 py-2.5 bg-white border-b border-slate-100 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+      {/* TOP HEADER BAR */}
+      <div className="shrink-0 px-4 py-2.5 bg-white border-b border-slate-100 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          {onClose && (
             <button
               onClick={onClose}
               className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 active:scale-90 transition-all shrink-0 cursor-pointer"
@@ -476,43 +528,45 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
             >
               <ArrowLeft className="w-4 h-4 stroke-[2.4]" />
             </button>
-            <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-              <Activity className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <h2 className="font-heading font-extrabold text-sm text-slate-900 leading-none">
-                  electraEMF Health
-                </h2>
-                <span className="px-1.5 py-0.2 rounded-full text-[8px] font-black uppercase bg-blue-50 text-blue-600 border border-blue-200/60">
-                  IBEW #7002
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-400 leading-none mt-0.5">
-                Triaxial Magnetic Field Dosimeter
-              </p>
-            </div>
+          )}
+          <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            <Activity className="w-4 h-4" />
           </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h2 className="font-heading font-extrabold text-sm text-slate-900 leading-none">
+                electraEMF Health
+              </h2>
+              <span className="px-1.5 py-0.2 rounded-full text-[8px] font-black uppercase bg-blue-50 text-blue-600 border border-blue-200/60">
+                IBEW #7002
+              </span>
+            </div>
+            <p className="text-[10px] text-slate-400 leading-none mt-0.5">
+              Triaxial Magnetic Field Dosimeter
+            </p>
+          </div>
+        </div>
 
-          <div className="flex items-center gap-1.5">
-            {/* Audio Toggle */}
-            <button
-              onClick={() => {
-                const nextState = !isAudioEnabled;
-                setIsAudioEnabled(nextState);
-                if (nextState) toast.success('Audio Geiger tone enabled', { id: 'emf-toast' });
-              }}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all active:scale-95 border ${
-                isAudioEnabled 
-                  ? 'bg-blue-600 border-blue-600 text-white shadow-xs' 
-                  : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-900'
-              }`}
-              title={isAudioEnabled ? 'Mute Audio' : 'Enable Geiger Tone'}
-            >
-              {isAudioEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-            </button>
+        <div className="flex items-center gap-1.5">
+          {/* Audio Toggle */}
+          <button
+            onClick={() => {
+              const nextState = !isAudioEnabled;
+              setIsAudioEnabled(nextState);
+              if (nextState) toast.success('Audio Geiger tone enabled', { id: 'emf-toast' });
+            }}
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all active:scale-95 border ${
+              isAudioEnabled 
+                ? 'bg-blue-600 border-blue-600 text-white shadow-xs' 
+                : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-900'
+            }`}
+            title={isAudioEnabled ? 'Mute Audio' : 'Enable Geiger Tone'}
+          >
+            {isAudioEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+          </button>
 
-            {/* Close Button */}
+          {/* Close Button (modal overlay mode only) */}
+          {!isPage && onClose && (
             <button
               onClick={onClose}
               className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 active:scale-90 transition-all"
@@ -520,39 +574,73 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
             >
               <X className="w-4 h-4" />
             </button>
-          </div>
+          )}
         </div>
+      </div>
 
-        {/* 5 PRIMARY SUB-TABS (Navigation Section 13) */}
-        <div className="shrink-0 px-3 py-2 bg-slate-50 border-b border-slate-200/80 flex items-center gap-1 overflow-x-auto no-scrollbar">
-          {[
-            { id: 'meter', label: 'Live Meter', icon: Activity },
-            { id: 'vector', label: 'Vector (X,Y,Z)', icon: Compass },
-            { id: 'sources', label: 'Distance Lab', icon: Sliders },
-            { id: 'history', label: `History (${snapshots.length})`, icon: Layers },
-            { id: 'learn', label: 'Learn & Limits', icon: BookOpen }
-          ].map(tab => {
-            const Icon = tab.icon;
-            const isTabActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-extrabold whitespace-nowrap transition-all active:scale-95 cursor-pointer ${
-                  isTabActive
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        {/* 5 PRIMARY SUB-TABS (Navigation Section 13) with Mouse Wheel & Drag Scroll */}
+        <div className="relative shrink-0 bg-slate-50 border-b border-slate-200/80 flex items-center px-1">
+          {/* Scroll Left Button */}
+          <button
+            type="button"
+            onClick={() => scrollTabs('left')}
+            className="w-6 h-6 rounded-full bg-white hover:bg-slate-100 shadow-2xs border border-slate-200/80 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 z-10 active:scale-90 transition-all ml-0.5 cursor-pointer"
+            aria-label="Scroll Tabs Left"
+            title="Scroll Left"
+          >
+            <ChevronLeft className="w-3.5 h-3.5 stroke-[2.2]" />
+          </button>
+
+          {/* Scrollable Tabs Row */}
+          <div 
+            ref={tabsContainerRef}
+            onMouseDown={handleTabsMouseDown}
+            onMouseLeave={handleTabsMouseLeave}
+            onMouseUp={handleTabsMouseUp}
+            onMouseMove={handleTabsMouseMove}
+            className="flex-1 px-1.5 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing select-none"
+            style={{ scrollBehavior: 'smooth' }}
+          >
+            {[
+              { id: 'meter', label: 'Live Meter', icon: Activity },
+              { id: 'vector', label: 'Vector (X,Y,Z)', icon: Compass },
+              { id: 'sources', label: 'Distance Lab', icon: Sliders },
+              { id: 'history', label: `History (${snapshots.length})`, icon: Layers },
+              { id: 'learn', label: 'Learn & Limits', icon: BookOpen }
+            ].map(tab => {
+              const Icon = tab.icon;
+              const isTabActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-extrabold whitespace-nowrap transition-all active:scale-95 cursor-pointer shrink-0 ${
+                    isTabActive
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Scroll Right Button */}
+          <button
+            type="button"
+            onClick={() => scrollTabs('right')}
+            className="w-6 h-6 rounded-full bg-white hover:bg-slate-100 shadow-2xs border border-slate-200/80 flex items-center justify-center text-slate-500 hover:text-slate-800 shrink-0 z-10 active:scale-90 transition-all mr-0.5 cursor-pointer"
+            aria-label="Scroll Tabs Right"
+            title="Scroll Right"
+          >
+            <ChevronRight className="w-3.5 h-3.5 stroke-[2.2]" />
+          </button>
         </div>
 
         {/* SCROLLABLE BODY */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3.5 no-scrollbar bg-[#f8fafc]">
+        <div className={isPage ? "p-4 space-y-3.5 bg-[#f8fafc]" : "flex-1 overflow-y-auto p-4 space-y-3.5 no-scrollbar bg-[#f8fafc]"}>
           
           {/* TAB 1: LIVE EMF FIELD METER (Section 4) */}
           {activeTab === 'meter' && (
@@ -1110,7 +1198,7 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => {
-                  onClose();
+                  if (!isPage && onClose) onClose();
                   if (onNavigateToContact) onNavigateToContact();
                 }}
                 className="h-10 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs flex items-center justify-center gap-1.5 border border-slate-200 shadow-2xs active:scale-95 transition-all cursor-pointer"
@@ -1121,7 +1209,7 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
 
               <button
                 onClick={() => {
-                  onClose();
+                  if (!isPage && onClose) onClose();
                   if (onOpenCall) onOpenCall();
                 }}
                 className="h-10 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer"
@@ -1136,7 +1224,7 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
 
         {/* PRINTABLE PDF / FORENSIC INSPECTION REPORT MODAL (Section 9) */}
         {activeReportSnapshot && (
-          <div className="absolute inset-0 z-60 bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 animate-in fade-in duration-200">
+          <div className="fixed inset-0 z-60 bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 animate-in fade-in duration-200">
             <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-3.5 text-slate-900 max-h-[90%] overflow-y-auto no-scrollbar">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
                 <div className="flex items-center gap-2.5">
@@ -1478,6 +1566,22 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
         )}
 
       </div>
-    </div>
-  );
-}
+    );
+
+    if (isPage) {
+      return (
+        <div className="w-full pb-3">
+          {innerContent}
+        </div>
+      );
+    }
+
+    return (
+      <div 
+        onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+        className="absolute inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end justify-center p-0 animate-in fade-in duration-200"
+      >
+        {innerContent}
+      </div>
+    );
+  }

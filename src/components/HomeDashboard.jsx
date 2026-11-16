@@ -383,59 +383,6 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 4.5 LIVE EMF FIELD DETECTOR & SENSOR ENGINE */}
-      {onOpenEMFMeter && (
-        <div 
-          onClick={onOpenEMFMeter}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#071328] via-[#0d2757] to-[#071328] p-4 border border-blue-500/40 shadow-lg text-white cursor-pointer active:scale-98 transition-all group"
-        >
-          {/* Subtle wave pulse background effect */}
-          <div className="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-blue-500/10 blur-xl pointer-events-none group-hover:bg-blue-500/20 transition-all" />
-
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2.5">
-              <div className="relative">
-                <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-md shadow-blue-500/30 group-hover:scale-105 transition-transform">
-                  <Activity className="w-4 h-4 text-white" />
-                </div>
-                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping" />
-                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full" />
-              </div>
-              <div>
-                <span className="text-[9px] font-black uppercase tracking-wider text-cyan-300 block leading-tight">
-                  LIVE SENSOR INSTRUMENT
-                </span>
-                <h3 className="font-heading font-extrabold text-sm text-white leading-tight">
-                  Live EMF Field Detector
-                </h3>
-              </div>
-            </div>
-            <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-black uppercase">
-              Triaxial Sensor
-            </span>
-          </div>
-
-          <p className="text-[11px] text-blue-100/90 leading-relaxed">
-            Read real-time magnetic flux density (<strong className="text-white">mG / µT</strong>) with analog dial, live waveform graph, 3-axis decomposition & audio feedback.
-          </p>
-
-          <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/10 text-xs">
-            <div className="flex items-center gap-2 text-[10px] text-slate-300 font-mono">
-              <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                SBM-2015 Compliant
-              </span>
-              <span>•</span>
-              <span className="text-cyan-300">Geiger Audio</span>
-            </div>
-            <span className="text-[11px] font-extrabold text-cyan-400 group-hover:text-cyan-300 flex items-center gap-0.5">
-              <span>Launch Meter</span>
-              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </span>
-          </div>
-        </div>
-      )}
-
       {/* 5. EXPLORE BY CATEGORY */}
       <div className="space-y-2">
         <div className="flex items-center justify-between px-1">

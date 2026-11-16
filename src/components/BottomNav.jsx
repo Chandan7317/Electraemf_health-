@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Compass, ShieldCheck, FileText, User } from 'lucide-react';
+import { Home, Compass, ShieldCheck, FileText, Activity } from 'lucide-react';
 
 export default function BottomNav({ activeTab, onTabChange }) {
   const tabs = [
@@ -7,7 +7,7 @@ export default function BottomNav({ activeTab, onTabChange }) {
     { id: 'services', label: 'Services', icon: Compass },
     { id: 'experts', label: 'Experts', icon: ShieldCheck },
     { id: 'reports', label: 'Reports', icon: FileText, badge: 1 },
-    { id: 'profile', label: 'Profile', icon: User },
+    { id: 'meter', label: 'EMF Meter', icon: Activity },
   ];
 
   return (
