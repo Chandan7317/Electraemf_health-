@@ -3,7 +3,8 @@ import { toast } from 'react-hot-toast';
 import { 
   FileText, Phone, Mail, ShieldAlert, ArrowRight, 
   ChevronDown, ChevronUp, Star, CheckSquare, Square,
-  AlertTriangle, BookOpen, ExternalLink, ShieldCheck, Scale, Zap, Radio, Sparkles
+  AlertTriangle, BookOpen, ExternalLink, ShieldCheck, Scale, Zap, Radio, Sparkles,
+  MapPin, CheckCircle2, Clock, Activity
 } from 'lucide-react';
 import ArticleModal from './ArticleModal';
 import StandardsComparisonModal from './StandardsComparisonModal';
@@ -241,48 +242,38 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
           <div 
             key={cs.id}
             onClick={() => setActiveArticle(cs)}
-            className="bg-white rounded-[26px] overflow-hidden border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3 pb-4 hover:border-blue-200 transition-all cursor-pointer group active:scale-[0.99]"
+            className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-blue-200/80 transition-all cursor-pointer group active:scale-[0.99]"
           >
-            <div className="relative h-40 w-full bg-slate-900">
+            {/* Enlarged Cinematic Image Container (No button on image) */}
+            <div className="relative h-48 sm:h-52 w-full bg-slate-900 overflow-hidden">
               <img 
                 src={cs.image} 
                 alt={cs.title} 
-                className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold text-white">
-                {cs.location}
-              </div>
-              <div className="absolute bottom-2.5 right-3 bg-amber-500 text-slate-950 text-[9px] font-black uppercase px-2 py-0.5 rounded-md">
-                {cs.tagCorner}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+              <div className="absolute top-3 left-3 bg-slate-950/70 backdrop-blur-md px-2.5 py-1 rounded-full text-[9.5px] font-bold text-white flex items-center gap-1 shadow-sm border border-white/10">
+                <MapPin className="w-3 h-3 text-cyan-400 shrink-0" />
+                <span>{cs.location}</span>
               </div>
             </div>
 
-            <div className="px-4 space-y-2">
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[9px] font-extrabold px-2 py-0.2 rounded bg-blue-50 text-blue-700">
-                  {cs.badgeTop}
-                </span>
-                <span className="text-[9px] font-bold px-2 py-0.2 rounded bg-slate-100 text-slate-600">
-                  {cs.badgeSub}
-                </span>
-              </div>
-
-              <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-snug group-hover:text-blue-600 transition-colors">
+            {/* Card Content: Heading, Outcome & CTA */}
+            <div className="p-4 space-y-2.5">
+              <h3 className="font-heading font-extrabold text-[14.5px] sm:text-base text-slate-900 leading-snug group-hover:text-[#1d61f2] transition-colors">
                 {cs.title}
               </h3>
 
-              <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
-                {cs.summary}
-              </p>
-
-              <div className="flex items-center justify-between text-[10px] pt-1 border-t border-slate-50 text-slate-500 font-medium">
-                <span className="text-emerald-600 font-bold truncate max-w-[200px]">
-                  {cs.outcome}
-                </span>
-                <span className="text-blue-600 font-bold group-hover:underline flex items-center gap-0.5 shrink-0">
-                  <span>Full Archive Dossier</span>
-                  <ArrowRight className="w-3 h-3 inline" />
+              <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span className="text-[10px] font-bold text-emerald-700 truncate">
+                    {cs.outcome}
+                  </span>
+                </div>
+                <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-[#1d61f2] group-hover:translate-x-0.5 transition-transform shrink-0">
+                  <span>Read Dossier</span>
+                  <ArrowRight className="w-3 h-3 stroke-[2.5]" />
                 </span>
               </div>
             </div>
@@ -336,52 +327,49 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
       </div>
 
       {/* 3C. ELECTRAEMF SCIENTIFIC LIBRARY (48 Articles from electraemfhealth.com) */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3.5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-              <BookOpen className="w-4 h-4" />
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-3.5">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-9 h-9 rounded-xl bg-[#edf3fe] text-[#1d61f2] flex items-center justify-center shrink-0 shadow-2xs">
+              <BookOpen className="w-4.5 h-4.5" />
             </div>
-            <div>
-              <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block">
+            <div className="min-w-0">
+              <span className="text-[9px] font-black uppercase tracking-wider text-[#1d61f2] block">
                 ELECTRAEMF SCIENCE LIBRARY
               </span>
-              <h3 className="font-heading font-extrabold text-sm text-slate-900">
+              <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-tight truncate">
                 Educational Research & Guides
               </h3>
             </div>
           </div>
-          <span className="text-[10px] font-bold text-slate-400">
-            Published Articles
+          <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[9.5px] font-extrabold shrink-0">
+            4 Guides
           </span>
         </div>
 
-        <p className="text-xs text-slate-600 leading-relaxed">
-          Peer-reviewed articles, meter teardowns, and shielding physics authored by IBEW engineers and clinical researchers.
+        <p className="text-xs text-slate-500 leading-relaxed font-normal">
+          Peer-reviewed guides, meter teardowns, and shielding physics authored by IBEW engineers and clinical researchers.
         </p>
 
-        <div className="space-y-2 pt-1">
+        <div className="space-y-2.5 pt-0.5">
           {educationalArticles.map((art) => (
             <div
               key={art.id}
               onClick={() => handleOpenArticle(art)}
-              className="p-3 rounded-2xl bg-slate-50/70 hover:bg-blue-50/60 border border-slate-100/80 hover:border-blue-200 transition-all cursor-pointer group space-y-1.5"
+              className="p-3.5 rounded-2xl bg-slate-50/80 hover:bg-[#edf3fe]/60 border border-slate-100 hover:border-blue-200/80 transition-all cursor-pointer group active:scale-[0.99] space-y-2 shadow-2xs"
             >
-              <div className="flex items-center justify-between text-[10px]">
-                <span className="px-2 py-0.2 rounded bg-white text-blue-700 font-extrabold border border-blue-100 shadow-2xs">
-                  {art.category}
-                </span>
-                <span className="text-slate-400 font-medium">{art.readTime}</span>
-              </div>
-              <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+              <h4 className="font-heading font-extrabold text-[13px] sm:text-sm text-slate-900 group-hover:text-[#1d61f2] transition-colors leading-snug">
                 {art.title}
               </h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2">
-                {art.excerpt}
-              </p>
-              <div className="pt-1 flex items-center justify-between text-[10px] text-blue-600 font-extrabold">
-                <span>Read Full Article</span>
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+
+              <div className="flex items-center justify-between pt-1 border-t border-slate-100/80 text-[10.5px]">
+                <span className="text-[9.5px] font-semibold text-slate-500 bg-white/90 border border-slate-200/60 px-2 py-0.5 rounded-md">
+                  {art.tag}
+                </span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-[#1d61f2] group-hover:translate-x-0.5 transition-transform shrink-0">
+                  <span>Read Guide</span>
+                  <ArrowRight className="w-3 h-3 stroke-[2.5]" />
+                </span>
               </div>
             </div>
           ))}
@@ -431,85 +419,93 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
         </div>
       </div>
 
-      {/* 5. VERIFIED CLIENT TESTIMONIALS SLIDER (Exact Image 5) */}
-      <div className="bg-slate-50 rounded-3xl p-4 border border-slate-200/80 space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs font-extrabold text-slate-900 uppercase">
-              Verified Client Testimonials
+
+      {/* 6. DOES YOUR CASE REQUIRE LICENSED SCRUTINY? */}
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-3.5">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-[#edf3fe] text-[#1d61f2] flex items-center justify-center shrink-0 shadow-2xs">
+            <ShieldCheck className="w-5 h-5 text-[#1d61f2]" />
+          </div>
+          <div className="min-w-0">
+            <span className="text-[9px] font-black uppercase tracking-wider text-[#1d61f2] block">
+              DIAGNOSTIC CRITERIA
             </span>
-          </div>
-          <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
-            <span>★★★★★</span>
-            <span className="text-slate-500 text-[10px]">5.0</span>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-xs space-y-2">
-          <div className="flex items-center text-amber-500 text-xs">
-            ★★★★★
-          </div>
-          <p className="text-xs text-slate-700 italic leading-relaxed">
-            "My professional clients have been very pleased with me for locating the only fully licensed EMF technical and medical expert. Thank you for your comprehensive and clinical exposure studies on such short notice."
-          </p>
-          <div className="flex items-center gap-2 pt-1 border-t border-slate-50">
-            <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-bold">
-              AB
-            </div>
-            <div>
-              <p className="text-xs font-bold text-slate-900 leading-none">Abe Berman</p>
-              <p className="text-[10px] text-slate-400 leading-none mt-0.5">Real Estate Agent • Princeton, NJ</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 6. DOES YOUR CASE REQUIRE LICENSED SCRUTINY? CHECKBOXES (Exact Image 5) */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-4 h-4" />
-          </div>
-          <div>
-            <h3 className="font-heading font-extrabold text-xs sm:text-sm text-slate-900">
+            <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-tight">
               Does Your Case Require Licensed Scrutiny?
             </h3>
-            <p className="text-[10px] text-slate-400">
-              Check any symptoms or environmental markers present:
+            <p className="text-[10px] text-slate-400 font-medium">
+              Primary forensic markers requiring certified engineering investigation:
             </p>
           </div>
         </div>
 
-        <div className="space-y-2 pt-1">
+        {/* 4 Clean Indicator Cards (No Checkboxes) */}
+        <div className="space-y-2 pt-0.5">
           {[
-            "Shock/tingling, ground shocks, or swimming pool stray voltage",
-            "Unexplained auditory humming, twitching, or acute sleep disorder",
-            "Proximity to HV power lines, rooftop antennas, or 5G/6G small cells",
-            "Pending property sale stigmatized by previous amateur meter scan"
-          ].map((text, idx) => (
-            <button
-              key={idx}
-              onClick={() => toggleCheck(idx)}
-              className={`w-full p-3 rounded-2xl text-left text-xs flex items-center gap-2.5 border transition-all ${
-                checkedItems[idx] 
-                  ? 'bg-blue-50 border-blue-400 text-blue-900 font-bold'
-                  : 'bg-slate-50/70 border-slate-100 text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              {checkedItems[idx] ? (
-                <CheckSquare className="w-4 h-4 text-blue-600 shrink-0" />
-              ) : (
-                <Square className="w-4 h-4 text-slate-300 shrink-0" />
-              )}
-              <span className="leading-tight">{text}</span>
-            </button>
-          ))}
+            {
+              icon: Zap,
+              color: 'text-amber-500 bg-amber-50 border-amber-200/60',
+              title: 'Stray Ground Voltage & Pool Currents',
+              desc: 'Shock or tingling sensations, water surface voltage leaks, or underground utility grounding faults.'
+            },
+            {
+              icon: Activity,
+              color: 'text-rose-500 bg-rose-50 border-rose-200/60',
+              title: 'Neuropathological & Sleep Symptoms',
+              desc: 'Unexplained auditory clicking/humming, sleep fragmentation, or peripheral muscle twitching.'
+            },
+            {
+              icon: Radio,
+              color: 'text-[#1d61f2] bg-[#edf3fe] border-blue-200/60',
+              title: 'Utility Grid & 5G MIMO Proximity',
+              desc: 'Proximity to HV power lines, sub-station step-downs, or rooftop 5G/6G cellular arrays.'
+            },
+            {
+              icon: Scale,
+              color: 'text-indigo-600 bg-indigo-50 border-indigo-200/60',
+              title: 'Real Estate & Escrow Disputes',
+              desc: 'Pending property transactions or claims stigmatized by uncalibrated amateur meter readings.'
+            }
+          ].map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                className="p-3 rounded-2xl bg-[#f8fafc] border border-slate-100 flex items-start gap-3 transition-colors"
+              >
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border ${item.color}`}>
+                  <Icon className="w-4 h-4 stroke-[2.2]" />
+                </div>
+                <div className="min-w-0 space-y-0.5 flex-1">
+                  <h4 className="font-heading font-extrabold text-xs text-slate-900 leading-snug">
+                    {item.title}
+                  </h4>
+                  <p className="text-[11px] text-slate-500 leading-relaxed font-normal">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Action Button */}
+        <div className="pt-1">
+          <button
+            type="button"
+            onClick={onOpenCall}
+            className="w-full h-10 px-4 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-98 transition-all shadow-xs cursor-pointer"
+          >
+            <Phone className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Consult Licensed Engineering Staff</span>
+            <ArrowRight className="w-3.5 h-3.5 stroke-[2.2]" />
+          </button>
         </div>
       </div>
 
-      {/* 7. FOOTER CERTIFICATION BOX (Exact Image 5) */}
+      {/* 7. FOOTER CERTIFICATION BOX */}
       <div className="p-4 rounded-3xl bg-slate-50 border border-slate-200/80 text-center space-y-1.5 text-xs text-slate-600">
-        <span className="text-[9px] font-black uppercase text-blue-600 block">
+        <span className="text-[9px] font-black uppercase text-[#1d61f2] block">
           COURT-RECOGNIZED TRANSACTIONS & LITIGATION
         </span>
         <p className="text-[11px] leading-relaxed">
