@@ -20,8 +20,8 @@ export default function HomeDashboard({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  // Hero Carousel State
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // Hero Carousel State (Default to index 3: Medical Implants to match reference screenshot)
+  const [currentSlide, setCurrentSlide] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -164,11 +164,11 @@ export default function HomeDashboard({
   const activeSlideData = heroSlides[currentSlide];
 
   return (
-    <div className="space-y-4 pb-24">
-      {/* 1. TOP SEARCH BAR */}
-      <form onSubmit={handleSearchSubmit} className="relative flex items-center">
-        <div className="relative flex-1">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+    <div className="space-y-3.5 pb-24">
+      {/* 1. TOP SEARCH BAR (Matches Reference Screenshot) */}
+      <form onSubmit={handleSearchSubmit} className="relative">
+        <div className="relative flex items-center bg-white rounded-full border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)] pl-3.5 pr-1.5 py-1">
+          <Search className="w-4 h-4 text-slate-400 shrink-0 mr-2" />
           <input
             type="text"
             value={searchQuery}
@@ -177,22 +177,22 @@ export default function HomeDashboard({
             }}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search EMF testing, 5G/6G, power lines..."
-            className="w-full bg-white rounded-full pl-9 pr-24 py-2.5 text-xs text-slate-900 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-xs placeholder:text-slate-400 font-medium cursor-pointer"
+            className="flex-1 bg-transparent text-xs text-slate-900 placeholder:text-slate-400 font-medium focus:outline-none min-w-0"
           />
           <button
             type="submit"
-            className="h-9 px-4.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold transition-all shadow-xs active:scale-95 absolute right-1 top-1/2 -translate-y-1/2 flex items-center justify-center"
+            className="h-8 px-4 rounded-full bg-[#1d61f2] hover:bg-blue-600 text-white text-xs font-extrabold transition-all shadow-xs active:scale-95 shrink-0 flex items-center justify-center cursor-pointer"
           >
             Search
           </button>
         </div>
       </form>
 
-      {/* 2. LICENSED SERVICE AREA STRIP */}
-      <div className="bg-white rounded-2xl p-2.5 px-3.5 border border-slate-100 flex items-center justify-between shadow-xs">
+      {/* 2. LICENSED SERVICE AREA STRIP (Matches Reference Screenshot) */}
+      <div className="bg-white rounded-2xl p-2.5 px-3.5 border border-slate-200/70 flex items-center justify-between shadow-[0_2px_6px_rgba(0,0,0,0.02)]">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-7 h-7 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-            <MapPin className="w-4 h-4" />
+          <div className="w-7.5 h-7.5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            <MapPin className="w-4 h-4 stroke-[2.2]" />
           </div>
           <div className="min-w-0">
             <span className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 block leading-tight">
@@ -205,15 +205,15 @@ export default function HomeDashboard({
         </div>
         <button
           onClick={() => onNavigate('profile')}
-          className="h-7.5 px-3 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 text-[11px] font-bold transition-all active:scale-95 shrink-0 flex items-center justify-center"
+          className="h-7 px-3 rounded-full bg-blue-50 hover:bg-blue-100/80 text-blue-600 text-[11px] font-bold transition-all active:scale-95 shrink-0 flex items-center justify-center cursor-pointer"
         >
           Change
         </button>
       </div>
 
-      {/* 3. HERO SECTION – AUTOMATIC IMAGE CAROUSEL */}
+      {/* 3. HERO SECTION – AUTOMATIC IMAGE CAROUSEL (Matches Reference Screenshot) */}
       <div 
-        className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-950 text-white shadow-lg select-none"
+        className="relative overflow-hidden rounded-[26px] bg-slate-950 text-white shadow-xl shadow-slate-950/15 select-none"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
@@ -221,7 +221,7 @@ export default function HomeDashboard({
         onTouchEnd={handleTouchEnd}
       >
         {/* Background Image with Dynamic Fade Transition */}
-        <div className="relative h-52 sm:h-60 w-full overflow-hidden">
+        <div className="relative h-52 sm:h-58 w-full overflow-hidden">
           {heroSlides.map((slide, index) => (
             <div
               key={slide.id}
@@ -238,29 +238,29 @@ export default function HomeDashboard({
                 }}
               />
               {/* High Contrast Multi-Layer Vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071328] via-[#071328]/75 to-black/35" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071328] via-[#071328]/80 to-black/35" />
             </div>
           ))}
 
           {/* Slide Content Overlay */}
-          <div className="absolute inset-0 z-20 flex flex-col justify-end p-3.5 sm:p-4">
-            <div className="space-y-1 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="absolute inset-0 z-20 flex flex-col justify-end p-4">
+            <div className="space-y-1.5 animate-in fade-in slide-in-from-bottom-2 duration-300">
               <h1 className="text-sm sm:text-base font-heading font-extrabold text-white leading-tight drop-shadow-sm line-clamp-2">
                 {activeSlideData.title}
               </h1>
 
-              <p className="text-[10.5px] text-blue-100/90 leading-tight line-clamp-1 sm:line-clamp-2 drop-shadow-xs max-w-sm">
+              <p className="text-[10.5px] text-blue-100/90 leading-tight line-clamp-2 drop-shadow-xs max-w-sm">
                 {activeSlideData.subtitle}
               </p>
 
-              {/* Action Buttons in Hero */}
+              {/* Action Buttons in Hero: Rounded Pills (Matches Screenshot) */}
               <div className="flex items-center gap-2 pt-1">
                 <button
                   onClick={() => {
                     if (activeSlideData.primaryTarget === 'call') onOpenCall();
                     else onNavigate(activeSlideData.primaryTarget);
                   }}
-                  className="flex-1 sm:flex-none h-8.5 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-extrabold shadow-md shadow-blue-950/40 active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="flex-1 sm:flex-none h-8.5 px-4 rounded-full bg-[#1d61f2] hover:bg-blue-600 text-white text-[11px] font-extrabold shadow-md shadow-blue-950/40 active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span>{activeSlideData.primaryCta}</span>
                   <ArrowRight className="w-3 h-3 stroke-[2.5]" />
@@ -271,7 +271,7 @@ export default function HomeDashboard({
                     if (activeSlideData.secondaryTarget === 'call') onOpenCall();
                     else onNavigate(activeSlideData.secondaryTarget);
                   }}
-                  className="flex-1 sm:flex-none h-8.5 px-3 rounded-xl bg-white/15 hover:bg-white/20 text-white text-[11px] font-bold border border-white/25 active:scale-95 transition-all flex items-center justify-center text-center backdrop-blur-xs cursor-pointer"
+                  className="flex-1 sm:flex-none h-8.5 px-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] font-bold border border-white/25 active:scale-95 transition-all flex items-center justify-center text-center backdrop-blur-xs cursor-pointer"
                 >
                   {activeSlideData.secondaryCta}
                 </button>
@@ -282,7 +282,7 @@ export default function HomeDashboard({
           {/* Carousel Left / Right Navigation Chevrons */}
           <button
             onClick={handlePrevSlide}
-            className="absolute left-1.5 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10 cursor-pointer"
             aria-label="Previous Slide"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
@@ -290,23 +290,23 @@ export default function HomeDashboard({
 
           <button
             onClick={handleNextSlide}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10 cursor-pointer"
             aria-label="Next Slide"
           >
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Carousel Pagination Indicators */}
-        <div className="bg-[#071328] px-3.5 py-1.5 flex items-center justify-between border-t border-white/10 text-[9.5px]">
+        {/* Carousel Pagination Indicators & Right Tag (Matches Screenshot) */}
+        <div className="bg-[#071328] px-4 py-2 flex items-center justify-between border-t border-white/10 text-[9.5px]">
           <div className="flex items-center gap-1.5">
             {heroSlides.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   idx === currentSlide 
-                    ? 'w-5 bg-blue-500 shadow-xs' 
+                    ? 'w-5 bg-[#1d61f2] shadow-xs' 
                     : 'w-1.5 bg-white/30 hover:bg-white/50'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
@@ -314,14 +314,14 @@ export default function HomeDashboard({
             ))}
           </div>
 
-          <div className="flex items-center gap-2 text-slate-400 font-medium">
+          <div className="flex items-center gap-2 text-slate-300 font-medium">
             <span className="truncate">{activeSlideData.pillRight}</span>
           </div>
         </div>
       </div>
 
-      {/* 4. OUR LICENSED EXPERTS ARE HERE TO HELP (Authority Card) */}
-      <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-xs space-y-3">
+      {/* 4. OUR LICENSED EXPERTS ARE HERE TO HELP (Matches Reference Screenshot) */}
+      <div className="bg-white rounded-[26px] p-4 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
             <h2 className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5 leading-snug">
@@ -346,38 +346,38 @@ export default function HomeDashboard({
               <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full shadow-xs" />
             </div>
             <span className="text-[10px] font-bold text-slate-800 mt-1">Dr. J. Dumanov</span>
-            <span className="text-[8px] font-bold text-blue-600 bg-blue-50 px-1 py-0.2 rounded border border-blue-200/50 mt-0.5">
+            <span className="text-[8px] font-bold text-[#1d61f2] bg-blue-50 px-1 py-0.2 rounded border border-blue-200/50 mt-0.5">
               IBEW & Chief DX
             </span>
           </div>
         </div>
 
-        {/* 3 Quick Action Buttons */}
+        {/* 3 Quick Action Buttons: Chat, Call Direct, Free Consult (Matches Screenshot) */}
         <div className="grid grid-cols-3 gap-2 pt-0.5">
           <button
             onClick={onOpenChat}
-            className="h-11 px-2.5 rounded-xl bg-blue-50/90 hover:bg-blue-100/90 text-blue-700 text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/50"
+            className="h-10 px-2 rounded-2xl bg-[#edf4fe] hover:bg-blue-100/80 text-[#1d61f2] text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/70 cursor-pointer"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
+            <MessageSquare className="w-3.5 h-3.5" />
             <span>Chat</span>
           </button>
 
           <button
             onClick={onOpenCall}
-            className="h-11 px-2.5 rounded-xl bg-blue-50/90 hover:bg-blue-100/90 text-blue-700 text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/50"
+            className="h-10 px-2 rounded-2xl bg-[#edf4fe] hover:bg-blue-100/80 text-[#1d61f2] text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/70 cursor-pointer"
           >
-            <Phone className="w-3.5 h-3.5 text-blue-600" />
+            <Phone className="w-3.5 h-3.5" />
             <span>Call Direct</span>
           </button>
 
           <button
             onClick={() => onNavigate('profile')}
-            className="relative h-11 px-2.5 rounded-xl bg-blue-50/90 hover:bg-blue-100/90 text-blue-700 text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/50"
+            className="relative h-10 px-2 rounded-2xl bg-[#edf4fe] hover:bg-blue-100/80 text-[#1d61f2] text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/70 cursor-pointer"
           >
-            <Mail className="w-3.5 h-3.5 text-blue-600" />
+            <Mail className="w-3.5 h-3.5" />
             <span>Free Consult</span>
-            <span className="absolute -top-1 -right-1 px-1.5 py-0.2 rounded-full bg-blue-600 text-white text-[7.5px] font-black uppercase shadow-xs">
-              Free
+            <span className="absolute -top-1.5 -right-1 px-1.5 py-0.2 rounded-full bg-[#1d61f2] text-white text-[7.5px] font-black uppercase shadow-xs">
+              FREE
             </span>
           </button>
         </div>
@@ -398,7 +398,7 @@ export default function HomeDashboard({
           </button>
         </div>
 
-        {/* Scrollable Category Filter Pills */}
+        {/* Scrollable Category Filter Pills (Matches Reference Screenshot) */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.id;
@@ -406,15 +406,15 @@ export default function HomeDashboard({
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-1.5 h-8.5 px-3.5 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 ${
+                className={`flex items-center gap-1.5 h-9 px-4 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer ${
                   isSelected
-                    ? 'bg-[#0b162c] text-white font-extrabold shadow-xs'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 font-bold'
+                    ? 'bg-[#0b162c] text-white font-extrabold shadow-sm'
+                    : 'bg-white text-slate-700 border border-slate-200/90 hover:bg-slate-50 font-bold'
                 }`}
               >
                 <span>{cat.label}</span>
-                <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-                  isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                  isSelected ? 'bg-[#1d61f2] text-white' : 'bg-slate-100 text-slate-500'
                 }`}>
                   {cat.count}
                 </span>

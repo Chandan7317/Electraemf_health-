@@ -175,10 +175,10 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
 
   return (
     <div className="space-y-4 pb-24">
-      {/* 1. TOP EVIDENTIARY REVIEWS BAR (Exact Image 5) */}
-      <div className="bg-white rounded-2xl p-2.5 px-3.5 border border-slate-100 flex items-center justify-between shadow-xs">
+      {/* 1. TOP EVIDENTIARY REVIEWS BAR */}
+      <div className="bg-white rounded-2xl p-2.5 px-3.5 border border-slate-200/70 flex items-center justify-between shadow-[0_2px_6px_rgba(0,0,0,0.02)]">
         <div className="min-w-0 pr-2">
-          <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block leading-tight">
+          <span className="text-[9px] font-black uppercase tracking-wider text-[#1d61f2] block leading-tight">
             COURT-CERTIFIED EVIDENTIARY REVIEWS
           </span>
           <span className="text-[11px] font-bold text-slate-800 truncate block leading-tight mt-0.5">
@@ -187,15 +187,15 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
         </div>
         <button
           onClick={onOpenCall}
-          className="h-8 px-3.5 rounded-full bg-[#0c1f3d] hover:bg-[#122e5a] text-white text-[10.5px] font-extrabold flex items-center gap-1.5 shrink-0 active:scale-95 transition-all shadow-2xs"
+          className="h-8 px-3.5 rounded-full bg-[#0b162c] hover:bg-[#122e5a] text-white text-[10.5px] font-extrabold flex items-center gap-1.5 shrink-0 active:scale-95 transition-all shadow-2xs cursor-pointer"
         >
           <Phone className="w-3 h-3" />
           <span>Call Expert</span>
         </button>
       </div>
 
-      {/* 2. RECEIVED A REPORT FROM AN AMATEUR "EMF CONSULTANT"? (Exact Image 5) */}
-      <div className="rounded-3xl bg-gradient-to-br from-[#0c1c38] via-[#0d2a58] to-[#123e7e] text-white p-5 shadow-lg space-y-3">
+      {/* 2. RECEIVED A REPORT FROM AN AMATEUR "EMF CONSULTANT"? */}
+      <div className="rounded-[26px] bg-gradient-to-br from-[#0c1c38] via-[#0d2a58] to-[#123e7e] text-white p-5 shadow-xl space-y-3">
         <div className="space-y-1.5">
           <span className="text-[9px] font-black uppercase tracking-wider text-cyan-300">
             EVIDENTIARY DEFECT COUNTER-AUDIT
@@ -211,7 +211,7 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
         <div className="space-y-2 pt-1">
           <a
             href="tel:3474919867"
-            className="w-full h-11 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all"
+            className="w-full h-11 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all cursor-pointer"
           >
             <Phone className="w-3.5 h-3.5" />
             <span>Direct Forensic Hotline: 347-491-9867</span>
@@ -222,7 +222,7 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
               toast.success('Opening consultation portal to submit report...', { id: 'report-toast' });
               onNavigate('profile');
             }}
-            className="w-full h-11 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-2 border border-white/20 active:scale-95 transition-all"
+            className="w-full h-11 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-2 border border-white/20 active:scale-95 transition-all cursor-pointer"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Submit Report For Re-Examination</span>
@@ -234,14 +234,14 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
       <div className="space-y-3">
         <div className="flex items-center justify-between text-xs font-extrabold text-slate-800 uppercase tracking-wide px-1">
           <span>FEATURED FIELD INVESTIGATIONS</span>
-          <span className="text-[10px] text-blue-600 font-bold">Tap To Read Full Dossier</span>
+          <span className="text-[10px] text-[#1d61f2] font-bold">Tap To Read Full Dossier</span>
         </div>
 
         {featuredCases.map((cs) => (
           <div 
             key={cs.id}
             onClick={() => setActiveArticle(cs)}
-            className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm space-y-3 pb-4 hover:border-blue-200 transition-all cursor-pointer group active:scale-[0.99]"
+            className="bg-white rounded-[26px] overflow-hidden border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3 pb-4 hover:border-blue-200 transition-all cursor-pointer group active:scale-[0.99]"
           >
             <div className="relative h-40 w-full bg-slate-900">
               <img 

@@ -71,8 +71,8 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         </span>
       </div>
 
-      {/* 2. CHIEF SCIENTIST PROFILE CARD (Exact Image 3) */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-4">
+      {/* 2. CHIEF SCIENTIST PROFILE CARD */}
+      <div className="bg-white rounded-[26px] p-5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-4">
         {/* Doctor Photo & Badges */}
         <div className="flex items-start gap-4">
           <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-900 border-2 border-white shadow-md shrink-0">
@@ -86,7 +86,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
 
           <div className="space-y-1 min-w-0 flex-1">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="px-2 py-0.2 rounded-full bg-blue-600 text-white text-[9px] font-black uppercase">
+              <span className="px-2 py-0.2 rounded-full bg-[#1d61f2] text-white text-[9px] font-black uppercase">
                 CHIEF SCIENTIST
               </span>
               <span className="px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold">
@@ -98,7 +98,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
               Prof. Dr. Joseph Dumanov
             </h2>
 
-            <p className="text-[11px] font-bold text-blue-600 leading-tight">
+            <p className="text-[11px] font-bold text-[#1d61f2] leading-tight">
               Chief Clinical Industrial Hygienist & Electronics Engineer
             </p>
 
@@ -154,7 +154,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         <div className="grid grid-cols-2 gap-2.5 pt-1">
           <button
             onClick={onOpenCall}
-            className="h-10 px-3.5 rounded-xl bg-[#0c1f3d] hover:bg-[#122e5a] text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all"
+            className="h-10 px-3.5 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all cursor-pointer"
           >
             <Phone className="w-3.5 h-3.5" />
             <span>347-491-9867</span>
@@ -162,7 +162,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
 
           <a
             href="mailto:EMFmedicalExpert@gmail.com"
-            className="h-10 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all"
+            className="h-10 px-3.5 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all cursor-pointer"
           >
             <Mail className="w-3.5 h-3.5" />
             <span>Email Expert</span>
@@ -204,8 +204,8 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         </div>
       </div>
 
-      {/* 3B. TRI-STATE REGIONAL ENGINEERING DISPATCH HUBS (Website Architecture) */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3.5">
+      {/* 3B. TRI-STATE REGIONAL ENGINEERING DISPATCH HUBS */}
+      <div className="bg-white rounded-[26px] p-5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
@@ -232,9 +232,9 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
               key={stateCode}
               type="button"
               onClick={() => setSelectedRegion(stateCode)}
-              className={`h-9 rounded-xl text-xs font-black transition-all active:scale-95 flex items-center justify-center ${
+              className={`h-9 rounded-xl text-xs font-black transition-all active:scale-95 flex items-center justify-center cursor-pointer ${
                 selectedRegion === stateCode
-                  ? 'bg-[#0c1f3d] text-white shadow-xs'
+                  ? 'bg-[#0b162c] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -247,7 +247,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 space-y-2.5">
           <div className="flex items-center justify-between">
             <h4 className="font-extrabold text-xs text-blue-950">{hub.name}</h4>
-            <span className="text-[9.5px] font-black px-2 py-0.5 rounded-md bg-blue-600 text-white">
+            <span className="text-[9.5px] font-black px-2 py-0.5 rounded-md bg-[#1d61f2] text-white">
               {hub.response}
             </span>
           </div>
@@ -269,7 +269,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
             <a
               href={`tel:${hub.rawPhone}`}
               onClick={() => toast.success(`Connecting to ${hub.name}...`, { id: 'expert-toast' })}
-              className="h-8.5 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition-all shadow-xs"
+              className="h-8.5 px-3.5 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition-all shadow-xs cursor-pointer"
             >
               <Phone className="w-3.5 h-3.5" />
               <span>Call Hub</span>

@@ -142,7 +142,7 @@ export default function MobileSearchView({ searchQuery, onSelectQuery, onNavigat
                 <button
                   key={idx}
                   onClick={() => onSelectQuery(item.query)}
-                  className="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 text-slate-700 hover:text-blue-600 text-[11px] font-medium transition-all active:scale-95 shadow-2xs"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200/90 hover:border-blue-400 hover:bg-blue-50/50 text-slate-700 hover:text-blue-600 text-xs font-semibold transition-all active:scale-95 shadow-2xs cursor-pointer"
                 >
                   {item.label}
                 </button>
@@ -228,10 +228,10 @@ export default function MobileSearchView({ searchQuery, onSelectQuery, onNavigat
               <button
                 key={tab.id}
                 onClick={() => setActiveFilter(tab.id)}
-                className={`px-2.5 py-1 rounded-full text-[10.5px] font-bold whitespace-nowrap transition-all ${
+                className={`h-8 px-3 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                   activeFilter === tab.id
-                    ? 'bg-blue-600 text-white shadow-2xs'
-                    : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
+                    ? 'bg-[#0b162c] text-white shadow-xs'
+                    : 'bg-white border border-slate-200/90 text-slate-700 hover:border-slate-300'
                 }`}
               >
                 {tab.label}

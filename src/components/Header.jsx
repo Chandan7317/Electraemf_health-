@@ -33,7 +33,7 @@ export default function Header({
           {/* Back button to close search */}
           <button 
             onClick={onCloseSearch}
-            className="w-9 h-9 rounded-full bg-slate-100/80 hover:bg-slate-200 flex items-center justify-center text-slate-700 active:scale-95 transition-all focus:outline-none shrink-0"
+            className="w-9 h-9 rounded-full bg-slate-100/90 hover:bg-slate-200 flex items-center justify-center text-slate-700 active:scale-95 transition-all focus:outline-none shrink-0 cursor-pointer shadow-2xs"
             aria-label="Back"
           >
             <ArrowLeft className="w-4 h-4 stroke-[2.4]" />
@@ -53,7 +53,7 @@ export default function Header({
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 flex items-center justify-center text-xs font-bold active:scale-90 transition-all"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 flex items-center justify-center text-xs font-bold active:scale-90 transition-all cursor-pointer"
                 aria-label="Clear"
               >
                 ✕
@@ -65,49 +65,55 @@ export default function Header({
     );
   }
 
-  // Normal header
+  // Normal header matching reference screenshot
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-100/90 px-4 py-2.5 sm:px-4.5 sm:py-3 text-slate-900 transition-all shadow-[0_1px_3px_0_rgba(0,0,0,0.02)]">
       <div className="flex items-center justify-between">
-        {/* Brand Logo (New Official ElectraEMF Logo) */}
+        {/* Brand Logo: Squircle EMF Wave Icon + Bold ElectraEMF typography (Matches Screenshot) */}
         <button 
           onClick={() => onNavigate('home')} 
-          className="flex items-center text-left group focus:outline-none transition-transform active:scale-[0.98]"
+          className="flex items-center gap-2 text-left group focus:outline-none transition-transform active:scale-[0.98] cursor-pointer"
           aria-label="ElectraEMF Home"
         >
-          <img 
-            src="/assets/electraemf-brand-logo.png" 
-            alt="ElectraEMF" 
-            className="h-8 sm:h-8.5 w-auto object-contain transition-transform group-hover:scale-[1.02]"
-          />
+          <div className="w-8 h-8 rounded-xl bg-[#0b162c] border border-blue-900/40 flex items-center justify-center shadow-xs overflow-hidden shrink-0 group-hover:scale-105 transition-transform">
+            <svg 
+              className="w-4.5 h-4.5 text-blue-400" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2.2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <path d="M4.93 19.07a10 10 0 0 1 0-14.14" />
+              <path d="M7.76 16.24a6 6 0 0 1 0-8.48" />
+              <path d="M12 12v6" />
+              <path d="m12 6-3 6h6l-3-6Z" />
+              <path d="M16.24 7.76a6 6 0 0 1 0 8.48" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+          </div>
+          <div className="flex items-center font-heading font-extrabold text-[17px] tracking-tight leading-none">
+            <span className="text-[#0b162c]">Electra</span>
+            <span className="text-[#1d61f2]">EMF</span>
+          </div>
         </button>
 
-        {/* Action Icons: Search, Notifications, Profile */}
+        {/* Action Icons: Notification Bell & Profile Avatar (Matches Screenshot) */}
         <div className="flex items-center gap-2">
-          {/* Search Button (Commented out per user request) */}
-          {/* {onOpenSearch && (
-            <button 
-              onClick={onOpenSearch}
-              className="w-9 h-9 rounded-full bg-slate-50/90 hover:bg-slate-100 border border-slate-200/70 flex items-center justify-center text-slate-600 hover:text-slate-900 active:scale-95 transition-all focus:outline-none shadow-2xs"
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4 stroke-[2.2]" />
-            </button>
-          )} */}
-
           {/* Notification Button */}
           <button 
             onClick={onOpenNotifications}
-            className={`relative w-9 h-9 rounded-full flex items-center justify-center active:scale-95 transition-all focus:outline-none shadow-2xs border ${
+            className={`relative w-9 h-9 rounded-full flex items-center justify-center active:scale-95 transition-all focus:outline-none shadow-xs border cursor-pointer ${
               isNotificationsActive 
                 ? 'bg-blue-50 text-blue-600 border-blue-200 ring-2 ring-blue-500/15' 
-                : 'bg-slate-50/90 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border-slate-200/70'
+                : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border-slate-200/80'
             }`}
             aria-label="Notifications"
           >
             <Bell className="w-4 h-4 stroke-[2.2]" />
             {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-[17px] h-4.5 px-1 rounded-full bg-rose-500 text-[10px] font-black text-white flex items-center justify-center shadow-xs ring-2 ring-white">
+              <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-[#f43f5e] text-[10px] font-black text-white flex items-center justify-center shadow-xs ring-2 ring-white">
                 {unreadCount}
               </span>
             )}
@@ -116,12 +122,14 @@ export default function Header({
           {/* User Profile Avatar / Profile Icon */}
           <button 
             onClick={onOpenProfile}
-            className={`relative w-9 h-9 rounded-full overflow-hidden active:scale-95 transition-all focus:outline-none shadow-2xs ${
-              activeTab === 'profile' ? 'ring-2 ring-blue-600 ring-offset-1' : 'hover:ring-2 hover:ring-blue-400'
+            className={`relative w-9 h-9 rounded-full overflow-hidden active:scale-95 transition-all focus:outline-none shadow-xs border cursor-pointer ${
+              activeTab === 'profile' 
+                ? 'ring-2 ring-blue-600 ring-offset-1 border-blue-600' 
+                : 'border-slate-200/80 hover:border-blue-400 bg-white'
             }`}
             aria-label="User Profile"
           >
-            <div className="w-full h-full rounded-full overflow-hidden border border-slate-200/90 bg-slate-50 flex items-center justify-center">
+            <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
               {userPhoto ? (
                 <img 
                   src={userPhoto} 
@@ -129,8 +137,8 @@ export default function Header({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-blue-50/90 hover:bg-blue-100 text-blue-600 flex items-center justify-center transition-colors">
-                  <User className="w-4 h-4 stroke-[2.3]" />
+                <div className="w-full h-full bg-blue-50/70 hover:bg-blue-100/70 text-blue-600 flex items-center justify-center transition-colors">
+                  <User className="w-4 h-4 stroke-[2.2]" />
                 </div>
               )}
             </div>

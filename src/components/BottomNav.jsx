@@ -12,12 +12,12 @@ export default function BottomNav({ activeTab, onTabChange }) {
 
   return (
     <div 
-      className="shrink-0 z-30 px-3.5 pt-1 select-none pointer-events-auto bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent"
-      style={{ paddingBottom: 'max(0.625rem, env(safe-area-inset-bottom, 0.625rem))' }}
+      className="shrink-0 z-30 px-3 pt-1 select-none pointer-events-auto bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent"
+      style={{ paddingBottom: 'max(0.65rem, env(safe-area-inset-bottom, 0.65rem))' }}
     >
-      {/* Stabilized fixed-height pill navigation with equal 20% slots (No layout shift) */}
+      {/* Floating Dark Navy Pill Bar matching reference screenshot */}
       <nav 
-        className="w-full h-[54px] bg-[#0b162c] border border-white/10 shadow-2xl shadow-blue-950/50 rounded-full p-1.5 flex items-center"
+        className="w-full h-[58px] bg-[#0b162c] border border-white/10 shadow-2xl shadow-blue-950/60 rounded-full p-1.5 flex items-center justify-around"
         role="navigation"
         aria-label="Bottom Navigation"
       >
@@ -32,20 +32,20 @@ export default function BottomNav({ activeTab, onTabChange }) {
             >
               <button
                 onClick={() => onTabChange(tab.id)}
-                className={`relative flex items-center justify-center rounded-full transition-colors duration-150 focus:outline-none ${
+                className={`relative flex items-center justify-center rounded-full transition-all duration-200 focus:outline-none cursor-pointer ${
                   isActive
-                    ? 'w-full h-full max-w-[68px] bg-white text-blue-600 shadow-md shadow-black/20 flex-col'
-                    : 'w-full h-full text-slate-400 hover:text-white active:scale-95'
+                    ? 'w-full h-full max-w-[74px] bg-white text-[#1d61f2] shadow-md shadow-black/25 flex-col py-0.5'
+                    : 'w-full h-full text-slate-300 hover:text-white active:scale-95'
                 }`}
                 aria-label={tab.label}
               >
                 <div className="relative flex items-center justify-center">
                   <Icon 
-                    className={`w-4 h-4 ${isActive ? 'stroke-[2.5] text-blue-600' : 'stroke-[1.8]'}`} 
+                    className={`w-4.5 h-4.5 ${isActive ? 'stroke-[2.5] text-[#1d61f2]' : 'stroke-[1.9]'}`} 
                   />
-                  {/* Notification badge on inactive tabs */}
+                  {/* Notification badge on inactive tabs (Matches Screenshot on Reports tab) */}
                   {tab.badge && !isActive && (
-                    <span className="absolute -top-1.5 -right-2 w-3.5 h-3.5 bg-blue-500 text-white text-[8px] font-black rounded-full flex items-center justify-center shadow-xs">
+                    <span className="absolute -top-1.5 -right-2 w-3.5 h-3.5 bg-[#1d61f2] text-white text-[8px] font-black rounded-full flex items-center justify-center shadow-xs ring-1 ring-[#0b162c]">
                       {tab.badge}
                     </span>
                   )}
@@ -53,7 +53,7 @@ export default function BottomNav({ activeTab, onTabChange }) {
 
                 {/* Active tab label */}
                 {isActive && (
-                  <span className="text-[9px] font-extrabold text-blue-600 mt-0.5 tracking-tight leading-none">
+                  <span className="text-[9.5px] font-extrabold text-[#1d61f2] mt-0.5 tracking-tight leading-none">
                     {tab.label}
                   </span>
                 )}

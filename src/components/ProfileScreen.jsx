@@ -703,9 +703,9 @@ export default function ProfileScreen({
                     key={st}
                     type="button"
                     onClick={() => setSelectedState(st)}
-                    className={`h-10 rounded-xl text-xs font-black transition-all active:scale-95 flex items-center justify-center ${
+                    className={`h-10 rounded-xl text-xs font-black transition-all active:scale-95 flex items-center justify-center cursor-pointer ${
                       selectedState === st
-                        ? 'bg-[#0c1f3d] text-white shadow-xs'
+                        ? 'bg-[#0b162c] text-white shadow-xs'
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                   >

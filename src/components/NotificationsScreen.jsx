@@ -111,8 +111,8 @@ export default function NotificationsScreen({ onNavigate, onBack, onUnreadChange
         )}
       </div>
 
-      {/* Ultra Compact Notifications Cards Listing */}
-      <div className="space-y-1.5">
+      {/* Compact Notifications Cards Listing */}
+      <div className="space-y-2">
         {notifications.map((item) => {
           const Icon = item.icon;
           const isUnread = item.unread;
@@ -121,42 +121,42 @@ export default function NotificationsScreen({ onNavigate, onBack, onUnreadChange
             <div
               key={item.id}
               onClick={() => handleCardClick(item)}
-              className={`rounded-lg py-2 px-2.5 bg-white shadow-xs transition-all cursor-pointer active:scale-[0.99] ${
+              className={`rounded-2xl py-3 px-3.5 bg-white transition-all cursor-pointer active:scale-[0.99] ${
                 isUnread 
                   ? 'border-[1.5px] border-blue-400/90 shadow-xs bg-gradient-to-r from-blue-50/20 via-white to-white' 
-                  : 'border border-slate-200/80 hover:border-slate-300'
+                  : 'border border-slate-200/80 hover:border-slate-300 shadow-2xs'
               }`}
             >
-              <div className="flex items-start gap-2.5">
-                {/* Ultra-compact squircle icon */}
-                <div className={`w-7 h-7 rounded-md ${item.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
-                  <Icon className="w-3.5 h-3.5 stroke-[2.2]" />
+              <div className="flex items-start gap-3">
+                {/* Compact squircle icon */}
+                <div className={`w-8 h-8 rounded-xl ${item.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
+                  <Icon className="w-4 h-4 stroke-[2.2]" />
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-1.5">
-                    <h2 className="font-heading font-bold text-[11.5px] text-slate-900 leading-none truncate">
+                    <h2 className="font-heading font-bold text-xs text-slate-900 leading-none truncate">
                       {item.title}
                     </h2>
-                    <div className="flex items-center shrink-0 text-[9.5px] text-slate-400 font-medium">
+                    <div className="flex items-center shrink-0 text-[10px] text-slate-400 font-medium">
                       <span>{item.time}</span>
                       {/* Blue unread dot indicator */}
                       {isUnread && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block ml-1 shadow-xs" />
+                        <span className="w-2 h-2 rounded-full bg-[#1d61f2] inline-block ml-1.5 shadow-xs" />
                       )}
                     </div>
                   </div>
 
-                  <p className="text-[10px] text-slate-500 leading-tight mt-1 line-clamp-1">
+                  <p className="text-[10.5px] text-slate-500 leading-normal mt-1 line-clamp-2">
                     {item.desc}
                   </p>
 
                   {/* Micro Action Link */}
-                  <div className="mt-1 flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-0.5">
+                  <div className="mt-1.5 flex items-center justify-between">
+                    <span className="text-[10.5px] font-bold text-[#1d61f2] hover:underline inline-flex items-center gap-0.5">
                       <span>{item.actionText}</span>
-                      <ChevronRight className="w-2.5 h-2.5 stroke-[2.5]" />
+                      <ChevronRight className="w-3 h-3 stroke-[2.5]" />
                     </span>
                   </div>
                 </div>
