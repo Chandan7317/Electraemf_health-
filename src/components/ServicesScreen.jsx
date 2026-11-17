@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { 
   Search, ShieldAlert, Phone, Mail, Calendar, FileText, 
@@ -10,6 +10,51 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [activeModalProtocol, setActiveModalProtocol] = useState(null);
+
+  // Horizontal Filter Scroll Ref & Mouse Dragging / Wheel Support
+  const filterScrollRef = useRef(null);
+  const isDraggingFilters = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartScrollLeft = useRef(0);
+  const hasDraggedFilter = useRef(false);
+
+  // Enable Mouse Wheel Horizontal Scrolling on Filter Pills
+  useEffect(() => {
+    const el = filterScrollRef.current;
+    if (!el) return;
+
+    const onWheel = (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY * 1.2;
+      }
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, []);
+
+  const handleFilterMouseDown = (e) => {
+    if (!filterScrollRef.current) return;
+    isDraggingFilters.current = true;
+    hasDraggedFilter.current = false;
+    dragStartX.current = e.pageX - filterScrollRef.current.offsetLeft;
+    dragStartScrollLeft.current = filterScrollRef.current.scrollLeft;
+  };
+
+  const handleFilterMouseMove = (e) => {
+    if (!isDraggingFilters.current || !filterScrollRef.current) return;
+    const x = e.pageX - filterScrollRef.current.offsetLeft;
+    const walk = (x - dragStartX.current) * 1.4;
+    if (Math.abs(x - dragStartX.current) > 5) {
+      hasDraggedFilter.current = true;
+    }
+    filterScrollRef.current.scrollLeft = dragStartScrollLeft.current - walk;
+  };
+
+  const handleFilterMouseUpOrLeave = () => {
+    isDraggingFilters.current = false;
+  };
 
   const filters = [
     { id: 'all', label: 'All Protocols (14)' },
@@ -66,7 +111,7 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
         { title: 'AAMI / ISO 14117', desc: 'Cardiac device profiling' },
         { title: 'Emergency Triage', desc: 'Work & home safety mapping' }
       ],
-      actionLabel: 'Emergency Consult',
+      actionLabel: 'Emergency Call',
       actionPhone: true
     },
     {
@@ -97,7 +142,7 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
         { title: 'Pediatric Protection', desc: 'Shielding developing bodies' },
         { title: 'School Board Briefs', desc: 'Clear legal presentations' }
       ],
-      actionLabel: 'Request School Audit'
+      actionLabel: 'School Audit'
     },
     {
       id: 'real-estate-due-diligence',
@@ -127,7 +172,7 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
         { title: 'Liability Reduction', desc: 'Boardroom accountability' },
         { title: 'Server Reliability', desc: 'Eliminate ground loop noise' }
       ],
-      actionLabel: 'Propose Assessment'
+      actionLabel: 'Facility Audit'
     }
   ];
 
@@ -142,23 +187,13 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
 
   return (
     <div className="space-y-4 pb-24">
-      {/* 1. DIRECTORY TITLE & METADATA (Exact Image 1) */}
-      <div className="space-y-1.5 px-0.5">
-        <div className="flex items-center justify-between text-[9px] font-extrabold uppercase tracking-wider text-slate-500">
-          <span className="flex items-center gap-1 text-blue-600">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-            FIELD-PROVEN DIAGNOSTICS
-          </span>
-          <span className="bg-slate-100 px-2 py-0.5 rounded text-slate-600">
-            25+ YEARS EXP • TRI-STATE
-          </span>
-        </div>
-
-        <h1 className="text-xl sm:text-2xl font-extrabold font-heading text-slate-900 leading-tight">
+      {/* 1. DIRECTORY TITLE & METADATA */}
+      <div className="space-y-1 px-0.5">
+        <h1 className="text-lg sm:text-xl font-bold font-heading text-slate-900 tracking-tight leading-snug">
           Clinical & Industrial EMF Directory
         </h1>
 
-        <p className="text-xs text-slate-600 leading-relaxed">
+        <p className="text-xs text-slate-500 leading-relaxed">
           14 Comprehensive Technical Doctor Protocols conducted by certified electronic engineers and published industrial hygienists.
         </p>
       </div>
@@ -183,15 +218,25 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
         )}
       </div>
 
-      {/* 3. FILTER PILLS */}
-      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+      {/* 3. FILTER PILLS WITH MOUSE WHEEL & DRAG SUPPORT */}
+      <div
+        ref={filterScrollRef}
+        onMouseDown={handleFilterMouseDown}
+        onMouseMove={handleFilterMouseMove}
+        onMouseUp={handleFilterMouseUpOrLeave}
+        onMouseLeave={handleFilterMouseUpOrLeave}
+        className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 select-none cursor-grab active:cursor-grabbing"
+      >
         {filters.map((f) => {
           const isSelected = selectedFilter === f.id;
           return (
             <button
               key={f.id}
-              onClick={() => setSelectedFilter(f.id)}
-              className={`h-8.5 px-3.5 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer ${
+              onClick={() => {
+                if (hasDraggedFilter.current) return;
+                setSelectedFilter(f.id);
+              }}
+              className={`h-8.5 px-3.5 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer shrink-0 ${
                 isSelected
                   ? 'bg-[#0b162c] text-white font-extrabold shadow-sm'
                   : 'bg-white text-slate-700 border border-slate-200/90 hover:bg-slate-50 font-bold'
@@ -218,38 +263,31 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
               </div>
             )}
 
-            {/* Banner Image with Tags */}
-            <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
+            {/* Banner Image */}
+            <div className="relative h-44 sm:h-48 w-full bg-slate-100 overflow-hidden">
               <img 
                 src={item.image} 
                 alt={item.title} 
-                className="w-full h-full object-cover opacity-90"
+                className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.src = "/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg";
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-              {/* Top Tag */}
-              {!item.isCritical && item.tagTop && (
-                <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-extrabold text-white border border-white/10">
-                  {item.tagTop}
-                </div>
-              )}
-
-              {/* Bottom Image Badges */}
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-bold text-white">
-                <span className="bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/20">
-                  {item.tagImgLeft}
-                </span>
-                <span className="bg-[#1d61f2] px-2.5 py-0.5 rounded-full text-white font-extrabold">
-                  {item.protocolCode}
-                </span>
-              </div>
             </div>
 
             {/* Content Container */}
             <div className="px-4 space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-extrabold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">
+                  {item.protocolCode}
+                </span>
+                {item.tagTop && !item.isCritical && (
+                  <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                    {item.tagTop}
+                  </span>
+                )}
+              </div>
+
               <h3 className="font-heading font-extrabold text-sm sm:text-base text-slate-900 leading-snug">
                 {item.title}
               </h3>
@@ -273,13 +311,13 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-2.5 pt-1">
+              <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
                   onClick={() => setActiveModalProtocol(item)}
-                  className="h-10 px-3.5 rounded-xl bg-white border border-slate-200/90 text-slate-800 font-bold text-xs hover:bg-slate-50 active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
+                  className="h-9 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-bold text-[11px] sm:text-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer min-w-0"
                 >
-                  <FileText className="w-3.5 h-3.5 text-slate-500" />
-                  <span>View Protocol</span>
+                  <FileText className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                  <span className="truncate">View Protocol</span>
                 </button>
 
                 <button
@@ -291,10 +329,10 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
                       onBookService(item);
                     }
                   }}
-                  className="h-10 px-3.5 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-extrabold text-xs active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                  className="h-9 px-2 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-bold text-[11px] sm:text-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 shadow-xs cursor-pointer min-w-0"
                 >
-                  {item.actionPhone ? <Phone className="w-3.5 h-3.5" /> : <Calendar className="w-3.5 h-3.5" />}
-                  <span>{item.actionLabel}</span>
+                  {item.actionPhone ? <Phone className="w-3.5 h-3.5 shrink-0" /> : <Calendar className="w-3.5 h-3.5 shrink-0" />}
+                  <span className="truncate">{item.actionLabel}</span>
                 </button>
               </div>
             </div>
@@ -385,7 +423,7 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
             <div className="grid grid-cols-2 gap-2 pt-2">
               <button
                 onClick={() => setActiveModalProtocol(null)}
-                className="py-2.5 rounded-2xl bg-slate-100 text-slate-700 font-bold text-xs"
+                className="h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] sm:text-xs active:scale-[0.98] transition-all flex items-center justify-center cursor-pointer"
               >
                 Close
               </button>
@@ -396,9 +434,10 @@ export default function ServicesScreen({ onNavigate, onOpenCall, onBookService, 
                   toast.success(`Selected ${prot.protocolCode}: ${prot.title}`, { id: 'service-toast' });
                   onBookService(prot);
                 }}
-                className="py-2.5 rounded-2xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700"
+                className="h-9 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-bold text-[11px] sm:text-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
               >
-                Request Audit
+                <Calendar className="w-3.5 h-3.5 shrink-0" />
+                <span>Book Protocol</span>
               </button>
             </div>
           </div>
