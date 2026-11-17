@@ -91,17 +91,17 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
           {/* 3-Column Credential Stats Strip with React Icons */}
           <div className="grid grid-cols-3 gap-1 py-2 px-1 bg-slate-50/90 rounded-2xl text-center">
             <div className="flex flex-col items-center justify-center p-1">
-              <ShieldCheck className="w-4 h-4 text-blue-600 mb-0.5" />
+              <ShieldCheck className="w-4 h-4 text-[#1d61f2] mb-0.5" />
               <span className="font-heading font-extrabold text-xs text-slate-900">20+ Years</span>
               <span className="text-[9px] text-slate-500 font-medium">Field Practice</span>
             </div>
             <div className="flex flex-col items-center justify-center p-1 border-x border-slate-200">
-              <Award className="w-4 h-4 text-indigo-600 mb-0.5" />
-              <span className="font-heading font-extrabold text-xs text-blue-600">State Lic.</span>
+              <Award className="w-4 h-4 text-[#1d61f2] mb-0.5" />
+              <span className="font-heading font-extrabold text-xs text-[#1d61f2]">State Lic.</span>
               <span className="text-[9px] text-slate-500 font-medium">IBEW Systems</span>
             </div>
             <div className="flex flex-col items-center justify-center p-1">
-              <Scale className="w-4 h-4 text-amber-600 mb-0.5" />
+              <Scale className="w-4 h-4 text-amber-500 mb-0.5" />
               <span className="font-heading font-extrabold text-xs text-slate-900">Court Expert</span>
               <span className="text-[9px] text-slate-500 font-medium">Sworn Witness</span>
             </div>
@@ -110,7 +110,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
           {/* Clean 4 Feature Pills with React Icons (Replaces text clutter) */}
           <div className="grid grid-cols-2 gap-2 text-[11px] font-bold text-slate-700">
             <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
-              <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-[#1d61f2] shrink-0" />
               <span className="truncate">EMF / RF Dosimetry</span>
             </div>
             <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
@@ -152,7 +152,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
       <div className="space-y-2">
         <div className="flex items-center justify-between text-xs font-extrabold text-slate-800 uppercase tracking-wide px-1">
           <span>FIELD DIAGNOSTICS & FORENSIC UNITS</span>
-          <span className="text-[10px] text-blue-600 font-bold">Tri-State Archive</span>
+          <span className="text-[10px] text-[#1d61f2] font-bold">Tri-State Archive</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
@@ -186,11 +186,11 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
       <div className="bg-white rounded-[26px] p-5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#edf3fe] text-[#1d61f2] flex items-center justify-center">
               <MapPin className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block">
+              <span className="text-[9px] font-black uppercase tracking-wider text-[#1d61f2] block">
                 LICENSED REGIONAL DISPATCH
               </span>
               <h3 className="font-heading font-extrabold text-sm text-slate-900">
@@ -198,7 +198,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
               </h3>
             </div>
           </div>
-          <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9.5px] font-extrabold border border-emerald-200">
+          <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9.5px] font-extrabold border border-emerald-200/60">
             Active On-Call
           </span>
         </div>
@@ -221,9 +221,9 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         </div>
 
         {/* Active Hub Card Details */}
-        <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 space-y-2.5">
+        <div className="p-4 rounded-2xl bg-[#edf3fe]/60 border border-blue-100/80 space-y-2.5">
           <div className="flex items-center justify-between">
-            <h4 className="font-extrabold text-xs text-blue-950">{hub.name}</h4>
+            <h4 className="font-extrabold text-xs text-slate-900">{hub.name}</h4>
             <span className="text-[9.5px] font-black px-2 py-0.5 rounded-md bg-[#1d61f2] text-white">
               {hub.response}
             </span>
@@ -238,7 +238,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
             </p>
           </div>
 
-          <div className="pt-2 border-t border-blue-200/50 flex items-center justify-between gap-2">
+          <div className="pt-2 border-t border-blue-100/80 flex items-center justify-between gap-2">
             <div className="min-w-0">
               <span className="text-[9px] font-bold text-slate-400 uppercase block">Regional Direct Line</span>
               <span className="text-xs font-black text-slate-900">{hub.phone}</span>
@@ -258,11 +258,11 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
       {/* 4. WHY LICENSURE & MEDICAL AUTHORITY MATTER */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] space-y-3.5">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center shadow-xs shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1d61f2] to-[#0b162c] text-white flex items-center justify-center shadow-xs shrink-0">
             <ShieldCheck className="w-5 h-5 text-white" />
           </div>
           <div className="min-w-0">
-            <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block">
+            <span className="text-[9px] font-black uppercase tracking-wider text-[#1d61f2] block">
               CREDENTIAL INTEGRITY
             </span>
             <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-tight">
@@ -275,7 +275,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         </div>
 
         {/* Box A: IBEW STATE-LICENSED ENGINEER */}
-        <div className="p-3.5 rounded-2xl bg-gradient-to-b from-blue-50/70 to-white border border-blue-200/70 shadow-2xs space-y-2.5">
+        <div className="p-3.5 rounded-2xl bg-gradient-to-b from-[#edf3fe]/80 to-white border border-blue-200/60 shadow-2xs space-y-2.5">
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <span className="px-2 py-0.5 rounded-md bg-[#1d61f2] text-white text-[9px] font-extrabold uppercase tracking-wide">
               IBEW STATE-LICENSED ENGINEER
@@ -294,19 +294,19 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
 
           <div className="space-y-1.5 text-[11px] text-slate-600">
             <div className="flex items-start gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1d61f2] mt-1.5 shrink-0" />
               <p className="leading-snug">
                 <strong className="text-slate-800">10,000+ required professional hours</strong> before state engineering board examination.
               </p>
             </div>
             <div className="flex items-start gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1d61f2] mt-1.5 shrink-0" />
               <p className="leading-snug">
                 <strong className="text-slate-800">Lawfully certified</strong> to place scientific probes, trace grounding loops, and measure contact current safely without risk of shock or fire.
               </p>
             </div>
             <div className="flex items-start gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1d61f2] mt-1.5 shrink-0" />
               <p className="leading-snug">
                 <strong className="text-slate-800">Forensic legal standing</strong> admissible across judicial, insurance, and municipal venues.
               </p>
@@ -355,7 +355,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         </div>
 
         {/* Peer Review Callout */}
-        <div className="p-3.5 rounded-2xl bg-[#0b162c] text-white flex items-start gap-3 shadow-xs border border-slate-800/80">
+        <div className="p-3.5 rounded-2xl bg-[#0b162c] text-white flex items-start gap-3 shadow-xs border border-white/10">
           <div className="w-8 h-8 rounded-xl bg-cyan-400/15 border border-cyan-400/30 flex items-center justify-center shrink-0 text-cyan-300 mt-0.5">
             <BookOpen className="w-4 h-4" />
           </div>
@@ -378,7 +378,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
       {/* 5. sC-Ve ®™ CLINICAL DIAGNOSTIC PROTOCOL (Exact Image 3) */}
       <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3.5">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-cyan-50 text-cyan-700 flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-[#edf3fe] text-[#1d61f2] flex items-center justify-center shrink-0">
             <Stethoscope className="w-4 h-4" />
           </div>
           <div>
@@ -398,7 +398,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         <div className="space-y-2 pt-1">
           <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
             <span className="text-xs font-bold text-slate-900 block flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-blue-600" />
+              <span className="w-2 h-2 rounded-full bg-[#1d61f2]" />
               Neuropathological Symptoms
             </span>
             <p className="text-[11px] text-slate-600 leading-relaxed">
@@ -431,7 +431,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
       {/* 6. COURT-ADMISSIBLE EVIDENTIARY STANDARDS (Exact Image 3) */}
       <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3.5">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-[#edf3fe] text-[#1d61f2] flex items-center justify-center shrink-0">
             <Scale className="w-4 h-4" />
           </div>
           <div>
@@ -446,37 +446,37 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
 
         {/* 2 Big Stat Cards */}
         <div className="grid grid-cols-2 gap-2.5">
-          <div className="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 text-center space-y-0.5">
-            <span className="text-[9px] font-black uppercase text-blue-600 block">SETTLEMENT EFFICACY</span>
-            <span className="font-heading font-black text-2xl text-blue-700 block">95%</span>
+          <div className="p-3.5 rounded-2xl bg-[#edf3fe]/70 border border-blue-100/80 text-center space-y-0.5">
+            <span className="text-[9px] font-black uppercase text-[#1d61f2] block">SETTLEMENT EFFICACY</span>
+            <span className="font-heading font-black text-2xl text-[#0b162c] block">95%</span>
             <span className="text-[10px] text-slate-600 block">Resolved favorably prior to trial</span>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 text-center space-y-0.5">
-            <span className="text-[9px] font-black uppercase text-blue-600 block">REHABILITATED VALUE</span>
-            <span className="font-heading font-black text-2xl text-blue-700 block">Up to 80%</span>
+          <div className="p-3.5 rounded-2xl bg-[#edf3fe]/70 border border-blue-100/80 text-center space-y-0.5">
+            <span className="text-[9px] font-black uppercase text-[#1d61f2] block">REHABILITATED VALUE</span>
+            <span className="font-heading font-black text-2xl text-[#0b162c] block">Up to 80%</span>
             <span className="text-[10px] text-slate-600 block">Stigmatized property equity restored</span>
           </div>
         </div>
 
         <ul className="space-y-2 pt-1 text-xs text-slate-600">
           <li className="flex items-start gap-2">
-            <Building2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+            <Building2 className="w-4 h-4 text-[#1d61f2] shrink-0 mt-0.5" />
             <p><strong className="text-slate-900">Judicial Jurisdictions:</strong> Sworn testimony delivered in New York Supreme Courts (Manhattan, Westchester), New Jersey Superior Courts, and administrative arbitration panels.</p>
           </li>
           <li className="flex items-start gap-2">
-            <Scale className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+            <Scale className="w-4 h-4 text-[#1d61f2] shrink-0 mt-0.5" />
             <p><strong className="text-slate-900">Transactional Due Diligence:</strong> Providing definitive technical evidence for commercial lease rescissions, buyer escrow cancellations, and property tort settlements.</p>
           </li>
           <li className="flex items-start gap-2">
-            <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+            <ShieldCheck className="w-4 h-4 text-[#1d61f2] shrink-0 mt-0.5" />
             <p><strong className="text-slate-900">Municipal & Union Trust:</strong> Retained for electromagnetic exposure audits by PBA, FOP police officers, public school districts, and Fortune 500 communications centers.</p>
           </li>
         </ul>
       </div>
 
       {/* 7. DIRECT ACCESS CHANNEL BANNER (Exact Image 3) */}
-      <div className="rounded-3xl bg-[#0b1c3b] text-white p-5 shadow-xl space-y-3">
+      <div className="rounded-3xl bg-[#0b162c] border border-white/10 text-white p-5 shadow-xl space-y-3">
         <div className="space-y-1">
           <span className="text-[9px] font-black uppercase tracking-wider text-cyan-300">
             • DIRECT ACCESS CHANNEL
@@ -484,7 +484,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
           <h3 className="font-heading font-extrabold text-base text-white">
             Speak Directly With Dr. Joseph Dumanov
           </h3>
-          <p className="text-xs text-blue-100/90 leading-relaxed">
+          <p className="text-xs text-slate-300 leading-relaxed">
             Free initial case evaluations for home buyers, affected families, physicians, attorneys, and corporate facility directors.
           </p>
         </div>
@@ -492,7 +492,7 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         <div className="space-y-2 pt-1">
           <a
             href="tel:3474919867"
-            className="w-full h-11 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md"
+            className="w-full h-11 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md cursor-pointer"
           >
             <Phone className="w-3.5 h-3.5" />
             <span>Call (347) 491-9867</span>
@@ -500,14 +500,14 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
 
           <a
             href="mailto:EMFmedicalExpert@gmail.com"
-            className="w-full h-11 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-2 border border-white/20 transition-all active:scale-95"
+            className="w-full h-11 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-2 border border-white/20 transition-all active:scale-95 cursor-pointer"
           >
             <Mail className="w-3.5 h-3.5" />
             <span>EMFmedicalExpert@gmail.com</span>
           </a>
         </div>
 
-        <p className="text-[9px] text-center text-blue-200/60 pt-1 border-t border-white/10">
+        <p className="text-[9px] text-center text-slate-400 pt-1 border-t border-white/10">
           Serving NY • NJ • CT • PA • DE since 2003. Confidential and court-compliant.
         </p>
       </div>
