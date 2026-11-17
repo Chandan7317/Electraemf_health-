@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { 
-  ShieldCheck, Phone, Mail, Award, CheckCircle2, 
+import {
+  ShieldCheck, Phone, Mail, Award, CheckCircle2,
   XCircle, AlertTriangle, BookOpen, Scale, ArrowRight,
   ExternalLink, Building2, UserCheck, Stethoscope, MapPin, Clock
 } from 'lucide-react';
@@ -60,113 +60,91 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
   const hub = regionalHubs[selectedRegion];
   return (
     <div className="space-y-4 pb-24">
-      {/* 1. TOP LICENSURE STRIP (Exact Image 3) */}
-      <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wide text-slate-500 px-0.5">
-        <span className="flex items-center gap-1 text-blue-600">
-          <span className="text-amber-500">⚡</span>
-          State & Industry Licensed: NY • NJ • CT • PA • DE
-        </span>
-        <span className="bg-slate-100 px-2 py-0.5 rounded text-slate-600 font-bold">
-          EST. 2003
-        </span>
-      </div>
+      {/* 1. CHIEF SCIENTIST PROFILE CARD */}
+      <div className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] space-y-3.5 pb-4">
+        {/* Full Visual Banner Image */}
+        <div className="relative h-44 sm:h-52 w-full bg-slate-900 overflow-hidden">
+          <img
+            src="/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg"
+            alt="Prof. Dr. Joseph Dumanov - Chief Scientist"
+            className="w-full h-full object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
 
-      {/* 2. CHIEF SCIENTIST PROFILE CARD */}
-      <div className="bg-white rounded-[26px] p-5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-4">
-        {/* Doctor Photo & Badges */}
-        <div className="flex items-start gap-4">
-          <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-900 border-2 border-white shadow-md shrink-0">
-            <img 
-              src="/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg" 
-              alt="Prof. Dr. Joseph Dumanov" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-blue-600/10 mix-blend-overlay" />
-          </div>
-
-          <div className="space-y-1 min-w-0 flex-1">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="px-2 py-0.2 rounded-full bg-[#1d61f2] text-white text-[9px] font-black uppercase">
-                CHIEF SCIENTIST
-              </span>
-              <span className="px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold">
-                IEEE & Eng
-              </span>
-            </div>
-
-            <h2 className="font-heading font-extrabold text-base text-slate-900 leading-snug">
+          {/* Bottom Title on Image Gradient */}
+          <div className="absolute bottom-3 left-3 right-3 text-white">
+            <h2 className="font-heading font-extrabold text-base sm:text-lg text-white leading-tight">
               Prof. Dr. Joseph Dumanov
             </h2>
-
-            <p className="text-[11px] font-bold text-[#1d61f2] leading-tight">
+            <p className="text-[11px] text-cyan-300 font-bold leading-tight">
               Chief Clinical Industrial Hygienist & Electronics Engineer
             </p>
-
-            <p className="text-[10px] text-slate-400 leading-tight">
-              Former IBEW Systems Engineering • Tri-State Forensic Specialist
-            </p>
+            <div className="flex items-center gap-1 text-[10px] text-slate-300 font-medium mt-0.5">
+              <MapPin className="w-3 h-3 text-cyan-400 shrink-0" />
+              <span>Tri-State Lead • NY, NJ, CT, PA, DE</span>
+            </div>
           </div>
         </div>
 
-        {/* 4 Credential Pills */}
-        <div className="grid grid-cols-2 gap-1.5 pt-1">
-          <div className="p-1.5 px-2.5 rounded-xl bg-blue-50/70 border border-blue-100 text-[10px] font-bold text-blue-900 flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-            <span className="truncate">IBEW State & Industry Licensed</span>
+        {/* Card Body Container */}
+        <div className="px-4 space-y-3">
+          {/* 3-Column Credential Stats Strip with React Icons */}
+          <div className="grid grid-cols-3 gap-1 py-2 px-1 bg-slate-50/90 rounded-2xl text-center">
+            <div className="flex flex-col items-center justify-center p-1">
+              <ShieldCheck className="w-4 h-4 text-blue-600 mb-0.5" />
+              <span className="font-heading font-extrabold text-xs text-slate-900">20+ Years</span>
+              <span className="text-[9px] text-slate-500 font-medium">Field Practice</span>
+            </div>
+            <div className="flex flex-col items-center justify-center p-1 border-x border-slate-200">
+              <Award className="w-4 h-4 text-indigo-600 mb-0.5" />
+              <span className="font-heading font-extrabold text-xs text-blue-600">State Lic.</span>
+              <span className="text-[9px] text-slate-500 font-medium">IBEW Systems</span>
+            </div>
+            <div className="flex flex-col items-center justify-center p-1">
+              <Scale className="w-4 h-4 text-amber-600 mb-0.5" />
+              <span className="font-heading font-extrabold text-xs text-slate-900">Court Expert</span>
+              <span className="text-[9px] text-slate-500 font-medium">Sworn Witness</span>
+            </div>
           </div>
-          <div className="p-1.5 px-2.5 rounded-xl bg-blue-50/70 border border-blue-100 text-[10px] font-bold text-blue-900 flex items-center gap-1.5">
-            <Scale className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-            <span className="truncate">Court-Certified Expert Witness</span>
-          </div>
-          <div className="p-1.5 px-2.5 rounded-xl bg-blue-50/70 border border-blue-100 text-[10px] font-bold text-blue-900 flex items-center gap-1.5">
-            <Stethoscope className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-            <span className="truncate">Clinical Epidemiologist & Toxicologist</span>
-          </div>
-          <div className="p-1.5 px-2.5 rounded-xl bg-blue-50/70 border border-blue-100 text-[10px] font-bold text-blue-900 flex items-center gap-1.5">
-            <UserCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-            <span className="truncate">Child Protection Court Advocate</span>
-          </div>
-        </div>
 
-        {/* 3 Detailed Practice Highlights */}
-        <div className="space-y-2 pt-1 border-t border-slate-50 text-xs text-slate-600">
-          <div className="flex items-start gap-2">
-            <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong className="text-slate-900">20+ Years Specialized Engineering Practice:</strong> Conducting certified EMF/RF hazard dosimetry and clinical epidemiology across NY, NJ, CT, DE, and PA since 2003.
-            </p>
+          {/* Clean 4 Feature Pills with React Icons (Replaces text clutter) */}
+          <div className="grid grid-cols-2 gap-2 text-[11px] font-bold text-slate-700">
+            <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
+              <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+              <span className="truncate">EMF / RF Dosimetry</span>
+            </div>
+            <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
+              <Stethoscope className="w-4 h-4 text-rose-500 shrink-0" />
+              <span className="truncate">Clinical Epidemiology</span>
+            </div>
+            <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
+              <Scale className="w-4 h-4 text-amber-600 shrink-0" />
+              <span className="truncate">Court Expert Witness</span>
+            </div>
+            <div className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
+              <UserCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span className="truncate">Child CASA Advocate</span>
+            </div>
           </div>
-          <div className="flex items-start gap-2">
-            <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong className="text-slate-900">Electrobiological Authority:</strong> Utilizing communications engineering tenure with published research in molecular DNA electroporation, neurology, and oncological correlation.
-            </p>
-          </div>
-          <div className="flex items-start gap-2">
-            <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong className="text-slate-900">Court-Appointed Special Advocate:</strong> Under sworn oath serving child protection services and family welfare regarding toxic environmental exposure hazards.
-            </p>
-          </div>
-        </div>
 
-        {/* Dual Action Buttons */}
-        <div className="grid grid-cols-2 gap-2.5 pt-1">
-          <button
-            onClick={onOpenCall}
-            className="h-10 px-3.5 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all cursor-pointer"
-          >
-            <Phone className="w-3.5 h-3.5" />
-            <span>347-491-9867</span>
-          </button>
+          {/* Dual Action Buttons */}
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            <button
+              onClick={onOpenCall}
+              className="h-9 px-2.5 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] transition-all cursor-pointer min-w-0"
+            >
+              <Phone className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">347-491-9867</span>
+            </button>
 
-          <a
-            href="mailto:EMFmedicalExpert@gmail.com"
-            className="h-10 px-3.5 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-all cursor-pointer"
-          >
-            <Mail className="w-3.5 h-3.5" />
-            <span>Email Expert</span>
-          </a>
+            <a
+              href="mailto:EMFmedicalExpert@gmail.com"
+              className="h-9 px-2.5 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.98] transition-all cursor-pointer min-w-0"
+            >
+              <Mail className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">Email Expert</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -179,9 +157,9 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
 
         <div className="grid grid-cols-2 gap-2.5">
           <div className="relative h-28 rounded-2xl overflow-hidden bg-slate-900 shadow-xs">
-            <img 
-              src="/assets/power_substation.jpg" 
-              alt="Substation Audit" 
+            <img
+              src="/assets/power_substation.jpg"
+              alt="Substation Audit"
               className="w-full h-full object-cover opacity-85"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -191,9 +169,9 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
           </div>
 
           <div className="relative h-28 rounded-2xl overflow-hidden bg-slate-900 shadow-xs">
-            <img 
-              src="/assets/5G-antenna-1030x896.jpg" 
-              alt="5G MIMO Analysis" 
+            <img
+              src="/assets/5G-antenna-1030x896.jpg"
+              alt="5G MIMO Analysis"
               className="w-full h-full object-cover opacity-85"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -232,11 +210,10 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
               key={stateCode}
               type="button"
               onClick={() => setSelectedRegion(stateCode)}
-              className={`h-9 rounded-xl text-xs font-black transition-all active:scale-95 flex items-center justify-center cursor-pointer ${
-                selectedRegion === stateCode
-                  ? 'bg-[#0b162c] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              className={`h-9 rounded-xl text-xs font-black transition-all active:scale-95 flex items-center justify-center cursor-pointer ${selectedRegion === stateCode
+                ? 'bg-[#0b162c] text-white shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+                }`}
             >
               {stateCode}
             </button>
@@ -278,60 +255,122 @@ export default function ExpertsScreen({ onOpenCall, onNavigate }) {
         </div>
       </div>
 
-      {/* 4. WHY LICENSURE & MEDICAL AUTHORITY MATTER (Exact Image 3) */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm space-y-3.5">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-4 h-4" />
+      {/* 4. WHY LICENSURE & MEDICAL AUTHORITY MATTER */}
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] space-y-3.5">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center shadow-xs shrink-0">
+            <ShieldCheck className="w-5 h-5 text-white" />
           </div>
-          <div>
-            <h3 className="font-heading font-extrabold text-sm text-slate-900">
+          <div className="min-w-0">
+            <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block">
+              CREDENTIAL INTEGRITY
+            </span>
+            <h3 className="font-heading font-extrabold text-sm text-slate-900 leading-tight">
               Why Licensure & Medical Authority Matter
             </h3>
-            <p className="text-[10px] text-slate-400">
+            <p className="text-[10px] text-slate-400 font-medium">
               Mandatory state credentials vs. amateur "meter readers"
             </p>
           </div>
         </div>
 
         {/* Box A: IBEW STATE-LICENSED ENGINEER */}
-        <div className="p-3.5 rounded-2xl bg-blue-50/60 border border-blue-200/80 space-y-1.5">
-          <div className="flex items-center justify-between">
-            <span className="px-2 py-0.5 rounded-md bg-blue-600 text-white text-[9px] font-extrabold uppercase">
+        <div className="p-3.5 rounded-2xl bg-gradient-to-b from-blue-50/70 to-white border border-blue-200/70 shadow-2xs space-y-2.5">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <span className="px-2 py-0.5 rounded-md bg-[#1d61f2] text-white text-[9px] font-extrabold uppercase tracking-wide">
               IBEW STATE-LICENSED ENGINEER
             </span>
-            <CheckCircle2 className="w-4 h-4 text-blue-600" />
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-100/80 text-emerald-800 border border-emerald-200/50">
+              <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+              <span>Lawfully Authorized</span>
+            </span>
           </div>
-          <h4 className="font-heading font-extrabold text-xs text-slate-900">
-            Lawful Authority to Inspect Live Circuits & Sub-Panels
-          </h4>
-          <p className="text-[11px] text-slate-600 leading-relaxed">
-            10,000+ required professional hours before state engineering examination. Lawfully certified to place scientific probes, trace grounding loops, and measure contact current safely without risk of shock or fire.
-          </p>
+
+          <div>
+            <h4 className="font-heading font-extrabold text-xs text-slate-900 leading-snug">
+              Lawful Authority to Inspect Live Circuits & Sub-Panels
+            </h4>
+          </div>
+
+          <div className="space-y-1.5 text-[11px] text-slate-600">
+            <div className="flex items-start gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+              <p className="leading-snug">
+                <strong className="text-slate-800">10,000+ required professional hours</strong> before state engineering board examination.
+              </p>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+              <p className="leading-snug">
+                <strong className="text-slate-800">Lawfully certified</strong> to place scientific probes, trace grounding loops, and measure contact current safely without risk of shock or fire.
+              </p>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+              <p className="leading-snug">
+                <strong className="text-slate-800">Forensic legal standing</strong> admissible across judicial, insurance, and municipal venues.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Box B: UNLICENSED "EMF CONSULTANT" */}
-        <div className="p-3.5 rounded-2xl bg-rose-50/60 border border-rose-200/80 space-y-1.5">
-          <div className="flex items-center justify-between">
-            <span className="px-2 py-0.5 rounded-md bg-rose-600 text-white text-[9px] font-extrabold uppercase">
+        <div className="p-3.5 rounded-2xl bg-gradient-to-b from-rose-50/60 to-white border border-rose-200/70 shadow-2xs space-y-2.5">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <span className="px-2 py-0.5 rounded-md bg-rose-600 text-white text-[9px] font-extrabold uppercase tracking-wide">
               UNLICENSED "EMF CONSULTANT"
             </span>
-            <XCircle className="w-4 h-4 text-rose-600" />
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-rose-100/80 text-rose-800 border border-rose-200/50">
+              <XCircle className="w-3 h-3 text-rose-600 shrink-0" />
+              <span>Prohibited by Law</span>
+            </span>
           </div>
-          <h4 className="font-heading font-extrabold text-xs text-slate-900">
-            Zero Legal Standing • Unlawful Circuit Tampering
-          </h4>
-          <p className="text-[11px] text-slate-600 leading-relaxed">
-            Self-appointed "ghostbuster" meter readers with 2-day online certificates. Unlawfully prohibited from opening breaker boxes or touching conductors; reports are systematically rejected in court proceedings.
-          </p>
+
+          <div>
+            <h4 className="font-heading font-extrabold text-xs text-slate-900 leading-snug">
+              Zero Legal Standing • Unlawful Circuit Tampering
+            </h4>
+          </div>
+
+          <div className="space-y-1.5 text-[11px] text-slate-600">
+            <div className="flex items-start gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0" />
+              <p className="leading-snug">
+                <strong className="text-slate-800">Self-appointed "meter readers"</strong> with 2-day online non-accredited certificates.
+              </p>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0" />
+              <p className="leading-snug">
+                <strong className="text-slate-800">Unlawfully prohibited</strong> from opening breaker boxes or touching conductors under state electrical safety codes.
+              </p>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0" />
+              <p className="leading-snug">
+                <strong className="text-slate-800">Systematically rejected</strong> in court proceedings and insurance reimbursement claims.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Peer Review Callout */}
-        <div className="p-3 rounded-2xl bg-[#0c1f3d] text-white flex items-center gap-3">
-          <BookOpen className="w-5 h-5 text-cyan-300 shrink-0" />
-          <div className="text-[11px] leading-snug">
-            <strong className="block text-white font-extrabold">Peer-Review Editorial Oversight</strong>
-            <span className="text-slate-300">Decoding the critical safety shortcomings and blindspots of outdated IEEE, FCC, ICNIRP, and CDC exposure levels.</span>
+        <div className="p-3.5 rounded-2xl bg-[#0b162c] text-white flex items-start gap-3 shadow-xs border border-slate-800/80">
+          <div className="w-8 h-8 rounded-xl bg-cyan-400/15 border border-cyan-400/30 flex items-center justify-center shrink-0 text-cyan-300 mt-0.5">
+            <BookOpen className="w-4 h-4" />
+          </div>
+          <div className="min-w-0 space-y-0.5">
+            <div className="flex items-center gap-1.5">
+              <strong className="font-heading font-extrabold text-xs text-white">
+                Peer-Review Editorial Oversight
+              </strong>
+              <span className="px-1.5 py-0.2 rounded bg-cyan-400/20 text-cyan-300 text-[8.5px] font-bold">
+                FORENSIC
+              </span>
+            </div>
+            <p className="text-[10.5px] text-slate-300 leading-relaxed font-normal">
+              Decoding the critical safety shortcomings and blindspots of outdated IEEE, FCC, ICNIRP, and CDC exposure levels.
+            </p>
           </div>
         </div>
       </div>
