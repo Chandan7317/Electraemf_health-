@@ -6,8 +6,8 @@ import {
   Sliders, Compass, FileText, Building2, School, HeartPulse,
   ExternalLink, Sparkles, Award, Radio
 } from 'lucide-react';
-import { FiMessageSquare, FiPhone, FiSearch, FiSliders, FiChevronRight } from 'react-icons/fi';
-import { RiFileUserLine, RiShieldCheckLine, RiScales3Line } from 'react-icons/ri';
+import { FiMessageSquare, FiPhone, FiChevronRight } from 'react-icons/fi';
+import { RiFileUserLine } from 'react-icons/ri';
 import { electraData } from '../data/electraData';
 
 export default function HomeDashboard({
@@ -416,41 +416,15 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 4. LICENSED CLINICAL TRIAGE CARD (Redesigned matching reference image without emoji, using react-icons) */}
+      {/* 4. LICENSED CLINICAL TRIAGE CARD */}
       <div className="bg-white rounded-[26px] p-4.5 border border-slate-100 shadow-[0_3px_12px_rgba(0,0,0,0.03)] space-y-3.5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex-1 min-w-0">
-            <h2 className="text-[17px] font-heading font-extrabold text-slate-900 leading-tight">
-              Licensed Clinical Triage
-            </h2>
-            <p className="text-[11.5px] text-slate-500 mt-1 leading-snug">
-              Direct physician-engineering consultation. Rapid zero-fee intake.
-            </p>
-          </div>
-
-          {/* Right Doctor Badge Pill */}
-          <div className="shrink-0 bg-[#f1f5fd] rounded-2xl p-2 px-2.5 border border-blue-100/70 flex items-center gap-2.5 shadow-2xs">
-            <div className="shrink-0">
-              <div className="w-10.5 h-10.5 rounded-xl overflow-hidden bg-slate-100 border border-white shadow-xs">
-                <img
-                  src="/assets/licensed-specialist-avatar.jpg"
-                  alt="Dr. J. Dumanov"
-                  className="w-full h-full object-cover object-top"
-                  onError={(e) => {
-                    e.target.src = "/assets/professional-engineer-avatar.jpg";
-                  }}
-                />
-              </div>
-            </div>
-            <div className="text-left pr-1">
-              <span className="text-[11.5px] font-extrabold text-slate-900 block leading-tight whitespace-nowrap">
-                Dr. J. Dumanov
-              </span>
-              <span className="text-[8.5px] font-extrabold text-[#1d61f2] tracking-wider uppercase block leading-tight mt-0.5 whitespace-nowrap">
-                CHIEF MEDICAL DX
-              </span>
-            </div>
-          </div>
+        <div>
+          <h2 className="text-[17px] font-heading font-extrabold text-slate-900 leading-tight">
+            Licensed Clinical Triage
+          </h2>
+          <p className="text-[11.5px] text-slate-500 mt-1 leading-normal">
+            Direct physician-engineering consultation. Rapid zero-fee intake.
+          </p>
         </div>
 
         {/* 3 Quick Action Buttons: Live Chat, Call Direct, Free DX (using react-icons) */}
@@ -462,7 +436,6 @@ export default function HomeDashboard({
           >
             <FiMessageSquare className="w-5 h-5 text-[#1d61f2] stroke-[2.2] group-hover:scale-105 transition-transform" />
             <span className="text-xs font-extrabold text-slate-900 mt-2 leading-none">Live Chat</span>
-            <span className="text-[10px] text-slate-400 font-medium mt-1 leading-none">Avg 2m</span>
           </button>
 
           {/* Button 2: Call Direct */}
@@ -472,7 +445,6 @@ export default function HomeDashboard({
           >
             <FiPhone className="w-5 h-5 text-[#1d61f2] stroke-[2.2] group-hover:scale-105 transition-transform" />
             <span className="text-xs font-extrabold text-slate-900 mt-2 leading-none">Call Direct</span>
-            <span className="text-[10px] text-slate-400 font-medium mt-1 leading-none">347-491-9867</span>
           </button>
 
           {/* Button 3: Free DX */}
@@ -486,7 +458,6 @@ export default function HomeDashboard({
             >
               <RiFileUserLine className="w-5 h-5 text-[#1d61f2] group-hover:scale-105 transition-transform" />
               <span className="text-xs font-extrabold text-slate-900 mt-2 leading-none">Free DX</span>
-              <span className="text-[10px] text-[#1d61f2] font-bold mt-1 leading-none">Case Review</span>
             </button>
           </div>
         </div>
@@ -546,7 +517,7 @@ export default function HomeDashboard({
         {/* Card 1: Find Services */}
         <button
           onClick={() => onNavigate('services')}
-          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-blue-500/30 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-end h-[140px] sm:h-[148px] border border-blue-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
           <img
@@ -557,16 +528,6 @@ export default function HomeDashboard({
           />
           {/* Clean Natural Vignette: Dark bottom for text contrast, clear top/center */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
-
-          {/* Top Row: React Icon + Badge */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
-              <FiSearch className="w-4 h-4 text-blue-300 stroke-[2.4]" />
-            </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-[#1d61f2] text-[9.5px] font-black text-white shadow-xs">
-              14 Protocols
-            </span>
-          </div>
 
           {/* Bottom Row: Title + Subtitle */}
           <div className="relative z-10">
@@ -583,7 +544,7 @@ export default function HomeDashboard({
         {/* Card 2: EMF vs EMI Guide */}
         <button
           onClick={() => onNavigate('reports')}
-          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-emerald-500/30 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-end h-[140px] sm:h-[148px] border border-emerald-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
           <img
@@ -594,16 +555,6 @@ export default function HomeDashboard({
           />
           {/* Clean Natural Vignette */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
-
-          {/* Top Row: React Icon + Badge */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
-              <FiSliders className="w-4 h-4 text-emerald-300 stroke-[2.4]" />
-            </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-600 text-[9.5px] font-black text-white shadow-xs">
-              Interactive
-            </span>
-          </div>
 
           {/* Bottom Row: Title + Subtitle */}
           <div className="relative z-10">
@@ -620,7 +571,7 @@ export default function HomeDashboard({
         {/* Card 3: Clinical DX */}
         <button
           onClick={() => onNavigate('experts')}
-          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-amber-500/30 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-end h-[140px] sm:h-[148px] border border-amber-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
           <img
@@ -631,16 +582,6 @@ export default function HomeDashboard({
           />
           {/* Clean Natural Vignette */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
-
-          {/* Top Row: React Icon + Badge */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
-              <RiShieldCheckLine className="w-4.5 h-4.5 text-amber-300" />
-            </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-amber-600 text-[9.5px] font-black text-white shadow-xs">
-              sC-Ve ®™
-            </span>
-          </div>
 
           {/* Bottom Row: Title + Subtitle */}
           <div className="relative z-10">
@@ -657,7 +598,7 @@ export default function HomeDashboard({
         {/* Card 4: Legal & Realty */}
         <button
           onClick={() => onNavigate('experts')}
-          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-cyan-500/30 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-end h-[140px] sm:h-[148px] border border-cyan-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
           <img
@@ -668,16 +609,6 @@ export default function HomeDashboard({
           />
           {/* Clean Natural Vignette */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
-
-          {/* Top Row: React Icon + Badge */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
-              <RiScales3Line className="w-4.5 h-4.5 text-cyan-300" />
-            </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-cyan-600 text-[9.5px] font-black text-white shadow-xs">
-              Court Proven
-            </span>
-          </div>
 
           {/* Bottom Row: Title + Subtitle */}
           <div className="relative z-10">
