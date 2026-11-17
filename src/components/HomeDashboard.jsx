@@ -6,8 +6,8 @@ import {
   Sliders, Compass, FileText, Building2, School, HeartPulse,
   ExternalLink, Sparkles, Award, Radio
 } from 'lucide-react';
-import { FiMessageSquare, FiPhone } from 'react-icons/fi';
-import { RiFileUserLine } from 'react-icons/ri';
+import { FiMessageSquare, FiPhone, FiSearch, FiSliders, FiChevronRight } from 'react-icons/fi';
+import { RiFileUserLine, RiShieldCheckLine, RiScales3Line } from 'react-icons/ri';
 import { electraData } from '../data/electraData';
 
 export default function HomeDashboard({ 
@@ -567,99 +567,151 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 6. FOUR 2-COLUMN ACTION DOMAIN CARDS (Section 8: Find Services, EMF vs EMI, Clinical DX, Legal & Realty) */}
+      {/* 6. FOUR 2-COLUMN ACTION DOMAIN CARDS (Proper clear image, natural vignette, no color wash or blur) */}
       <div className="grid grid-cols-2 gap-2.5">
-        {/* Card 1: Dark Navy - Find Services */}
+        {/* Card 1: Find Services */}
         <button
           onClick={() => onNavigate('services')}
-          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#0c1e3d] to-[#071328] hover:from-[#0e2449] hover:to-[#0a1832] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-blue-900/40 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-blue-500/30 group cursor-pointer"
         >
-          <div className="flex items-center justify-between">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Search className="w-4 h-4 text-blue-300" />
+          {/* Proper Full-Color Category Background Image */}
+          <img 
+            src="/assets/EMF-safe-home-testing.jpg" 
+            alt="Find Services" 
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          {/* Clean Natural Vignette: Dark bottom for text contrast, clear top/center */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
+
+          {/* Top Row: React Icon + Badge */}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
+              <FiSearch className="w-4 h-4 text-blue-300 stroke-[2.4]" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-[#1d61f2] text-[9px] font-black text-white shadow-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#1d61f2] text-[9.5px] font-black text-white shadow-xs">
               14 Protocols
             </span>
           </div>
-          <div>
-            <h3 className="font-heading font-extrabold text-xs sm:text-sm leading-tight flex items-center gap-1">
+
+          {/* Bottom Row: Title + Subtitle */}
+          <div className="relative z-10">
+            <h3 className="font-heading font-extrabold text-[13.5px] sm:text-sm leading-tight flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               <span>Find Services</span>
-              <ChevronRight className="w-3.5 h-3.5 opacity-80 group-hover:translate-x-0.5 transition-transform" />
+              <FiChevronRight className="w-3.5 h-3.5 text-blue-300 opacity-90 group-hover:translate-x-0.5 transition-transform stroke-[2.5]" />
             </h3>
-            <p className="text-[10px] text-slate-300 mt-1 line-clamp-2 leading-tight">
+            <p className="text-[10px] text-white/90 mt-1 line-clamp-2 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               Residential, Commercial & Schools
             </p>
           </div>
         </button>
 
-        {/* Card 2: Forest Emerald - EMF vs EMI Guide */}
+        {/* Card 2: EMF vs EMI Guide */}
         <button
           onClick={() => onNavigate('reports')}
-          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#0a3522] to-[#052115] hover:from-[#0c422a] hover:to-[#082b1c] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-emerald-900/40 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-emerald-500/30 group cursor-pointer"
         >
-          <div className="flex items-center justify-between">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Sliders className="w-4 h-4 text-emerald-300" />
+          {/* Proper Full-Color Category Background Image */}
+          <img 
+            src="/assets/rooftop_garden_radiation-1030x550.jpg" 
+            alt="EMF vs EMI Guide" 
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          {/* Clean Natural Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
+
+          {/* Top Row: React Icon + Badge */}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
+              <FiSliders className="w-4 h-4 text-emerald-300 stroke-[2.4]" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-[9px] font-black text-white shadow-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-600 text-[9.5px] font-black text-white shadow-xs">
               Interactive
             </span>
           </div>
-          <div>
-            <h3 className="font-heading font-extrabold text-xs sm:text-sm leading-tight flex items-center gap-1">
+
+          {/* Bottom Row: Title + Subtitle */}
+          <div className="relative z-10">
+            <h3 className="font-heading font-extrabold text-[13.5px] sm:text-sm leading-tight flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               <span>EMF vs EMI Guide</span>
-              <ChevronRight className="w-3.5 h-3.5 opacity-80 group-hover:translate-x-0.5 transition-transform" />
+              <FiChevronRight className="w-3.5 h-3.5 text-emerald-300 opacity-90 group-hover:translate-x-0.5 transition-transform stroke-[2.5]" />
             </h3>
-            <p className="text-[10px] text-emerald-100 mt-1 line-clamp-2 leading-tight">
+            <p className="text-[10px] text-white/90 mt-1 line-clamp-2 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               60Hz Magnetic vs 60GHz RFR
             </p>
           </div>
         </button>
 
-        {/* Card 3: Warm Rust - Clinical DX */}
+        {/* Card 3: Clinical DX */}
         <button
           onClick={() => onNavigate('experts')}
-          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#5c2405] to-[#3d1602] hover:from-[#6d2b06] hover:to-[#4a1b02] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-amber-900/40 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-amber-500/30 group cursor-pointer"
         >
-          <div className="flex items-center justify-between">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <ShieldCheck className="w-4 h-4 text-amber-300" />
+          {/* Proper Full-Color Category Background Image */}
+          <img 
+            src="/assets/Electro-Magentic-Interferece-EMI-2003-1.jpg" 
+            alt="Clinical DX" 
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          {/* Clean Natural Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
+
+          {/* Top Row: React Icon + Badge */}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
+              <RiShieldCheckLine className="w-4.5 h-4.5 text-amber-300" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-amber-600 text-[9px] font-black text-white shadow-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-amber-600 text-[9.5px] font-black text-white shadow-xs">
               sC-Ve ®™
             </span>
           </div>
-          <div>
-            <h3 className="font-heading font-extrabold text-xs sm:text-sm leading-tight flex items-center gap-1">
+
+          {/* Bottom Row: Title + Subtitle */}
+          <div className="relative z-10">
+            <h3 className="font-heading font-extrabold text-[13.5px] sm:text-sm leading-tight flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               <span>Clinical DX</span>
-              <ChevronRight className="w-3.5 h-3.5 opacity-80 group-hover:translate-x-0.5 transition-transform" />
+              <FiChevronRight className="w-3.5 h-3.5 text-amber-300 opacity-90 group-hover:translate-x-0.5 transition-transform stroke-[2.5]" />
             </h3>
-            <p className="text-[10px] text-amber-100 mt-1 line-clamp-2 leading-tight">
+            <p className="text-[10px] text-white/90 mt-1 line-clamp-2 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               Neuropathology & cancer risk
             </p>
           </div>
         </button>
 
-        {/* Card 4: Deep Ocean Blue - Legal & Realty */}
+        {/* Card 4: Legal & Realty */}
         <button
           onClick={() => onNavigate('experts')}
-          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#083e63] to-[#052840] hover:from-[#0a4d7b] hover:to-[#073250] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-cyan-900/40 group cursor-pointer"
+          className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-cyan-500/30 group cursor-pointer"
         >
-          <div className="flex items-center justify-between">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Scale className="w-4 h-4 text-cyan-300" />
+          {/* Proper Full-Color Category Background Image */}
+          <img 
+            src="/assets/Hudsone-Valley-Westchester-EMF-Testing-Expert.jpg" 
+            alt="Legal & Realty" 
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          {/* Clean Natural Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 via-50% to-black/20 pointer-events-none" />
+
+          {/* Top Row: React Icon + Badge */}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="w-8.5 h-8.5 rounded-xl bg-black/45 border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
+              <RiScales3Line className="w-4.5 h-4.5 text-cyan-300" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-cyan-600 text-[9px] font-black text-white shadow-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-cyan-600 text-[9.5px] font-black text-white shadow-xs">
               Court Proven
             </span>
           </div>
-          <div>
-            <h3 className="font-heading font-extrabold text-xs sm:text-sm leading-tight flex items-center gap-1">
+
+          {/* Bottom Row: Title + Subtitle */}
+          <div className="relative z-10">
+            <h3 className="font-heading font-extrabold text-[13.5px] sm:text-sm leading-tight flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               <span>Legal & Realty</span>
-              <ChevronRight className="w-3.5 h-3.5 opacity-80 group-hover:translate-x-0.5 transition-transform" />
+              <FiChevronRight className="w-3.5 h-3.5 text-cyan-300 opacity-90 group-hover:translate-x-0.5 transition-transform stroke-[2.5]" />
             </h3>
-            <p className="text-[10px] text-cyan-100 mt-1 line-clamp-2 leading-tight">
+            <p className="text-[10px] text-white/90 mt-1 line-clamp-2 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
               Buyer/seller due diligence
             </p>
           </div>
