@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Search, MapPin, MessageSquare, Phone, Mail, 
-  ArrowRight, ChevronRight, ChevronLeft, Star, AlertCircle,
+import {
+  Search, MapPin, MessageSquare, Phone, Mail,
+  ArrowRight, ChevronRight, Star, AlertCircle,
   Activity, ShieldCheck, Scale, Zap, CheckCircle2,
   Sliders, Compass, FileText, Building2, School, HeartPulse,
   ExternalLink, Sparkles, Award, Radio
@@ -10,11 +10,11 @@ import { FiMessageSquare, FiPhone, FiSearch, FiSliders, FiChevronRight } from 'r
 import { RiFileUserLine, RiShieldCheckLine, RiScales3Line } from 'react-icons/ri';
 import { electraData } from '../data/electraData';
 
-export default function HomeDashboard({ 
-  onNavigate, 
+export default function HomeDashboard({
+  onNavigate,
   onOpenSearch,
-  onOpenChat, 
-  onOpenCall, 
+  onOpenChat,
+  onOpenCall,
   onSelectService,
   onOpenAssessmentModal,
   onOpenEMFMeter
@@ -328,7 +328,7 @@ export default function HomeDashboard({
       </div>
 
       {/* 3. HERO SECTION – AUTOMATIC IMAGE CAROUSEL */}
-      <div 
+      <div
         className="relative overflow-hidden rounded-[26px] bg-slate-900 text-white shadow-lg select-none border border-slate-200/40"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
@@ -343,9 +343,8 @@ export default function HomeDashboard({
             return (
               <div
                 key={slide.id}
-                className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                  isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
-                }`}
+                className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+                  }`}
               >
                 <img
                   src={slide.image}
@@ -361,24 +360,19 @@ export default function HomeDashboard({
             );
           })}
 
-          {/* Slide Content: Displays only ONE active slide's content at a time with smooth update */}
-          <div className="absolute inset-0 z-20 flex flex-col justify-end pb-3.5 px-9.5 pointer-events-none">
-            <div 
+          {/* Slide Content: Displays active slide's heading and buttons directly over the image */}
+          <div className="absolute inset-0 z-20 flex flex-col justify-end pb-3.5 px-4 sm:px-5 pointer-events-none">
+            <div
               key={activeSlideData.id}
-              className="space-y-1.5 animate-in fade-in duration-300 pointer-events-auto"
+              className="space-y-2 animate-in fade-in duration-300 pointer-events-auto"
             >
               {/* Bold Banner Heading */}
-              <h1 className="text-[14px] sm:text-[15px] font-heading font-extrabold text-white leading-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] line-clamp-2">
+              <h1 className="text-[15px] sm:text-[16px] font-heading font-extrabold text-white leading-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] line-clamp-2">
                 {activeSlideData.title}
               </h1>
 
-              {/* Short Readable Description */}
-              <p className="text-[10px] sm:text-[10.5px] text-white/90 leading-tight line-clamp-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] max-w-sm">
-                {activeSlideData.subtitle}
-              </p>
-
               {/* Compact CTA Buttons */}
-              <div className="flex items-center gap-2 pt-1">
+              <div className="flex items-center gap-2 pt-0.5">
                 <button
                   onClick={() => {
                     if (activeSlideData.primaryTarget === 'call') onOpenCall();
@@ -402,23 +396,6 @@ export default function HomeDashboard({
               </div>
             </div>
           </div>
-
-          {/* Carousel Left / Right Navigation Controls: Vertically Centered with subtle circular backgrounds */}
-          <button
-            onClick={handlePrevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/40 hover:bg-black/65 text-white/90 hover:text-white backdrop-blur-sm flex items-center justify-center active:scale-90 transition-all border border-white/20 cursor-pointer shadow-md"
-            aria-label="Previous Slide"
-          >
-            <ChevronLeft className="w-3.5 h-3.5 stroke-[2.4]" />
-          </button>
-
-          <button
-            onClick={handleNextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/40 hover:bg-black/65 text-white/90 hover:text-white backdrop-blur-sm flex items-center justify-center active:scale-90 transition-all border border-white/20 cursor-pointer shadow-md"
-            aria-label="Next Slide"
-          >
-            <ChevronRight className="w-3.5 h-3.5 stroke-[2.4]" />
-          </button>
         </div>
 
         {/* Carousel Bottom Pagination: Centered horizontally, no right-side content */}
@@ -428,11 +405,10 @@ export default function HomeDashboard({
               <button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  idx === currentSlide 
-                    ? 'w-4.5 bg-[#1d61f2] shadow-xs' 
-                    : 'w-1.5 bg-white/35 hover:bg-white/60'
-                }`}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${idx === currentSlide
+                  ? 'w-4.5 bg-[#1d61f2] shadow-xs'
+                  : 'w-1.5 bg-white/35 hover:bg-white/60'
+                  }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
@@ -456,9 +432,9 @@ export default function HomeDashboard({
           <div className="shrink-0 bg-[#f1f5fd] rounded-2xl p-2 px-2.5 border border-blue-100/70 flex items-center gap-2.5 shadow-2xs">
             <div className="shrink-0">
               <div className="w-10.5 h-10.5 rounded-xl overflow-hidden bg-slate-100 border border-white shadow-xs">
-                <img 
-                  src="/assets/licensed-specialist-avatar.jpg" 
-                  alt="Dr. J. Dumanov" 
+                <img
+                  src="/assets/licensed-specialist-avatar.jpg"
+                  alt="Dr. J. Dumanov"
                   className="w-full h-full object-cover object-top"
                   onError={(e) => {
                     e.target.src = "/assets/professional-engineer-avatar.jpg";
@@ -522,7 +498,7 @@ export default function HomeDashboard({
           <h2 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
             EXPLORE BY CATEGORY
           </h2>
-          <button 
+          <button
             onClick={() => onNavigate('services')}
             className="text-xs font-bold text-blue-600 hover:underline flex items-center gap-0.5 cursor-pointer"
           >
@@ -532,7 +508,7 @@ export default function HomeDashboard({
         </div>
 
         {/* Scrollable Category Filter Pills with Mouse Wheel & Drag Support */}
-        <div 
+        <div
           ref={categoryScrollRef}
           onMouseDown={handleCategoryMouseDown}
           onMouseMove={handleCategoryMouseMove}
@@ -549,16 +525,14 @@ export default function HomeDashboard({
                   if (hasDraggedCategory.current) return;
                   setSelectedCategory(cat.id);
                 }}
-                className={`flex items-center gap-1.5 h-9 px-4 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer shrink-0 ${
-                  isSelected
-                    ? 'bg-[#0b162c] text-white font-extrabold shadow-sm'
-                    : 'bg-white text-slate-700 border border-slate-200/90 hover:bg-slate-50 font-bold'
-                }`}
+                className={`flex items-center gap-1.5 h-9 px-4 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer shrink-0 ${isSelected
+                  ? 'bg-[#0b162c] text-white font-extrabold shadow-sm'
+                  : 'bg-white text-slate-700 border border-slate-200/90 hover:bg-slate-50 font-bold'
+                  }`}
               >
                 <span>{cat.label}</span>
-                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                  isSelected ? 'bg-[#1d61f2] text-white' : 'bg-slate-100 text-slate-500'
-                }`}>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isSelected ? 'bg-[#1d61f2] text-white' : 'bg-slate-100 text-slate-500'
+                  }`}>
                   {cat.count}
                 </span>
               </button>
@@ -575,10 +549,10 @@ export default function HomeDashboard({
           className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-blue-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
-          <img 
-            src="/assets/EMF-safe-home-testing.jpg" 
-            alt="Find Services" 
-            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+          <img
+            src="/assets/EMF-safe-home-testing.jpg"
+            alt="Find Services"
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           {/* Clean Natural Vignette: Dark bottom for text contrast, clear top/center */}
@@ -612,10 +586,10 @@ export default function HomeDashboard({
           className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-emerald-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
-          <img 
-            src="/assets/rooftop_garden_radiation-1030x550.jpg" 
-            alt="EMF vs EMI Guide" 
-            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+          <img
+            src="/assets/rooftop_garden_radiation-1030x550.jpg"
+            alt="EMF vs EMI Guide"
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           {/* Clean Natural Vignette */}
@@ -649,10 +623,10 @@ export default function HomeDashboard({
           className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-amber-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
-          <img 
-            src="/assets/Electro-Magentic-Interferece-EMI-2003-1.jpg" 
-            alt="Clinical DX" 
-            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+          <img
+            src="/assets/Electro-Magentic-Interferece-EMI-2003-1.jpg"
+            alt="Clinical DX"
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           {/* Clean Natural Vignette */}
@@ -686,10 +660,10 @@ export default function HomeDashboard({
           className="relative overflow-hidden text-left rounded-2xl p-3.5 bg-slate-950 text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[152px] border border-cyan-500/30 group cursor-pointer"
         >
           {/* Proper Full-Color Category Background Image */}
-          <img 
-            src="/assets/Hudsone-Valley-Westchester-EMF-Testing-Expert.jpg" 
-            alt="Legal & Realty" 
-            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none" 
+          <img
+            src="/assets/Hudsone-Valley-Westchester-EMF-Testing-Expert.jpg"
+            alt="Legal & Realty"
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 pointer-events-none"
             onError={(e) => { e.target.style.display = 'none'; }}
           />
           {/* Clean Natural Vignette */}
@@ -740,14 +714,14 @@ export default function HomeDashboard({
 
         <div className="space-y-2.5">
           {displayedProtocols.map((protocol) => (
-            <div 
+            <div
               key={protocol.id}
               onClick={() => onNavigate('services')}
               className="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/40 border border-slate-100 hover:border-blue-200 transition-all cursor-pointer flex items-center gap-3 group"
             >
               <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200/80">
-                <img 
-                  src={protocol.image} 
+                <img
+                  src={protocol.image}
                   alt={protocol.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   onError={(e) => { e.target.src = "/assets/Power-systems.jpg"; }}
