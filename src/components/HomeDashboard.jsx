@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Search, MessageSquare, Phone, Mail,
-  ArrowRight, ChevronRight, Star, AlertCircle,
+  ArrowRight, ChevronRight, AlertCircle,
   Activity, ShieldCheck, Scale, Zap, CheckCircle2,
   Sliders, Compass, FileText, Building2, School, HeartPulse,
   ExternalLink, Sparkles, Award, Radio
@@ -692,43 +692,7 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 9. CLIENT TESTIMONIAL (Section 11: 5 Stars, Verified Study, Abe Berman quote) */}
-      <div className="bg-white rounded-3xl p-4.5 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] space-y-2.5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <div className="flex items-center text-amber-500">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-              ))}
-            </div>
-            <span className="text-[10px] font-bold text-slate-400">
-              Client Endorsement
-            </span>
-          </div>
-          <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
-            Verified Study
-          </span>
-        </div>
-
-        <p className="text-xs text-slate-700 italic leading-relaxed">
-          "My professional clients have been very pleased with me for locating the only fully licensed EMF technical and medical expert. Comprehensive and highly detailed technical and clinical exposure services."
-        </p>
-
-        <div className="flex items-center justify-between pt-1 border-t border-slate-100">
-          <div className="flex items-center gap-2">
-            <div className="w-7.5 h-7.5 rounded-full bg-blue-100 text-[#1d61f2] flex items-center justify-center text-xs font-bold border border-blue-200/60">
-              AB
-            </div>
-            <div>
-              <p className="text-xs font-bold text-slate-900 leading-none">Abe Berman</p>
-              <p className="text-[10px] text-slate-400 leading-none mt-0.5">Licensed Real Estate Agent • Princeton, NJ</p>
-            </div>
-          </div>
-          <span className="text-[10px] text-slate-400 font-medium">June 17</span>
-        </div>
-      </div>
-
-      {/* 10. EMERGENCY CONTACT SECTION (Section 12: Immediate exposure concerns, call & email) */}
+      {/* 9. EMERGENCY CONTACT SECTION (Section 12: Immediate exposure concerns, call & email) */}
       <div className="bg-[#f0f4fc] rounded-3xl p-4 border border-blue-100 flex items-center justify-between gap-3 shadow-xs">
         <div className="flex items-center gap-2.5 min-w-0">
           <div className="w-9.5 h-9.5 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 border border-rose-200/50">
