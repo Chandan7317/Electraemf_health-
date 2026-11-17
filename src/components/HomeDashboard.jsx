@@ -22,6 +22,51 @@ export default function HomeDashboard({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
+  // Horizontal Category Scroll Ref & Mouse Dragging / Wheel Support
+  const categoryScrollRef = useRef(null);
+  const isDraggingCategories = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartScrollLeft = useRef(0);
+  const hasDraggedCategory = useRef(false);
+
+  // Enable Mouse Wheel Horizontal Scrolling on Category Pills
+  useEffect(() => {
+    const el = categoryScrollRef.current;
+    if (!el) return;
+
+    const onWheel = (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY * 1.2;
+      }
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, []);
+
+  const handleCategoryMouseDown = (e) => {
+    if (!categoryScrollRef.current) return;
+    isDraggingCategories.current = true;
+    hasDraggedCategory.current = false;
+    dragStartX.current = e.pageX - categoryScrollRef.current.offsetLeft;
+    dragStartScrollLeft.current = categoryScrollRef.current.scrollLeft;
+  };
+
+  const handleCategoryMouseMove = (e) => {
+    if (!isDraggingCategories.current || !categoryScrollRef.current) return;
+    const x = e.pageX - categoryScrollRef.current.offsetLeft;
+    const walk = (x - dragStartX.current) * 1.4;
+    if (Math.abs(x - dragStartX.current) > 5) {
+      hasDraggedCategory.current = true;
+    }
+    categoryScrollRef.current.scrollLeft = dragStartScrollLeft.current - walk;
+  };
+
+  const handleCategoryMouseUpOrLeave = () => {
+    isDraggingCategories.current = false;
+  };
+
   // Hero Carousel State (Default to index 3: Medical Implants to match reference screenshot)
   const [currentSlide, setCurrentSlide] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
@@ -486,15 +531,25 @@ export default function HomeDashboard({
           </button>
         </div>
 
-        {/* Scrollable Category Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+        {/* Scrollable Category Filter Pills with Mouse Wheel & Drag Support */}
+        <div 
+          ref={categoryScrollRef}
+          onMouseDown={handleCategoryMouseDown}
+          onMouseMove={handleCategoryMouseMove}
+          onMouseUp={handleCategoryMouseUpOrLeave}
+          onMouseLeave={handleCategoryMouseUpOrLeave}
+          className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 select-none cursor-grab active:cursor-grabbing"
+        >
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.id;
             return (
               <button
                 key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-1.5 h-9 px-4 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer ${
+                onClick={() => {
+                  if (hasDraggedCategory.current) return;
+                  setSelectedCategory(cat.id);
+                }}
+                className={`flex items-center gap-1.5 h-9 px-4 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer shrink-0 ${
                   isSelected
                     ? 'bg-[#0b162c] text-white font-extrabold shadow-sm'
                     : 'bg-white text-slate-700 border border-slate-200/90 hover:bg-slate-50 font-bold'
