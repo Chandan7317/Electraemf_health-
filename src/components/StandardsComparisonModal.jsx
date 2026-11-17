@@ -1,14 +1,121 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { 
   Sliders, X, ShieldCheck, AlertTriangle, Scale, 
-  ArrowRight, CheckCircle2, Zap, Radio, Activity, HelpCircle, ArrowLeft 
+  ArrowRight, CheckCircle2, Zap, Radio, Activity, HelpCircle, ArrowLeft,
+  ChevronDown, Check, Phone
 } from 'lucide-react';
+
+function ShadcnSelect({ value, onChange, options }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (selectRef.current && !selectRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find(opt => opt.value === value) || options[0];
+
+  return (
+    <div className="relative inline-block" ref={selectRef}>
+      {/* Shadcn Select Trigger */}
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="h-9 px-3 bg-white hover:bg-slate-50 text-slate-900 text-xs font-bold rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between gap-2 transition-all focus:outline-none focus:ring-1 focus:ring-[#1d61f2] cursor-pointer shrink-0"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        <span className="truncate">{selectedOption.label}</span>
+        <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {/* Shadcn Select Popover Menu */}
+      {isOpen && (
+        <div className="absolute left-0 top-full mt-1.5 z-50 min-w-[150px] bg-white rounded-xl border border-slate-200 shadow-lg p-1 animate-in fade-in-0 zoom-in-95 duration-100">
+          {options.map((opt) => {
+            const isSelected = opt.value === value;
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => {
+                  onChange(opt.value);
+                  setIsOpen(false);
+                }}
+                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer text-left ${
+                  isSelected 
+                    ? 'bg-[#edf3fe] text-[#1d61f2] font-bold' 
+                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                }`}
+              >
+                <span>{opt.label}</span>
+                {isSelected && <Check className="w-3.5 h-3.5 text-[#1d61f2] shrink-0" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function StandardsComparisonModal({ isOpen, onClose, onNavigateToContact }) {
   const [activeCategory, setActiveCategory] = useState('magnetic'); // 'magnetic' | 'rf' | 'electric' | 'stray'
   const [converterValue, setConverterValue] = useState(1);
   const [converterUnit, setConverterUnit] = useState('mG'); // 'mG' or 'uT'
+
+  // Horizontal Category Scroll Ref & Mouse Dragging / Wheel Support
+  const tabsScrollRef = useRef(null);
+  const isDraggingTabs = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartScrollLeft = useRef(0);
+  const hasDraggedTab = useRef(false);
+
+  // Enable Mouse Wheel Horizontal Scrolling on Category Tabs
+  useEffect(() => {
+    if (!isOpen) return;
+    const el = tabsScrollRef.current;
+    if (!el) return;
+
+    const onWheel = (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY * 1.2;
+      }
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [isOpen]);
+
+  const handleTabMouseDown = (e) => {
+    if (!tabsScrollRef.current) return;
+    isDraggingTabs.current = true;
+    hasDraggedTab.current = false;
+    dragStartX.current = e.pageX - tabsScrollRef.current.offsetLeft;
+    dragStartScrollLeft.current = tabsScrollRef.current.scrollLeft;
+  };
+
+  const handleTabMouseMove = (e) => {
+    if (!isDraggingTabs.current || !tabsScrollRef.current) return;
+    const x = e.pageX - tabsScrollRef.current.offsetLeft;
+    const walk = (x - dragStartX.current) * 1.4;
+    if (Math.abs(x - dragStartX.current) > 5) {
+      hasDraggedTab.current = true;
+    }
+    tabsScrollRef.current.scrollLeft = dragStartScrollLeft.current - walk;
+  };
+
+  const handleTabMouseUpOrLeave = () => {
+    isDraggingTabs.current = false;
+  };
 
   if (!isOpen) return null;
 
@@ -225,8 +332,15 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto no-scrollbar p-4 space-y-4 text-slate-800">
-          {/* Category Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 rounded-2xl bg-slate-100">
+          {/* Category Tabs: Mobile Horizontal Scrollable Pills with Mouse Wheel & Drag Support */}
+          <div
+            ref={tabsScrollRef}
+            onMouseDown={handleTabMouseDown}
+            onMouseMove={handleTabMouseMove}
+            onMouseUp={handleTabMouseUpOrLeave}
+            onMouseLeave={handleTabMouseUpOrLeave}
+            className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 select-none -mx-1 px-1 cursor-grab active:cursor-grabbing"
+          >
             {[
               { id: 'magnetic', label: '60Hz Magnetic', icon: Zap },
               { id: 'rf', label: 'RF / 5G / Wi-Fi', icon: Radio },
@@ -238,30 +352,33 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveCategory(tab.id)}
-                  className={`py-2 px-2 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all ${
+                  onClick={() => {
+                    if (hasDraggedTab.current) return;
+                    setActiveCategory(tab.id);
+                  }}
+                  className={`flex items-center gap-1.5 h-9 px-3.5 rounded-full text-xs whitespace-nowrap transition-all active:scale-95 cursor-pointer shrink-0 ${
                     isActive 
-                      ? 'bg-white text-blue-700 shadow-xs' 
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? 'bg-[#0b162c] text-white font-extrabold shadow-sm' 
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200/80 font-bold border border-slate-200/70'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span className="truncate">{tab.label}</span>
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-cyan-300' : 'text-slate-500'}`} />
+                  <span className="whitespace-nowrap">{tab.label}</span>
                 </button>
               );
             })}
           </div>
 
           {/* Current Category Info */}
-          <div className="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 space-y-1">
+          <div className="p-3.5 rounded-2xl bg-[#edf3fe] border border-blue-100/80 space-y-1">
             <div className="flex items-center justify-between">
               <h4 className="text-xs font-black text-slate-900">{current.name}</h4>
-              <span className="text-[9.5px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">
+              <span className="text-[9.5px] font-bold px-2 py-0.5 rounded-md bg-white text-[#1d61f2] border border-blue-100/60">
                 Unit: {current.unit}
               </span>
             </div>
             <p className="text-[11px] text-slate-600 leading-relaxed">
-              <strong>Common Sources:</strong> {current.source}
+              <strong className="text-slate-800">Common Sources:</strong> {current.source}
             </p>
           </div>
 
@@ -306,13 +423,15 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
             </p>
           </div>
 
-          {/* Interactive Unit Converter */}
+          {/* Interactive Unit Converter with Shadcn Select */}
           <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-500">
                 Interactive Engineering Unit Converter
               </span>
-              <span className="text-[9px] font-bold text-blue-600">NIST Standard</span>
+              <span className="text-[9px] font-bold text-[#1d61f2] bg-[#edf3fe] px-2 py-0.5 rounded-md border border-blue-100/60">
+                NIST Standard
+              </span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -320,19 +439,19 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
                 type="number"
                 value={converterValue}
                 onChange={(e) => setConverterValue(e.target.value)}
-                className="w-24 h-9 bg-white rounded-xl px-3 text-xs font-bold border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-16 sm:w-20 h-9 bg-white rounded-xl px-2.5 text-xs font-bold border border-slate-200/90 shadow-2xs focus:outline-none focus:ring-1 focus:ring-[#1d61f2] shrink-0"
               />
-              <select
+              <ShadcnSelect
                 value={converterUnit}
-                onChange={(e) => setConverterUnit(e.target.value)}
-                className="h-9 bg-white rounded-xl px-2.5 text-xs font-bold border border-slate-200 focus:outline-none"
-              >
-                <option value="mG">mG (milliGauss)</option>
-                <option value="uT">µT (microTesla)</option>
-              </select>
-              <span className="text-xs text-slate-400 font-bold">=</span>
-              <div className="flex-1 h-9 bg-blue-50 rounded-xl px-3 flex items-center font-extrabold text-xs text-blue-900 border border-blue-100 truncate">
-                {convertResult()}
+                onChange={setConverterUnit}
+                options={[
+                  { value: 'mG', label: 'mG (milliGauss)' },
+                  { value: 'uT', label: 'µT (microTesla)' }
+                ]}
+              />
+              <span className="text-xs text-slate-400 font-bold shrink-0">=</span>
+              <div className="flex-1 h-9 bg-[#edf3fe] rounded-xl px-2.5 flex items-center font-extrabold text-xs text-[#1d61f2] border border-blue-100/80 min-w-0">
+                <span className="truncate">{convertResult()}</span>
               </div>
             </div>
             <p className="text-[10px] text-slate-400">
@@ -341,12 +460,17 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
           </div>
 
           {/* CTA Box */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-900 to-blue-950 text-white space-y-2">
-            <h4 className="text-xs font-extrabold text-white">
-              Need on-site evidentiary verification?
-            </h4>
-            <p className="text-[11px] text-slate-300 leading-relaxed">
-              Our state-licensed engineers conduct spatial contour falloff mapping and provide court-admissible certificates across NY, NJ, CT, PA, & DE.
+          <div className="p-4 rounded-2xl bg-[#0b162c] text-white border border-slate-800 space-y-2.5 shadow-md">
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-extrabold text-white">
+                Need on-site evidentiary verification?
+              </h4>
+              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 shrink-0">
+                Certified
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-300 leading-relaxed font-normal">
+              State-licensed engineers conduct spatial contour falloff mapping and provide court-admissible certificates across NY, NJ, CT, PA, & DE.
             </p>
             <button
               onClick={() => {
@@ -354,10 +478,11 @@ export default function StandardsComparisonModal({ isOpen, onClose, onNavigateTo
                 toast.success('Proceeding to consultation for dosimetry audit...', { id: 'standards-toast' });
                 if (onNavigateToContact) onNavigateToContact();
               }}
-              className="w-full h-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all shadow-md shadow-blue-600/30"
+              className="w-full h-10 rounded-xl bg-[#1d61f2] hover:bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 active:scale-98 transition-all shadow-sm cursor-pointer"
             >
-              <span>Schedule Professional Dosimetry Audit</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <Phone className="w-3.5 h-3.5 text-cyan-300" />
+              <span>Schedule Field Audit</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.2]" />
             </button>
           </div>
         </div>
