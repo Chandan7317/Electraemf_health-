@@ -15,24 +15,24 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
   // Active Tab inside EMF Suite: 'meter' | 'vector' | 'sources' | 'history' | 'learn'
   const [activeTab, setActiveTab] = useState('meter');
 
-  // Measurement State & Controls
-  const [isMeasuring, setIsMeasuring] = useState(true);
+  // Measurement State & Controls (Starts in standby, runs on Start click)
+  const [isMeasuring, setIsMeasuring] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [unit, setUnit] = useState('mG'); // 'mG' or 'uT'
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
-  const [sensorSource, setSensorSource] = useState('detecting'); // 'hardware' or 'simulated'
+  const [sensorSource, setSensorSource] = useState('simulated'); // 'hardware' or 'simulated'
 
   // Real-time Triaxial Metrics
-  const [fieldX, setFieldX] = useState(0.24);
-  const [fieldY, setFieldY] = useState(0.19);
-  const [fieldZ, setFieldZ] = useState(0.31);
-  const [currentMagnitude, setCurrentMagnitude] = useState(0.43); // in mG
-  const [peakMagnitude, setPeakMagnitude] = useState(0.43);
-  const [avgMagnitude, setAvgMagnitude] = useState(0.43);
-  const [minMagnitude, setMinMagnitude] = useState(0.43);
-  const [samplesCount, setSamplesCount] = useState(1);
-  const [sumMagnitude, setSumMagnitude] = useState(0.43);
-  const [history, setHistory] = useState(() => Array(35).fill(0.4));
+  const [fieldX, setFieldX] = useState(0);
+  const [fieldY, setFieldY] = useState(0);
+  const [fieldZ, setFieldZ] = useState(0);
+  const [currentMagnitude, setCurrentMagnitude] = useState(0); // in mG
+  const [peakMagnitude, setPeakMagnitude] = useState(0);
+  const [avgMagnitude, setAvgMagnitude] = useState(0);
+  const [minMagnitude, setMinMagnitude] = useState(0);
+  const [samplesCount, setSamplesCount] = useState(0);
+  const [sumMagnitude, setSumMagnitude] = useState(0);
+  const [history, setHistory] = useState(() => Array(35).fill(0));
 
   // Source Simulator & Distance Testing (Section 6 Requirements)
   const [selectedSourceId, setSelectedSourceId] = useState('laptop');
@@ -333,8 +333,8 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
     setFieldY(Math.round(y * 100) / 100);
     setFieldZ(Math.round(z * 100) / 100);
 
-    setPeakMagnitude(prev => Math.max(prev, roundedMag));
-    setMinMagnitude(prev => Math.min(prev, roundedMag));
+    setPeakMagnitude(prev => (prev === 0 ? roundedMag : Math.max(prev, roundedMag)));
+    setMinMagnitude(prev => (prev === 0 ? roundedMag : Math.min(prev, roundedMag)));
 
     setSamplesCount(c => {
       const nextCount = c + 1;
@@ -351,13 +351,18 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
   };
 
   const handleResetMeasurement = () => {
-    setPeakMagnitude(currentMagnitude);
-    setMinMagnitude(currentMagnitude);
-    setAvgMagnitude(currentMagnitude);
-    setSamplesCount(1);
-    setSumMagnitude(currentMagnitude);
+    setIsMeasuring(false);
+    setCurrentMagnitude(0);
+    setPeakMagnitude(0);
+    setMinMagnitude(0);
+    setAvgMagnitude(0);
+    setSamplesCount(0);
+    setSumMagnitude(0);
     setElapsedSeconds(0);
-    toast.success('Measurement and statistics reset', { id: 'emf-toast' });
+    setFieldX(0);
+    setFieldY(0);
+    setFieldZ(0);
+    toast.success('Measurement reset. Press Start to scan.', { id: 'emf-toast' });
   };
 
   // Capture & Save Forensic Snapshot (Section 7)
@@ -438,6 +443,17 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
 
   // SBM-2015 Building Biology Reference Ranges (Section 4)
   const getSeverity = (mgVal) => {
+    if (!isMeasuring && mgVal === 0) {
+      return {
+        level: 'STANDBY',
+        label: 'Ready • Press Start',
+        desc: 'Press Start to initiate live sensor sampling.',
+        badgeBg: 'bg-blue-50 text-blue-700 border-blue-200',
+        panelBadgeBg: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
+        color: '#3b82f6',
+        icon: Play
+      };
+    }
     if (mgVal < 1.0) {
       return {
         level: 'LOW',
@@ -622,7 +638,9 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
                   {sensorSource === 'hardware' ? 'HARDWARE MAGNETOMETER' : 'CALIBRATED SIMULATION ENGINE'}
                 </span>
                 <span className="text-[9px] text-slate-400 leading-none">
-                  {isMeasuring ? `Sampling at 20 Hz • ${elapsedSeconds}s elapsed` : 'Measurement paused'}
+                  {isMeasuring 
+                    ? `Sampling at 20 Hz • ${elapsedSeconds}s elapsed` 
+                    : (elapsedSeconds > 0 ? `Measurement paused (${elapsedSeconds}s) • Click Start to resume` : 'Standby • Click Start to run')}
                 </span>
               </div>
 
@@ -729,7 +747,9 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
                   <span className="font-extrabold uppercase tracking-wide text-[11px]">{severity.level}</span>
                   <span className="w-1 h-1 rounded-full bg-current opacity-40" />
                   <span className="text-[11px] font-medium opacity-90">
-                    {severity.level === 'LOW' ? 'Biological Sanctuary' : severity.level === 'MODERATE' ? 'Moderate Precaution' : 'Elevated Exposure'}
+                    {!isMeasuring && currentMagnitude === 0 
+                      ? 'Ready to Scan • Press Start' 
+                      : (severity.level === 'LOW' ? 'Biological Sanctuary' : severity.level === 'MODERATE' ? 'Moderate Precaution' : 'Elevated Exposure')}
                   </span>
                 </div>
               </div>
@@ -754,11 +774,14 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
         {/* MEASUREMENT CONTROLS: START, STOP, RESET (Section 4) */}
         <div className="grid grid-cols-3 gap-2">
           <button
-            onClick={() => setIsMeasuring(true)}
+            onClick={() => {
+              setIsMeasuring(true);
+              toast.success('Live dosimetry measurement started', { id: 'emf-toast' });
+            }}
             disabled={isMeasuring}
             className={`h-11 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer ${isMeasuring
               ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
-              : 'bg-emerald-600 hover:bg-emerald-700 text-white active:scale-95'
+              : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/25 active:scale-95'
               }`}
           >
             <Play className="w-3.5 h-3.5 fill-current" />
@@ -766,11 +789,14 @@ export default function EMFMeterModal({ isOpen, onClose, onNavigateToContact, on
           </button>
 
           <button
-            onClick={() => setIsMeasuring(false)}
+            onClick={() => {
+              setIsMeasuring(false);
+              toast('Measurement paused', { icon: '⏸️', id: 'emf-toast' });
+            }}
             disabled={!isMeasuring}
             className={`h-11 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer ${!isMeasuring
               ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
-              : 'bg-amber-600 hover:bg-amber-700 text-white active:scale-95'
+              : 'bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/25 active:scale-95'
               }`}
           >
             <Pause className="w-3.5 h-3.5 fill-current" />
