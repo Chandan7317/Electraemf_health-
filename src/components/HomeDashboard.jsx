@@ -6,6 +6,8 @@ import {
   Sliders, Compass, FileText, Building2, School, HeartPulse,
   ExternalLink, Sparkles, Award, Radio
 } from 'lucide-react';
+import { FiMessageSquare, FiPhone } from 'react-icons/fi';
+import { RiFileUserLine } from 'react-icons/ri';
 import { electraData } from '../data/electraData';
 
 export default function HomeDashboard({ 
@@ -393,72 +395,79 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 4. OUR LICENSED EXPERTS ARE HERE TO HELP (Section 6: Expert card, verification, 3 actions) */}
+      {/* 4. LICENSED CLINICAL TRIAGE CARD (Redesigned matching reference image without emoji, using react-icons) */}
       <div className="bg-white rounded-[26px] p-4.5 border border-slate-100 shadow-[0_3px_12px_rgba(0,0,0,0.03)] space-y-3.5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <h2 className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5 leading-snug">
-              <span>Our Licensed Experts are here to help.</span>
-              <span className="text-rose-500">❤️</span>
+            <h2 className="text-[17px] font-heading font-extrabold text-slate-900 leading-tight">
+              Licensed Clinical Triage
             </h2>
-            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-              IBEW Licensed Electronics Engineers & Clinical Industrial Hygienists since 2003. Zero-fee triage.
+            <p className="text-[11.5px] text-slate-500 mt-1 leading-snug">
+              Direct physician-engineering consultation. Rapid zero-fee intake.
             </p>
-            <div className="mt-1.5">
-              <span className="inline-flex items-center gap-1 text-[9.5px] font-bold text-blue-600 bg-blue-50/80 px-2 py-0.5 rounded-full border border-blue-100">
-                <CheckCircle2 className="w-2.5 h-2.5 stroke-[2.5]" />
-                <span>Available Today • 5 States Licensed</span>
+          </div>
+
+          {/* Right Doctor Badge Pill */}
+          <div className="shrink-0 bg-[#f1f5fd] rounded-2xl p-2 px-2.5 border border-blue-100/70 flex items-center gap-2.5 shadow-2xs">
+            <div className="shrink-0">
+              <div className="w-10.5 h-10.5 rounded-xl overflow-hidden bg-slate-100 border border-white shadow-xs">
+                <img 
+                  src="/assets/licensed-specialist-avatar.jpg" 
+                  alt="Dr. J. Dumanov" 
+                  className="w-full h-full object-cover object-top"
+                  onError={(e) => {
+                    e.target.src = "/assets/professional-engineer-avatar.jpg";
+                  }}
+                />
+              </div>
+            </div>
+            <div className="text-left pr-1">
+              <span className="text-[11.5px] font-extrabold text-slate-900 block leading-tight whitespace-nowrap">
+                Dr. J. Dumanov
+              </span>
+              <span className="text-[8.5px] font-extrabold text-[#1d61f2] tracking-wider uppercase block leading-tight mt-0.5 whitespace-nowrap">
+                CHIEF MEDICAL DX
               </span>
             </div>
           </div>
-
-          {/* Expert Avatar */}
-          <div className="flex flex-col items-center text-center shrink-0">
-            <div className="relative">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-100 border-2 border-white shadow-xs">
-                <img 
-                  src="/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg" 
-                  alt="Dr. J. Dumanov" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full shadow-xs" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-800 mt-1">Dr. J. Dumanov</span>
-            <span className="text-[8px] font-bold text-[#1d61f2] bg-blue-50 px-1 py-0.2 rounded border border-blue-200/50 mt-0.5">
-              IBEW & Chief DX
-            </span>
-          </div>
         </div>
 
-        {/* 3 Quick Action Buttons: Chat, Call Direct, Free Consult */}
-        <div className="grid grid-cols-3 gap-2 pt-0.5">
+        {/* 3 Quick Action Buttons: Live Chat, Call Direct, Free DX (using react-icons) */}
+        <div className="grid grid-cols-3 gap-2.5 pt-0.5">
+          {/* Button 1: Live Chat */}
           <button
             onClick={onOpenChat}
-            className="h-10 px-2 rounded-2xl bg-[#edf4fe] hover:bg-blue-100/80 text-[#1d61f2] text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/70 cursor-pointer"
+            className="p-3 py-3.5 rounded-2xl bg-[#edf3fe] hover:bg-blue-100/90 text-center flex flex-col items-center justify-center transition-all active:scale-95 border border-blue-100/60 shadow-2xs cursor-pointer group"
           >
-            <MessageSquare className="w-3.5 h-3.5" />
-            <span>Chat</span>
+            <FiMessageSquare className="w-5 h-5 text-[#1d61f2] stroke-[2.2] group-hover:scale-105 transition-transform" />
+            <span className="text-xs font-extrabold text-slate-900 mt-2 leading-none">Live Chat</span>
+            <span className="text-[10px] text-slate-400 font-medium mt-1 leading-none">Avg 2m</span>
           </button>
 
+          {/* Button 2: Call Direct */}
           <button
             onClick={onOpenCall}
-            className="h-10 px-2 rounded-2xl bg-[#edf4fe] hover:bg-blue-100/80 text-[#1d61f2] text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/70 cursor-pointer"
+            className="p-3 py-3.5 rounded-2xl bg-[#edf3fe] hover:bg-blue-100/90 text-center flex flex-col items-center justify-center transition-all active:scale-95 border border-blue-100/60 shadow-2xs cursor-pointer group"
           >
-            <Phone className="w-3.5 h-3.5" />
-            <span>Call Direct</span>
+            <FiPhone className="w-5 h-5 text-[#1d61f2] stroke-[2.2] group-hover:scale-105 transition-transform" />
+            <span className="text-xs font-extrabold text-slate-900 mt-2 leading-none">Call Direct</span>
+            <span className="text-[10px] text-slate-400 font-medium mt-1 leading-none">347-491-9867</span>
           </button>
 
-          <button
-            onClick={() => onNavigate('profile')}
-            className="relative h-10 px-2 rounded-2xl bg-[#edf4fe] hover:bg-blue-100/80 text-[#1d61f2] text-xs font-extrabold transition-all active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs border border-blue-100/70 cursor-pointer"
-          >
-            <Mail className="w-3.5 h-3.5" />
-            <span>Free Consult</span>
-            <span className="absolute -top-1.5 -right-1 px-1.5 py-0.2 rounded-full bg-[#1d61f2] text-white text-[7.5px] font-black uppercase shadow-xs">
+          {/* Button 3: Free DX */}
+          <div className="relative">
+            <span className="absolute -top-1.5 -right-1 px-2 py-0.5 rounded-full bg-[#1d61f2] text-white text-[8px] font-black uppercase shadow-xs tracking-wider z-10 pointer-events-none">
               FREE
             </span>
-          </button>
+            <button
+              onClick={() => onNavigate('profile')}
+              className="w-full h-full p-3 py-3.5 rounded-2xl bg-[#dfeafd] hover:bg-blue-200/80 text-center flex flex-col items-center justify-center transition-all active:scale-95 border border-blue-200/60 shadow-2xs cursor-pointer group"
+            >
+              <RiFileUserLine className="w-5 h-5 text-[#1d61f2] group-hover:scale-105 transition-transform" />
+              <span className="text-xs font-extrabold text-slate-900 mt-2 leading-none">Free DX</span>
+              <span className="text-[10px] text-[#1d61f2] font-bold mt-1 leading-none">Case Review</span>
+            </button>
+          </div>
         </div>
       </div>
 
