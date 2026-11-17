@@ -30,24 +30,9 @@ export default function HomeDashboard({
   const heroSlides = [
     {
       id: 1,
-      badge: "COURT-CERTIFIED CLINICAL & LEGAL EXPERTS",
-      badgeIcon: "⚡",
-      badgeColor: "text-amber-300",
-      title: "Professional EMF Testing, Health & Safety Experts",
-      subtitle: "State-licensed IBEW electronics engineers & clinical industrial hygienists conducting exposure dosimetry across NY, NJ, CT, PA & DE since 2003.",
-      image: "/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg",
-      primaryCta: "Explore Services",
-      primaryTarget: "services",
-      secondaryCta: "Book Consultation",
-      secondaryTarget: "profile",
-      pillLeft: "NY • NJ • CT • PA • DE",
-      pillRight: "Lic. Since 2003"
-    },
-    {
-      id: 2,
       badge: "POWER UTILITY & SUBSTATION DOSIMETRY",
       badgeIcon: "⚡",
-      badgeColor: "text-cyan-300",
+      badgeColor: "text-cyan-300 bg-cyan-950/60 border-cyan-500/30",
       title: "Substations, Power Lines & Stray Ground Voltage",
       subtitle: "Scientific magnetic field falloff contour analysis, 60 Hz harmonic deconstruction & 100% stray underground voltage neutralization.",
       image: "/assets/Power-systems.jpg",
@@ -59,10 +44,25 @@ export default function HomeDashboard({
       pillRight: "100% Discharged"
     },
     {
+      id: 2,
+      badge: "COURT-CERTIFIED CLINICAL & LEGAL EXPERTS",
+      badgeIcon: "⚡",
+      badgeColor: "text-amber-300 bg-amber-950/60 border-amber-500/30",
+      title: "Professional EMF Testing, Health & Safety Experts",
+      subtitle: "State-licensed IBEW electronics engineers & clinical industrial hygienists conducting exposure dosimetry across NY, NJ, CT, PA & DE since 2003.",
+      image: "/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg",
+      primaryCta: "Explore Services",
+      primaryTarget: "services",
+      secondaryCta: "Book Consultation",
+      secondaryTarget: "profile",
+      pillLeft: "NY • NJ • CT • PA • DE",
+      pillRight: "Lic. Since 2003"
+    },
+    {
       id: 3,
       badge: "HIGH-FREQUENCY TELECOM SPECTRUM",
       badgeIcon: "📡",
-      badgeColor: "text-blue-300",
+      badgeColor: "text-blue-300 bg-blue-950/60 border-blue-500/30",
       title: "Rooftop 5G Arrays & Small-Cell Microwave Radiation",
       subtitle: "Multi-generational cellular spectrum diagnostics up to 60 GHz. Measuring peak pulse power densities & certified architectural RF shielding.",
       image: "/assets/5G-antenna-1030x896.jpg",
@@ -77,7 +77,7 @@ export default function HomeDashboard({
       id: 4,
       badge: "CLINICAL & CARDIAC IMPLANT SAFETY",
       badgeIcon: "❤️",
-      badgeColor: "text-rose-300",
+      badgeColor: "text-rose-300 bg-rose-950/60 border-rose-500/30",
       title: "Electromagnetic Interference (EMI) for Medical Implants",
       subtitle: "Critical safety clearance zoning for cardiac pacemakers, ICDs, and insulin pumps near high-voltage lines, EV chargers & industrial equipment.",
       image: "/assets/Electro-Magentic-Interferece-EMI-2003-1.jpg",
@@ -92,7 +92,7 @@ export default function HomeDashboard({
       id: 5,
       badge: "EDUCATIONAL DISTRICT AUDITS",
       badgeIcon: "🏫",
-      badgeColor: "text-emerald-300",
+      badgeColor: "text-emerald-300 bg-emerald-950/60 border-emerald-500/30",
       title: "School District & Campus Environmental EMF Testing",
       subtitle: "Comprehensive exposure studies for classrooms, computer labs, and playgrounds across NY, NJ, CT & PA. Protecting children & faculty.",
       image: "/assets/children_playing_near_high_voltage_lines.png",
@@ -105,12 +105,12 @@ export default function HomeDashboard({
     }
   ];
 
-  // Auto-slide effect every 4.5 seconds (paused on touch/hover)
+  // Auto-slide effect every 5 seconds (paused on touch/hover)
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % heroSlides.length);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(timer);
   }, [isPaused, heroSlides.length]);
 
@@ -152,6 +152,75 @@ export default function HomeDashboard({
     { id: 'legal', label: 'Legal Witness', count: 2 },
   ];
 
+  // Dynamic scientific protocols matching electraemf scientific capabilities
+  const allProtocols = [
+    {
+      id: 'res-stray-ground',
+      title: 'Residential EMF & Stray Ground Voltage Testing',
+      category: 'residential',
+      categoryLabel: 'Residential',
+      badgeColor: 'bg-blue-100 text-blue-700',
+      freqSpec: 'Low-Freq 60Hz',
+      description: 'Substations, power lines, pool shocks & whole-house passive grounding solutions.',
+      image: '/assets/EMF-safe-home-testing.jpg'
+    },
+    {
+      id: 'telecom-5g-arrays',
+      title: '4G, 5G & 6G Wireless Antenna Diagnostics',
+      category: 'all',
+      categoryLabel: 'Telecom',
+      badgeColor: 'bg-cyan-100 text-cyan-800',
+      freqSpec: 'High-Freq RFR',
+      description: 'Rooftop arrays, small-cell beamforming & certified architectural RF window film.',
+      image: '/assets/5G-antenna-1030x896.jpg'
+    },
+    {
+      id: 'medical-implant-triage',
+      title: 'Medical Implant (ICD / Pacemaker) EMI Triage',
+      category: 'medical',
+      categoryLabel: 'Life Safety',
+      badgeColor: 'bg-rose-100 text-rose-700',
+      freqSpec: 'ISO/AAMI 14117',
+      description: 'Level 2/3 EV fast chargers, induction cooktops & workplace electrical zoning.',
+      image: '/assets/Electro-Magentic-Interferece-EMI-2003-1.jpg'
+    },
+    {
+      id: 'comm-power-substation',
+      title: 'Commercial, Industrial & Power Utility Studies',
+      category: 'commercial',
+      categoryLabel: 'Commercial',
+      badgeColor: 'bg-emerald-100 text-emerald-800',
+      freqSpec: 'Substations & Grid',
+      description: 'High-voltage step-down substations, server room ground current loops & OSHA compliance.',
+      image: '/assets/power_substation.jpg'
+    },
+    {
+      id: 'legal-due-diligence',
+      title: 'Legal & Realty Expert Witness Due Diligence',
+      category: 'legal',
+      categoryLabel: 'Legal & Realty',
+      badgeColor: 'bg-amber-100 text-amber-800',
+      freqSpec: 'Court Certified',
+      description: 'Pre-purchase buyer due diligence, real estate disclosure reports & expert witness testimony.',
+      image: '/assets/Hudsone-Valley-Westchester-EMF-Testing-Expert.jpg'
+    },
+    {
+      id: 'res-living-space',
+      title: 'Living Space & Nursery Room Shielding Audits',
+      category: 'residential',
+      categoryLabel: 'Living Space',
+      badgeColor: 'bg-blue-100 text-blue-700',
+      freqSpec: 'Magnetic & Electric',
+      description: 'Bedrooms, children rooms, smart meter RF pulses, and plumbing current leakage.',
+      image: '/assets/Long-Island-EMF-Testing.jpg'
+    }
+  ];
+
+  // Filter protocols according to selected tab
+  const displayedProtocols = selectedCategory === 'all'
+    ? allProtocols.slice(0, 4)
+    : allProtocols.filter(p => p.category === selectedCategory || (selectedCategory === 'residential' && p.category === 'residential'));
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (onOpenSearch) {
@@ -165,10 +234,10 @@ export default function HomeDashboard({
 
   return (
     <div className="space-y-3.5 pb-24">
-      {/* 1. TOP SEARCH BAR (Matches Reference Screenshot) */}
+      {/* 1. TOP SEARCH BAR (Section 3: Full-width rounded search input) */}
       <form onSubmit={handleSearchSubmit} className="relative">
-        <div className="relative flex items-center bg-white rounded-full border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)] pl-3.5 pr-1.5 py-1">
-          <Search className="w-4 h-4 text-slate-400 shrink-0 mr-2" />
+        <div className="relative flex items-center bg-white rounded-full border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] pl-4 pr-1.5 py-1 focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-400 transition-all">
+          <Search className="w-4 h-4 text-slate-400 shrink-0 mr-2.5" />
           <input
             type="text"
             value={searchQuery}
@@ -181,17 +250,17 @@ export default function HomeDashboard({
           />
           <button
             type="submit"
-            className="h-8 px-4 rounded-full bg-[#1d61f2] hover:bg-blue-600 text-white text-xs font-extrabold transition-all shadow-xs active:scale-95 shrink-0 flex items-center justify-center cursor-pointer"
+            className="h-8.5 px-4 rounded-full bg-[#1d61f2] hover:bg-blue-600 text-white text-xs font-extrabold transition-all shadow-xs active:scale-95 shrink-0 flex items-center justify-center cursor-pointer"
           >
             Search
           </button>
         </div>
       </form>
 
-      {/* 2. LICENSED SERVICE AREA STRIP (Matches Reference Screenshot) */}
-      <div className="bg-white rounded-2xl p-2.5 px-3.5 border border-slate-200/70 flex items-center justify-between shadow-[0_2px_6px_rgba(0,0,0,0.02)]">
+      {/* 2. LICENSED SERVICE AREA STRIP (Section 4: Location Pin, State Area, Change Button) */}
+      <div className="bg-white rounded-2xl p-2.5 px-3.5 border border-slate-200/80 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-7.5 h-7.5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
             <MapPin className="w-4 h-4 stroke-[2.2]" />
           </div>
           <div className="min-w-0">
@@ -205,65 +274,73 @@ export default function HomeDashboard({
         </div>
         <button
           onClick={() => onNavigate('profile')}
-          className="h-7 px-3 rounded-full bg-blue-50 hover:bg-blue-100/80 text-blue-600 text-[11px] font-bold transition-all active:scale-95 shrink-0 flex items-center justify-center cursor-pointer"
+          className="h-7.5 px-3 rounded-full bg-blue-50 hover:bg-blue-100/90 text-blue-600 text-[11px] font-bold transition-all active:scale-95 shrink-0 flex items-center justify-center border border-blue-100/60 cursor-pointer"
         >
           Change
         </button>
       </div>
 
-      {/* 3. HERO SECTION – AUTOMATIC IMAGE CAROUSEL (Matches Reference Screenshot) */}
+      {/* 3. HERO SECTION – AUTOMATIC IMAGE CAROUSEL */}
       <div 
-        className="relative overflow-hidden rounded-[26px] bg-slate-950 text-white shadow-xl shadow-slate-950/15 select-none"
+        className="relative overflow-hidden rounded-[26px] bg-slate-900 text-white shadow-lg select-none border border-slate-200/40"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Background Image with Dynamic Fade Transition */}
-        <div className="relative h-52 sm:h-58 w-full overflow-hidden">
-          {heroSlides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
-            >
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover transform scale-105 transition-transform duration-7000 ease-out"
-                onError={(e) => {
-                  e.target.src = "/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg";
-                }}
-              />
-              {/* High Contrast Multi-Layer Vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071328] via-[#071328]/80 to-black/35" />
-            </div>
-          ))}
+        {/* Main Banner Stage: Natural Brightness Background Image */}
+        <div className="relative h-[235px] sm:h-[250px] w-full overflow-hidden">
+          {heroSlides.map((slide, index) => {
+            const isActive = index === currentSlide;
+            return (
+              <div
+                key={slide.id}
+                className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                  isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+                }`}
+              >
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover object-center brightness-105 contrast-[1.02]"
+                  onError={(e) => {
+                    e.target.src = "/assets/IBEW-Engineer-for-EMF-Testing-in-NYC.jpg";
+                  }}
+                />
+                {/* Subtle bottom-focused gradient only behind lower text to keep background bright & clear */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 via-50% to-transparent pointer-events-none" />
+              </div>
+            );
+          })}
 
-          {/* Slide Content Overlay */}
-          <div className="absolute inset-0 z-20 flex flex-col justify-end p-4">
-            <div className="space-y-1.5 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <h1 className="text-sm sm:text-base font-heading font-extrabold text-white leading-tight drop-shadow-sm line-clamp-2">
+          {/* Slide Content: Displays only ONE active slide's content at a time with smooth update */}
+          <div className="absolute inset-0 z-20 flex flex-col justify-end pb-3.5 px-9.5 pointer-events-none">
+            <div 
+              key={activeSlideData.id}
+              className="space-y-1.5 animate-in fade-in duration-300 pointer-events-auto"
+            >
+              {/* Bold Banner Heading */}
+              <h1 className="text-[14px] sm:text-[15px] font-heading font-extrabold text-white leading-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] line-clamp-2">
                 {activeSlideData.title}
               </h1>
 
-              <p className="text-[10.5px] text-blue-100/90 leading-tight line-clamp-2 drop-shadow-xs max-w-sm">
+              {/* Short Readable Description */}
+              <p className="text-[10px] sm:text-[10.5px] text-white/90 leading-tight line-clamp-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] max-w-sm">
                 {activeSlideData.subtitle}
               </p>
 
-              {/* Action Buttons in Hero: Rounded Pills (Matches Screenshot) */}
+              {/* Compact CTA Buttons */}
               <div className="flex items-center gap-2 pt-1">
                 <button
                   onClick={() => {
                     if (activeSlideData.primaryTarget === 'call') onOpenCall();
                     else onNavigate(activeSlideData.primaryTarget);
                   }}
-                  className="flex-1 sm:flex-none h-8.5 px-4 rounded-full bg-[#1d61f2] hover:bg-blue-600 text-white text-[11px] font-extrabold shadow-md shadow-blue-950/40 active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="h-7.5 px-3.5 rounded-full bg-[#1d61f2] hover:bg-blue-600 text-white text-[10.5px] font-bold shadow-sm active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
                 >
                   <span>{activeSlideData.primaryCta}</span>
-                  <ArrowRight className="w-3 h-3 stroke-[2.5]" />
+                  <ArrowRight className="w-3 h-3 stroke-[2.2]" />
                 </button>
 
                 <button
@@ -271,7 +348,7 @@ export default function HomeDashboard({
                     if (activeSlideData.secondaryTarget === 'call') onOpenCall();
                     else onNavigate(activeSlideData.secondaryTarget);
                   }}
-                  className="flex-1 sm:flex-none h-8.5 px-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] font-bold border border-white/25 active:scale-95 transition-all flex items-center justify-center text-center backdrop-blur-xs cursor-pointer"
+                  className="h-7.5 px-3 rounded-full bg-black/45 hover:bg-black/65 text-white text-[10.5px] font-medium border border-white/30 active:scale-95 transition-all flex items-center justify-center text-center backdrop-blur-sm cursor-pointer shrink-0"
                 >
                   {activeSlideData.secondaryCta}
                 </button>
@@ -279,26 +356,26 @@ export default function HomeDashboard({
             </div>
           </div>
 
-          {/* Carousel Left / Right Navigation Chevrons */}
+          {/* Carousel Left / Right Navigation Controls: Vertically Centered with subtle circular backgrounds */}
           <button
             onClick={handlePrevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10 cursor-pointer"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/40 hover:bg-black/65 text-white/90 hover:text-white backdrop-blur-sm flex items-center justify-center active:scale-90 transition-all border border-white/20 cursor-pointer shadow-md"
             aria-label="Previous Slide"
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-3.5 h-3.5 stroke-[2.4]" />
           </button>
 
           <button
             onClick={handleNextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-xs flex items-center justify-center active:scale-90 transition-all border border-white/10 cursor-pointer"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/40 hover:bg-black/65 text-white/90 hover:text-white backdrop-blur-sm flex items-center justify-center active:scale-90 transition-all border border-white/20 cursor-pointer shadow-md"
             aria-label="Next Slide"
           >
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5 stroke-[2.4]" />
           </button>
         </div>
 
-        {/* Carousel Pagination Indicators & Right Tag (Matches Screenshot) */}
-        <div className="bg-[#071328] px-4 py-2 flex items-center justify-between border-t border-white/10 text-[9.5px]">
+        {/* Carousel Bottom Pagination: Centered horizontally, no right-side content */}
+        <div className="bg-[#071328] py-2 px-4 flex items-center justify-center border-t border-white/10">
           <div className="flex items-center gap-1.5">
             {heroSlides.map((_, idx) => (
               <button
@@ -306,31 +383,33 @@ export default function HomeDashboard({
                 onClick={() => setCurrentSlide(idx)}
                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   idx === currentSlide 
-                    ? 'w-5 bg-[#1d61f2] shadow-xs' 
-                    : 'w-1.5 bg-white/30 hover:bg-white/50'
+                    ? 'w-4.5 bg-[#1d61f2] shadow-xs' 
+                    : 'w-1.5 bg-white/35 hover:bg-white/60'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
           </div>
-
-          <div className="flex items-center gap-2 text-slate-300 font-medium">
-            <span className="truncate">{activeSlideData.pillRight}</span>
-          </div>
         </div>
       </div>
 
-      {/* 4. OUR LICENSED EXPERTS ARE HERE TO HELP (Matches Reference Screenshot) */}
-      <div className="bg-white rounded-[26px] p-4 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3">
+      {/* 4. OUR LICENSED EXPERTS ARE HERE TO HELP (Section 6: Expert card, verification, 3 actions) */}
+      <div className="bg-white rounded-[26px] p-4.5 border border-slate-100 shadow-[0_3px_12px_rgba(0,0,0,0.03)] space-y-3.5">
         <div className="flex items-start justify-between gap-3">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <h2 className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5 leading-snug">
               <span>Our Licensed Experts are here to help.</span>
               <span className="text-rose-500">❤️</span>
             </h2>
-            <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
+            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
               IBEW Licensed Electronics Engineers & Clinical Industrial Hygienists since 2003. Zero-fee triage.
             </p>
+            <div className="mt-1.5">
+              <span className="inline-flex items-center gap-1 text-[9.5px] font-bold text-blue-600 bg-blue-50/80 px-2 py-0.5 rounded-full border border-blue-100">
+                <CheckCircle2 className="w-2.5 h-2.5 stroke-[2.5]" />
+                <span>Available Today • 5 States Licensed</span>
+              </span>
+            </div>
           </div>
 
           {/* Expert Avatar */}
@@ -352,7 +431,7 @@ export default function HomeDashboard({
           </div>
         </div>
 
-        {/* 3 Quick Action Buttons: Chat, Call Direct, Free Consult (Matches Screenshot) */}
+        {/* 3 Quick Action Buttons: Chat, Call Direct, Free Consult */}
         <div className="grid grid-cols-3 gap-2 pt-0.5">
           <button
             onClick={onOpenChat}
@@ -383,7 +462,7 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 5. EXPLORE BY CATEGORY */}
+      {/* 5. EXPLORE BY CATEGORY (Section 7: Filter tabs, count badges, horizontal scroll) */}
       <div className="space-y-2">
         <div className="flex items-center justify-between px-1">
           <h2 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
@@ -391,14 +470,14 @@ export default function HomeDashboard({
           </h2>
           <button 
             onClick={() => onNavigate('services')}
-            className="text-xs font-bold text-blue-600 hover:underline flex items-center gap-0.5"
+            className="text-xs font-bold text-blue-600 hover:underline flex items-center gap-0.5 cursor-pointer"
           >
             <span>Full Technical Guide</span>
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Scrollable Category Filter Pills (Matches Reference Screenshot) */}
+        {/* Scrollable Category Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.id;
@@ -424,18 +503,18 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 6. FOUR 2-COLUMN ACTION DOMAIN CARDS */}
+      {/* 6. FOUR 2-COLUMN ACTION DOMAIN CARDS (Section 8: Find Services, EMF vs EMI, Clinical DX, Legal & Realty) */}
       <div className="grid grid-cols-2 gap-2.5">
-        {/* Card 1: Dark Navy */}
+        {/* Card 1: Dark Navy - Find Services */}
         <button
           onClick={() => onNavigate('services')}
-          className="text-left rounded-2xl p-3.5 bg-[#0b1b36] hover:bg-[#0e2347] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-34 border border-blue-900/40 group"
+          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#0c1e3d] to-[#071328] hover:from-[#0e2449] hover:to-[#0a1832] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-blue-900/40 group cursor-pointer"
         >
           <div className="flex items-center justify-between">
             <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
               <Search className="w-4 h-4 text-blue-300" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-blue-600 text-[9px] font-black text-white">
+            <span className="px-2 py-0.5 rounded-full bg-[#1d61f2] text-[9px] font-black text-white shadow-xs">
               14 Protocols
             </span>
           </div>
@@ -450,16 +529,16 @@ export default function HomeDashboard({
           </div>
         </button>
 
-        {/* Card 2: Forest Emerald */}
+        {/* Card 2: Forest Emerald - EMF vs EMI Guide */}
         <button
           onClick={() => onNavigate('reports')}
-          className="text-left rounded-2xl p-3.5 bg-[#0b3824] hover:bg-[#0e472e] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-34 border border-emerald-900/40 group"
+          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#0a3522] to-[#052115] hover:from-[#0c422a] hover:to-[#082b1c] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-emerald-900/40 group cursor-pointer"
         >
           <div className="flex items-center justify-between">
             <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
               <Sliders className="w-4 h-4 text-emerald-300" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-[9px] font-black text-white">
+            <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-[9px] font-black text-white shadow-xs">
               Interactive
             </span>
           </div>
@@ -474,16 +553,16 @@ export default function HomeDashboard({
           </div>
         </button>
 
-        {/* Card 3: Warm Rust / Caramel */}
+        {/* Card 3: Warm Rust - Clinical DX */}
         <button
           onClick={() => onNavigate('experts')}
-          className="text-left rounded-2xl p-3.5 bg-[#662a05] hover:bg-[#7e3407] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-34 border border-amber-900/40 group"
+          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#5c2405] to-[#3d1602] hover:from-[#6d2b06] hover:to-[#4a1b02] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-amber-900/40 group cursor-pointer"
         >
           <div className="flex items-center justify-between">
             <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
               <ShieldCheck className="w-4 h-4 text-amber-300" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-amber-600 text-[9px] font-black text-white">
+            <span className="px-2 py-0.5 rounded-full bg-amber-600 text-[9px] font-black text-white shadow-xs">
               sC-Ve ®™
             </span>
           </div>
@@ -498,16 +577,16 @@ export default function HomeDashboard({
           </div>
         </button>
 
-        {/* Card 4: Deep Ocean Blue */}
+        {/* Card 4: Deep Ocean Blue - Legal & Realty */}
         <button
           onClick={() => onNavigate('experts')}
-          className="text-left rounded-2xl p-3.5 bg-[#094269] hover:bg-[#0c5282] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-34 border border-cyan-900/40 group"
+          className="text-left rounded-2xl p-3.5 bg-gradient-to-br from-[#083e63] to-[#052840] hover:from-[#0a4d7b] hover:to-[#073250] text-white shadow-md active:scale-98 transition-all flex flex-col justify-between h-[146px] border border-cyan-900/40 group cursor-pointer"
         >
           <div className="flex items-center justify-between">
             <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
               <Scale className="w-4 h-4 text-cyan-300" />
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-cyan-600 text-[9px] font-black text-white">
+            <span className="px-2 py-0.5 rounded-full bg-cyan-600 text-[9px] font-black text-white shadow-xs">
               Court Proven
             </span>
           </div>
@@ -523,11 +602,11 @@ export default function HomeDashboard({
         </button>
       </div>
 
-      {/* 7. RESIDENTIAL & COMMERCIAL EMF TESTING SPOTLIGHT */}
-      <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-xs space-y-3">
+      {/* 7. FEATURED SCIENTIFIC PROTOCOLS (Section 9: Compact horizontal cards, badges, navigation) */}
+      <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-[9px] font-black uppercase tracking-wider text-blue-600 block">
+            <span className="text-[9px] font-black uppercase tracking-wider text-[#1d61f2] block">
               FEATURED SCIENTIFIC PROTOCOLS
             </span>
             <h3 className="font-heading font-extrabold text-sm text-slate-900 mt-0.5">
@@ -536,113 +615,58 @@ export default function HomeDashboard({
           </div>
           <button
             onClick={() => onNavigate('services')}
-            className="text-[11px] font-bold text-blue-600 hover:underline flex items-center gap-0.5"
+            className="text-[11px] font-bold text-blue-600 hover:underline flex items-center gap-0.5 cursor-pointer"
           >
             <span>View All</span>
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
         <div className="space-y-2.5">
-          {/* Service 1 */}
-          <div 
-            onClick={() => onNavigate('services')}
-            className="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/40 border border-slate-100 hover:border-blue-200 transition-all cursor-pointer flex items-center gap-3 group"
-          >
-            <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200/80">
-              <img 
-                src="/assets/EMF-safe-home-testing.jpg" 
-                alt="Residential EMF"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                onError={(e) => { e.target.src = "/assets/Power-systems.jpg"; }}
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[8.5px] font-bold uppercase px-1.5 py-0.2 rounded bg-blue-100 text-blue-700">
-                  Residential
-                </span>
-                <span className="text-[10px] text-slate-400">Low-Freq 60Hz</span>
+          {displayedProtocols.map((protocol) => (
+            <div 
+              key={protocol.id}
+              onClick={() => onNavigate('services')}
+              className="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/40 border border-slate-100 hover:border-blue-200 transition-all cursor-pointer flex items-center gap-3 group"
+            >
+              <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200/80">
+                <img 
+                  src={protocol.image} 
+                  alt={protocol.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  onError={(e) => { e.target.src = "/assets/Power-systems.jpg"; }}
+                />
               </div>
-              <h4 className="font-heading font-bold text-xs text-slate-900 truncate mt-0.5 group-hover:text-blue-600 transition-colors">
-                Residential EMF & Stray Ground Voltage Testing
-              </h4>
-              <p className="text-[10.5px] text-slate-500 line-clamp-1 mt-0.5">
-                Substations, power lines, pool shocks & whole-house passive grounding solutions.
-              </p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
-          </div>
-
-          {/* Service 2 */}
-          <div 
-            onClick={() => onNavigate('services')}
-            className="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/40 border border-slate-100 hover:border-blue-200 transition-all cursor-pointer flex items-center gap-3 group"
-          >
-            <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200/80">
-              <img 
-                src="/assets/5G-antenna-1030x896.jpg" 
-                alt="5G Telecom"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                onError={(e) => { e.target.src = "/assets/rooftop_garden_radiation-1030x550.jpg"; }}
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[8.5px] font-bold uppercase px-1.5 py-0.2 rounded bg-cyan-100 text-cyan-800">
-                  Telecom
-                </span>
-                <span className="text-[10px] text-slate-400">High-Freq RFR</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className={`text-[8.5px] font-bold uppercase px-1.5 py-0.2 rounded ${protocol.badgeColor}`}>
+                    {protocol.categoryLabel}
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    {protocol.freqSpec}
+                  </span>
+                </div>
+                <h4 className="font-heading font-bold text-xs text-slate-900 truncate mt-0.5 group-hover:text-blue-600 transition-colors">
+                  {protocol.title}
+                </h4>
+                <p className="text-[10.5px] text-slate-500 line-clamp-1 mt-0.5">
+                  {protocol.description}
+                </p>
               </div>
-              <h4 className="font-heading font-bold text-xs text-slate-900 truncate mt-0.5 group-hover:text-blue-600 transition-colors">
-                4G, 5G & 6G Wireless Antenna Diagnostics
-              </h4>
-              <p className="text-[10.5px] text-slate-500 line-clamp-1 mt-0.5">
-                Rooftop arrays, small-cell beamforming & certified architectural RF window film.
-              </p>
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0" />
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
-          </div>
-
-          {/* Service 3 */}
-          <div 
-            onClick={() => onNavigate('services')}
-            className="p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/40 border border-slate-100 hover:border-blue-200 transition-all cursor-pointer flex items-center gap-3 group"
-          >
-            <div className="w-14 h-14 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200/80">
-              <img 
-                src="/assets/Electro-Magentic-Interferece-EMI-2003-1.jpg" 
-                alt="Medical Implant EMI"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[8.5px] font-bold uppercase px-1.5 py-0.2 rounded bg-rose-100 text-rose-700">
-                  Life Safety
-                </span>
-                <span className="text-[10px] text-slate-400">ISO/AAMI 14117</span>
-              </div>
-              <h4 className="font-heading font-bold text-xs text-slate-900 truncate mt-0.5 group-hover:text-blue-600 transition-colors">
-                Medical Implant (ICD / Pacemaker) EMI Triage
-              </h4>
-              <p className="text-[10.5px] text-slate-500 line-clamp-1 mt-0.5">
-                Level 2/3 EV fast chargers, induction cooktops & workplace electrical zoning.
-              </p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* 8. FEATURED CASE STUDY PREVIEW */}
-      <div className="rounded-3xl bg-gradient-to-br from-[#0c234a] via-[#0d346c] to-[#124285] text-white p-4.5 shadow-md space-y-3">
+      {/* 8. FEATURED FORENSIC CASE STUDY (Section 10: Deep-blue gradient, 100% Neutralized, 2 buttons) */}
+      <div className="rounded-3xl bg-gradient-to-br from-[#0c234a] via-[#0d346c] to-[#071936] text-white p-5 shadow-lg border border-blue-400/20 space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-[9px] font-black uppercase tracking-wider text-cyan-300 flex items-center gap-1">
+          <span className="text-[9.5px] font-black uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
             <span>🔬</span>
             <span>PUBLISHED FORENSIC CASE STUDY</span>
           </span>
-          <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-500/30">
+          <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-500/40">
             100% Neutralized
           </span>
         </div>
@@ -659,22 +683,22 @@ export default function HomeDashboard({
         <div className="flex items-center gap-2 pt-0.5">
           <button
             onClick={() => onNavigate('reports')}
-            className="h-9 px-4 rounded-xl bg-blue-500 hover:bg-blue-400 text-white text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 shadow-xs"
+            className="h-9 px-4 rounded-xl bg-[#1d61f2] hover:bg-blue-500 text-white text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 shadow-md shadow-blue-950/40 cursor-pointer"
           >
             <span>Read Case Dossier</span>
-            <ArrowRight className="w-3 h-3 stroke-[2.5]" />
+            <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>
           <button
             onClick={() => onNavigate('profile')}
-            className="h-9 px-3.5 rounded-xl bg-white/15 hover:bg-white/20 text-white text-xs font-bold border border-white/20 transition-all active:scale-95"
+            className="h-9 px-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold border border-white/20 transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
           >
             Request Inspection
           </button>
         </div>
       </div>
 
-      {/* 9. CLIENT ENDORSEMENT CARD */}
-      <div className="bg-white rounded-3xl p-4 border border-slate-100 shadow-xs space-y-2.5">
+      {/* 9. CLIENT TESTIMONIAL (Section 11: 5 Stars, Verified Study, Abe Berman quote) */}
+      <div className="bg-white rounded-3xl p-4.5 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <div className="flex items-center text-amber-500">
@@ -686,7 +710,7 @@ export default function HomeDashboard({
               Client Endorsement
             </span>
           </div>
-          <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+          <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
             Verified Study
           </span>
         </div>
@@ -695,9 +719,9 @@ export default function HomeDashboard({
           "My professional clients have been very pleased with me for locating the only fully licensed EMF technical and medical expert. Comprehensive and highly detailed technical and clinical exposure services."
         </p>
 
-        <div className="flex items-center justify-between pt-1 border-t border-slate-50">
+        <div className="flex items-center justify-between pt-1 border-t border-slate-100">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold">
+            <div className="w-7.5 h-7.5 rounded-full bg-blue-100 text-[#1d61f2] flex items-center justify-center text-xs font-bold border border-blue-200/60">
               AB
             </div>
             <div>
@@ -709,11 +733,11 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 10. IMMEDIATE EXPOSURE CONCERNS & DISPATCH HOTLINE */}
+      {/* 10. EMERGENCY CONTACT SECTION (Section 12: Immediate exposure concerns, call & email) */}
       <div className="bg-[#f0f4fc] rounded-3xl p-4 border border-blue-100 flex items-center justify-between gap-3 shadow-xs">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-9 h-9 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
-            <AlertCircle className="w-4 h-4" />
+          <div className="w-9.5 h-9.5 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 border border-rose-200/50">
+            <AlertCircle className="w-4.5 h-4.5" />
           </div>
           <div className="min-w-0">
             <span className="text-[9px] font-extrabold uppercase tracking-wide text-rose-600 block leading-tight">
@@ -730,7 +754,7 @@ export default function HomeDashboard({
 
         <button
           onClick={onOpenCall}
-          className="h-10 px-4.5 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm shrink-0 active:scale-95 transition-all"
+          className="h-10 px-4.5 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm shrink-0 active:scale-95 transition-all cursor-pointer"
         >
           <Phone className="w-3.5 h-3.5" />
           <span>Call</span>

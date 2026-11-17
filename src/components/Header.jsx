@@ -75,9 +75,9 @@ export default function Header({
           className="flex items-center gap-2 text-left group focus:outline-none transition-transform active:scale-[0.98] cursor-pointer"
           aria-label="ElectraEMF Home"
         >
-          <div className="w-8 h-8 rounded-xl bg-[#0b162c] border border-blue-900/40 flex items-center justify-center shadow-xs overflow-hidden shrink-0 group-hover:scale-105 transition-transform">
+          <div className="w-8.5 h-8.5 rounded-xl bg-[#0b162c] border border-blue-900/40 flex items-center justify-center shadow-xs overflow-hidden shrink-0 group-hover:scale-105 transition-transform">
             <svg 
-              className="w-4.5 h-4.5 text-blue-400" 
+              className="w-4.5 h-4.5 text-[#1d61f2]" 
               viewBox="0 0 24 24" 
               fill="none" 
               stroke="currentColor" 
@@ -93,9 +93,12 @@ export default function Header({
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
             </svg>
           </div>
-          <div className="flex items-center font-heading font-extrabold text-[17px] tracking-tight leading-none">
-            <span className="text-[#0b162c]">Electra</span>
-            <span className="text-[#1d61f2]">EMF</span>
+          <div className="flex flex-col">
+            <div className="flex items-center font-heading font-extrabold text-[17px] tracking-tight leading-none">
+              <span className="text-[#0b162c]">Electra</span>
+              <span className="text-[#1d61f2]">EMF</span>
+            </div>
+            <span className="text-[7.5px] font-extrabold text-slate-400 tracking-wider uppercase leading-none mt-0.5">HEALTH & SAFETY</span>
           </div>
         </button>
 
