@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  Search, MapPin, MessageSquare, Phone, Mail,
+  Search, MessageSquare, Phone, Mail,
   ArrowRight, ChevronRight, Star, AlertCircle,
   Activity, ShieldCheck, Scale, Zap, CheckCircle2,
   Sliders, Compass, FileText, Building2, School, HeartPulse,
@@ -304,30 +304,7 @@ export default function HomeDashboard({
         </div>
       </form>
 
-      {/* 2. LICENSED SERVICE AREA STRIP (Section 4: Location Pin, State Area, Change Button) */}
-      <div className="bg-white rounded-2xl p-2.5 px-3.5 border border-slate-200/80 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
-            <MapPin className="w-4 h-4 stroke-[2.2]" />
-          </div>
-          <div className="min-w-0">
-            <span className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 block leading-tight">
-              LICENSED SERVICE AREA
-            </span>
-            <span className="text-xs font-bold text-slate-800 truncate block leading-tight mt-0.5">
-              NY, NJ, CT, PA, DE <span className="text-slate-400 font-normal">(Tri-State Metro...)</span>
-            </span>
-          </div>
-        </div>
-        <button
-          onClick={() => onNavigate('profile')}
-          className="h-7.5 px-3 rounded-full bg-blue-50 hover:bg-blue-100/90 text-blue-600 text-[11px] font-bold transition-all active:scale-95 shrink-0 flex items-center justify-center border border-blue-100/60 cursor-pointer"
-        >
-          Change
-        </button>
-      </div>
-
-      {/* 3. HERO SECTION – AUTOMATIC IMAGE CAROUSEL */}
+      {/* 2. HERO SECTION – AUTOMATIC IMAGE CAROUSEL */}
       <div
         className="relative overflow-hidden rounded-[26px] bg-slate-900 text-white shadow-lg select-none border border-slate-200/40"
         onMouseEnter={() => setIsPaused(true)}
@@ -680,15 +657,12 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      {/* 8. FEATURED FORENSIC CASE STUDY (Section 10: Deep-blue gradient, 100% Neutralized, 2 buttons) */}
+      {/* 8. FEATURED FORENSIC CASE STUDY (Section 10: Deep-blue gradient, 2 buttons) */}
       <div className="rounded-3xl bg-gradient-to-br from-[#0c234a] via-[#0d346c] to-[#071936] text-white p-5 shadow-lg border border-blue-400/20 space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-[9.5px] font-black uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
             <span>🔬</span>
             <span>PUBLISHED FORENSIC CASE STUDY</span>
-          </span>
-          <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-500/40">
-            100% Neutralized
           </span>
         </div>
 
