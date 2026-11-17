@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { 
-  FileText, Phone, Mail, ShieldAlert, ArrowRight, 
+import {
+  FileText, Phone, Mail, ShieldAlert, ArrowRight,
   ChevronDown, ChevronUp, Star, CheckSquare, Square,
   AlertTriangle, BookOpen, ExternalLink, ShieldCheck, Scale, Zap, Radio, Sparkles,
   MapPin, CheckCircle2, Clock, Activity
@@ -221,7 +221,7 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
           <button
             onClick={() => {
               toast.success('Opening consultation portal to submit report...', { id: 'report-toast' });
-              onNavigate('profile');
+              onNavigate('consultation');
             }}
             className="w-full h-11 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-2 border border-white/20 active:scale-95 transition-all cursor-pointer"
           >
@@ -239,16 +239,16 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
         </div>
 
         {featuredCases.map((cs) => (
-          <div 
+          <div
             key={cs.id}
             onClick={() => setActiveArticle(cs)}
             className="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-blue-200/80 transition-all cursor-pointer group active:scale-[0.99]"
           >
             {/* Enlarged Cinematic Image Container (No button on image) */}
             <div className="relative h-48 sm:h-52 w-full bg-slate-900 overflow-hidden">
-              <img 
-                src={cs.image} 
-                alt={cs.title} 
+              <img
+                src={cs.image}
+                alt={cs.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
@@ -524,13 +524,13 @@ export default function ReportsScreen({ onOpenCall, onNavigate }) {
         article={activeArticle}
         onClose={() => setActiveArticle(null)}
         onOpenCall={onOpenCall}
-        onNavigateToContact={() => onNavigate && onNavigate('profile')}
+        onNavigateToContact={() => onNavigate && onNavigate('consultation')}
       />
 
       <StandardsComparisonModal
         isOpen={isStandardsOpen}
         onClose={() => setIsStandardsOpen(false)}
-        onNavigateToContact={() => onNavigate && onNavigate('profile')}
+        onNavigateToContact={() => onNavigate && onNavigate('consultation')}
       />
     </div>
   );

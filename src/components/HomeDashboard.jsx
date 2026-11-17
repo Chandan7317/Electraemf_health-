@@ -430,7 +430,7 @@ export default function HomeDashboard({
               FREE
             </span>
             <button
-              onClick={() => onNavigate('profile')}
+              onClick={() => onNavigate('consultation')}
               className="w-full h-full p-3 py-3.5 rounded-2xl bg-[#dfeafd] hover:bg-blue-200/80 text-center flex flex-col items-center justify-center transition-all active:scale-95 border border-blue-200/60 shadow-2xs cursor-pointer group"
             >
               <RiFileUserLine className="w-5 h-5 text-[#1d61f2] group-hover:scale-105 transition-transform" />
@@ -684,7 +684,7 @@ export default function HomeDashboard({
             <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>
           <button
-            onClick={() => onNavigate('profile')}
+            onClick={() => onNavigate('consultation')}
             className="h-9 px-3.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold border border-white/20 transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
           >
             Request Inspection

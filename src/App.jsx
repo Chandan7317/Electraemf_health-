@@ -8,6 +8,7 @@ import ServicesScreen from './components/ServicesScreen';
 import ExpertsScreen from './components/ExpertsScreen';
 import ReportsScreen from './components/ReportsScreen';
 import ProfileScreen from './components/ProfileScreen';
+import ConsultationScreen from './components/ConsultationScreen';
 import NotificationsScreen from './components/NotificationsScreen';
 import MobileSearchView from './components/MobileSearchView';
 import AuthScreen from './components/AuthScreen';
@@ -22,7 +23,7 @@ export default function App() {
   const getHashTab = () => {
     if (typeof window !== 'undefined' && window.location.hash) {
       const hash = window.location.hash.replace('#', '').trim();
-      if (['home', 'services', 'experts', 'reports', 'meter', 'profile', 'notifications', 'login', 'signup'].includes(hash)) {
+      if (['home', 'services', 'experts', 'reports', 'meter', 'profile', 'notifications', 'login', 'signup', 'consultation'].includes(hash)) {
         return hash;
       }
     }
@@ -100,7 +101,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').trim();
-      if (hash && ['home', 'services', 'experts', 'reports', 'meter', 'profile', 'notifications', 'login', 'signup'].includes(hash)) {
+      if (hash && ['home', 'services', 'experts', 'reports', 'meter', 'profile', 'notifications', 'login', 'signup', 'consultation'].includes(hash)) {
         setActiveTab(hash);
       }
     };
@@ -169,7 +170,7 @@ export default function App() {
   };
 
   const handleBookService = (service) => {
-    setActiveTab('profile');
+    setActiveTab('consultation');
   };
 
   const handleNavigateToItem = (item) => {
@@ -184,8 +185,8 @@ export default function App() {
         setActiveTab('experts');
       } else if (item.id === 'services' || item.id === 'emf-testing') {
         setActiveTab('services');
-      } else if (item.id === 'contact') {
-        setActiveTab('profile');
+      } else if (item.id === 'contact' || item.id === 'consultation') {
+        setActiveTab('consultation');
       } else {
         setActiveTab('reports');
       }
@@ -319,7 +320,7 @@ export default function App() {
                 isOpen={true}
                 isPage={true}
                 onClose={handleBack}
-                onNavigateToContact={() => handleTabChange('profile')}
+                onNavigateToContact={() => handleTabChange('consultation')}
                 onOpenCall={() => setIsCallOpen(true)}
               />
             )}
@@ -333,6 +334,15 @@ export default function App() {
                 userPhoto={userPhoto}
                 onUpdatePhoto={handleUpdatePhoto}
                 onUpdateUser={handleUpdateUser}
+              />
+            )}
+
+            {activeTab === 'consultation' && (
+              <ConsultationScreen
+                onBack={handleBack}
+                onNavigate={handleTabChange}
+                onOpenCall={() => setIsCallOpen(true)}
+                currentUser={currentUser}
               />
             )}
 
@@ -370,7 +380,7 @@ export default function App() {
         }}
         onNavigateToContact={() => {
           setIsChatOpen(false);
-          setActiveTab('profile');
+          setActiveTab('consultation');
         }}
       />
 
@@ -379,7 +389,7 @@ export default function App() {
         onClose={() => setIsAssessmentOpen(false)}
         onNavigateToContact={() => {
           setIsAssessmentOpen(false);
-          setActiveTab('profile');
+          setActiveTab('consultation');
         }}
       />
 
@@ -388,7 +398,7 @@ export default function App() {
         onClose={() => setIsEMFMeterOpen(false)}
         onNavigateToContact={() => {
           setIsEMFMeterOpen(false);
-          setActiveTab('profile');
+          setActiveTab('consultation');
         }}
         onOpenCall={() => {
           setIsEMFMeterOpen(false);
