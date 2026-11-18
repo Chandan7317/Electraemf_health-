@@ -426,9 +426,6 @@ export default function HomeDashboard({
 
           {/* Button 3: Free DX */}
           <div className="relative">
-            <span className="absolute -top-1.5 -right-1 px-2 py-0.5 rounded-full bg-[#1d61f2] text-white text-[8px] font-black uppercase shadow-xs tracking-wider z-10 pointer-events-none">
-              FREE
-            </span>
             <button
               onClick={() => onNavigate('consultation')}
               className="w-full h-full p-3 py-3.5 rounded-2xl bg-[#dfeafd] hover:bg-blue-200/80 text-center flex flex-col items-center justify-center transition-all active:scale-95 border border-blue-200/60 shadow-2xs cursor-pointer group"
