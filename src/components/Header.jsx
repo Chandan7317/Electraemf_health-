@@ -127,8 +127,8 @@ export default function Header({
             onClick={onOpenProfile}
             className={`relative w-9 h-9 rounded-full overflow-hidden active:scale-95 transition-all focus:outline-none shadow-xs border cursor-pointer ${
               activeTab === 'profile' 
-                ? 'ring-2 ring-blue-600 ring-offset-1 border-blue-600' 
-                : 'border-slate-200/80 hover:border-blue-400 bg-white'
+                ? 'border-slate-400 bg-slate-100' 
+                : 'border-slate-200/80 hover:border-slate-300 bg-white'
             }`}
             aria-label="User Profile"
           >
@@ -140,7 +140,7 @@ export default function Header({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-blue-50/70 hover:bg-blue-100/70 text-blue-600 flex items-center justify-center transition-colors">
+                <div className="w-full h-full bg-slate-100 hover:bg-slate-200/80 text-slate-700 flex items-center justify-center transition-colors">
                   <User className="w-4 h-4 stroke-[2.2]" />
                 </div>
               )}
