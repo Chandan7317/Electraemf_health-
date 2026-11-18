@@ -4,7 +4,8 @@ import {
   ShieldCheck, Phone, Mail, User, Building, MapPin,
   ChevronRight, FileText, Bookmark,
   Bell, Scale, Lock, Share2, AlertCircle, CheckCircle2,
-  Send, Sparkles, Camera, Trash2, Edit3, LogOut, Check, X, ArrowLeft
+  Send, Sparkles, Camera, Trash2, Edit3, LogOut, Check, X, ArrowLeft,
+  Download, ExternalLink
 } from 'lucide-react';
 
 export default function ProfileScreen({
@@ -19,6 +20,13 @@ export default function ProfileScreen({
   const fileInputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [activeVaultModal, setActiveVaultModal] = useState(null); // 'reports' | 'bookmarks' | 'notifications' | 'retainer' | 'privacy'
+  const [alertPreferences, setAlertPreferences] = useState({
+    smsAlerts: true,
+    pdfDelivery: true,
+    severeAlerts: true,
+    hotlineAudio: false,
+  });
   const ticketNum = '62034-EMF';
 
   const [editForm, setEditForm] = useState({
@@ -611,17 +619,18 @@ export default function ProfileScreen({
 
         <div className="divide-y divide-slate-100 text-xs">
           {[
-            { title: "My Consultation Requests & Reports", sub: "2 verified historical field audit PDFs" },
-            { title: "Saved Services & Protocol Bookmarks", sub: "Substation safety & 5G baseline standards" },
-            { title: "Notification & Alert Preferences", sub: "SMS dispatch alerts and PDF report delivery" },
-            { title: "Court Expert Witness Retainer Info", sub: "Deposition, trial testimony & 28-page CV" },
-            { title: "Privacy Policy & Evidentiary Non-Disclosure", sub: "HIPAA-compliant and attorney-client privileged" }
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className="py-3 flex items-center justify-between gap-2 hover:bg-slate-50 px-1 rounded-xl transition-colors cursor-pointer group"
+            { id: 'reports', title: "My Consultation Requests & Reports", sub: "2 verified historical field audit PDFs" },
+            { id: 'bookmarks', title: "Saved Services & Protocol Bookmarks", sub: "Substation safety & 5G baseline standards" },
+            { id: 'notifications', title: "Notification & Alert Preferences", sub: "SMS dispatch alerts and PDF report delivery" },
+            { id: 'retainer', title: "Court Expert Witness Retainer Info", sub: "Deposition, trial testimony & 28-page CV" },
+            { id: 'privacy', title: "Privacy Policy & Evidentiary Non-Disclosure", sub: "HIPAA-compliant and attorney-client privileged" }
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveVaultModal(item.id)}
+              className="w-full py-3 flex items-center justify-between gap-2 hover:bg-slate-50 px-2 rounded-xl transition-colors cursor-pointer group text-left active:scale-[0.99]"
             >
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <span className="font-bold text-slate-800 block truncate group-hover:text-blue-600 transition-colors">
                   {item.title}
                 </span>
@@ -630,14 +639,358 @@ export default function ProfileScreen({
                 </span>
               </div>
               <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0" />
-            </div>
+            </button>
           ))}
         </div>
       </div>
 
-      {/* 7. FOOTER (Exact Image 4) */}
+      {/* ACCOUNT & CASE MANAGEMENT VAULT MODALS */}
+      {activeVaultModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3.5 animate-in fade-in duration-200">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-4 max-h-[85vh] overflow-y-auto no-scrollbar animate-in zoom-in-95 duration-200 text-slate-900">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  {activeVaultModal === 'reports' && <FileText className="w-4 h-4" />}
+                  {activeVaultModal === 'bookmarks' && <Bookmark className="w-4 h-4" />}
+                  {activeVaultModal === 'notifications' && <Bell className="w-4 h-4" />}
+                  {activeVaultModal === 'retainer' && <Scale className="w-4 h-4" />}
+                  {activeVaultModal === 'privacy' && <Lock className="w-4 h-4" />}
+                </div>
+                <div>
+                  <h3 className="font-heading font-black text-sm text-slate-900 leading-tight">
+                    {activeVaultModal === 'reports' && 'Consultation & Audit Reports'}
+                    {activeVaultModal === 'bookmarks' && 'Saved Service Protocols'}
+                    {activeVaultModal === 'notifications' && 'Alert Preferences'}
+                    {activeVaultModal === 'retainer' && 'Court Expert Witness Retainer'}
+                    {activeVaultModal === 'privacy' && 'Privacy & Legal Evidentiary NDA'}
+                  </h3>
+                  <span className="text-[10px] text-slate-400 font-medium block">
+                    {activeVaultModal === 'reports' && 'Encrypted Client File Vault'}
+                    {activeVaultModal === 'bookmarks' && 'Pinned Standards & Guidelines'}
+                    {activeVaultModal === 'notifications' && 'Triage Broadcast Settings'}
+                    {activeVaultModal === 'retainer' && 'Federal Rule 702 & Daubert Standard'}
+                    {activeVaultModal === 'privacy' && 'HIPAA Compliant & Privileged'}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setActiveVaultModal(null)}
+                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center cursor-pointer transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body: Reports */}
+            {activeVaultModal === 'reports' && (
+              <div className="space-y-3">
+                <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <span className="text-[9px] font-mono font-black text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/60 uppercase">
+                        Docket #NY-2024-884
+                      </span>
+                      <h4 className="text-xs font-bold text-slate-900 mt-1">
+                        High-Rise 60Hz Magnetic Field Mitigation & Shielding Spec
+                      </h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5">
+                        Verified Oct 14, 2024 • Certified Forensic PDF (3.2 MB)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      onClick={() => {
+                        setActiveVaultModal(null);
+                        if (onNavigate) onNavigate('reports');
+                      }}
+                      className="flex-1 h-8 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-xs cursor-pointer"
+                    >
+                      <span>View in Reports</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => toast.success('Downloaded Docket #NY-2024-884 PDF', { id: 'pdf-toast' })}
+                      className="h-8 px-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-[11px] font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5 text-slate-500" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <span className="text-[9px] font-mono font-black text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/60 uppercase">
+                        Docket #NJ-2024-102
+                      </span>
+                      <h4 className="text-xs font-bold text-slate-900 mt-1">
+                        Substation Harmonic & Stray Ground Return Audit
+                      </h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5">
+                        Verified Sep 28, 2024 • IBEW Union Seal #7002 (4.8 MB)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      onClick={() => {
+                        setActiveVaultModal(null);
+                        if (onNavigate) onNavigate('reports');
+                      }}
+                      className="flex-1 h-8 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-xs cursor-pointer"
+                    >
+                      <span>View in Reports</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => toast.success('Downloaded Docket #NJ-2024-102 PDF', { id: 'pdf-toast' })}
+                      className="h-8 px-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-[11px] font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5 text-slate-500" />
+                      <span>PDF</span>
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setActiveVaultModal(null);
+                    if (onNavigate) onNavigate('reports');
+                  }}
+                  className="w-full py-2 text-center text-xs font-extrabold text-blue-600 hover:underline cursor-pointer"
+                >
+                  Browse Full Evidentiary Archive →
+                </button>
+              </div>
+            )}
+
+            {/* Modal Body: Bookmarks */}
+            {activeVaultModal === 'bookmarks' && (
+              <div className="space-y-2.5">
+                {[
+                  {
+                    title: 'Substation Safety & High-Voltage Transmission Line Analysis',
+                    tag: 'Utility Right-of-Way',
+                    sub: 'SBM-2015 sleeping room threshold (< 1.0 mG)'
+                  },
+                  {
+                    title: '5G & High-Frequency RF Radiation Assessment',
+                    tag: 'Telecommunications',
+                    sub: 'Cellular antenna beamforming & microwave power density'
+                  },
+                  {
+                    title: 'Living Space & Nursery Room Shielding Audits',
+                    tag: 'Residential Safety',
+                    sub: 'Magnetic field attenuation & passive RF barrier specs'
+                  }
+                ].map((b, i) => (
+                  <div key={i} className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200/60">
+                        {b.tag}
+                      </span>
+                      <h4 className="text-xs font-bold text-slate-900 mt-1 truncate">
+                        {b.title}
+                      </h4>
+                      <p className="text-[10px] text-slate-500 truncate mt-0.5">
+                        {b.sub}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setActiveVaultModal(null);
+                        if (onNavigate) onNavigate('services');
+                      }}
+                      className="h-8 px-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold shrink-0 cursor-pointer shadow-xs"
+                    >
+                      Open
+                    </button>
+                  </div>
+                ))}
+
+                <button
+                  onClick={() => {
+                    setActiveVaultModal(null);
+                    if (onNavigate) onNavigate('services');
+                  }}
+                  className="w-full py-2 text-center text-xs font-extrabold text-blue-600 hover:underline cursor-pointer"
+                >
+                  Explore All Technical Services →
+                </button>
+              </div>
+            )}
+
+            {/* Modal Body: Notifications */}
+            {activeVaultModal === 'notifications' && (
+              <div className="space-y-3 text-xs">
+                <div className="space-y-2.5">
+                  {[
+                    {
+                      key: 'smsAlerts',
+                      title: 'SMS Dispatch Alerts',
+                      desc: 'Real-time SMS when an IBEW engineer is dispatched to your site.'
+                    },
+                    {
+                      key: 'pdfDelivery',
+                      title: 'PDF Report Delivery',
+                      desc: 'Direct encrypted email delivery of verified forensic audit PDFs.'
+                    },
+                    {
+                      key: 'severeAlerts',
+                      title: 'Substation Hazard Alerts',
+                      desc: 'Urgent notifications if nearby utility harmonics exceed 4.0 mG.'
+                    },
+                    {
+                      key: 'hotlineAudio',
+                      title: 'Emergency Audio Tones',
+                      desc: 'Play audible chime when urgent triage callbacks occur.'
+                    }
+                  ].map((pref) => (
+                    <div key={pref.key} className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-3">
+                      <div>
+                        <span className="font-bold text-slate-800 block text-xs">
+                          {pref.title}
+                        </span>
+                        <span className="text-[10px] text-slate-500 block leading-tight mt-0.5">
+                          {pref.desc}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAlertPreferences(p => ({ ...p, [pref.key]: !p[pref.key] }));
+                        }}
+                        className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer shrink-0 ${
+                          alertPreferences[pref.key] ? 'bg-blue-600' : 'bg-slate-300'
+                        }`}
+                      >
+                        <span
+                          className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
+                            alertPreferences[pref.key] ? 'translate-x-5' : 'translate-x-0'
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => {
+                    toast.success('Alert preferences saved successfully!', { id: 'pref-toast' });
+                    setActiveVaultModal(null);
+                  }}
+                  className="w-full h-10 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-md shadow-blue-600/30 active:scale-95 transition-all cursor-pointer"
+                >
+                  Save Preferences
+                </button>
+              </div>
+            )}
+
+            {/* Modal Body: Retainer */}
+            {activeVaultModal === 'retainer' && (
+              <div className="space-y-3 text-xs">
+                <div className="p-3.5 rounded-2xl bg-blue-50/80 border border-blue-200/80 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Scale className="w-4 h-4 text-blue-700" />
+                    <span className="font-heading font-extrabold text-xs text-blue-900">
+                      Dr. J. Dumanov • Lead Expert Witness
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-700 leading-relaxed">
+                    Qualified in State & Federal Courts under <strong>Federal Rule of Evidence 702</strong> and the <strong>Daubert / Frye</strong> evidentiary benchmarks for electromagnetic radiation and electrical engineering litigation.
+                  </p>
+                </div>
+
+                <div className="space-y-1.5 text-[11px] text-slate-600">
+                  <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>28-Page Court-Admissible Certified CV & Past Dockets</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Cross-Examination, Deposition & In-Person Trial Testimony</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Strict Chain of Custody & Calibrated NIST Instrumentation</span>
+                  </div>
+                </div>
+
+                <div className="pt-1 space-y-2">
+                  <button
+                    onClick={() => {
+                      toast.success('Downloading Dr. Dumanov Court CV (28 Pages)...', { id: 'cv-toast' });
+                    }}
+                    className="w-full h-10 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs border border-slate-200 shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all"
+                  >
+                    <Download className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Download 28-Page Expert CV (PDF)</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setActiveVaultModal(null);
+                      if (onOpenCall) onOpenCall();
+                    }}
+                    className="w-full h-10 rounded-xl bg-[#0b162c] hover:bg-[#122e5a] text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-all"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-blue-400" />
+                    <span>Retain Expert / Speak to Counsel</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Modal Body: Privacy */}
+            {activeVaultModal === 'privacy' && (
+              <div className="space-y-3 text-xs leading-relaxed text-slate-600">
+                <div className="p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 space-y-1.5 text-emerald-950">
+                  <div className="flex items-center gap-1.5 text-emerald-700">
+                    <Lock className="w-4 h-4" />
+                    <span className="font-heading font-extrabold text-xs uppercase tracking-wide">
+                      HIPAA & Attorney-Client Protected
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-emerald-900">
+                    All client disclosures, health symptom narratives, and property architectural plans are held in strict attorney-client work-product confidence.
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-[11px]">
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <strong className="text-slate-900 block font-bold">1. Evidentiary Chain of Custody:</strong>
+                    Raw electromagnetic field measurements and GPS coordinates are digitally signed to prevent evidence tampering.
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <strong className="text-slate-900 block font-bold">2. Zero Third-Party Monetization:</strong>
+                    We do not sell client leads, partner with shady affiliate filter marketers, or disclose high-profile residential locations.
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <strong className="text-slate-900 block font-bold">3. Non-Disclosure Agreement (NDA):</strong>
+                    Bilateral NDAs automatically apply to all commercial property inspections and utility easement reviews.
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setActiveVaultModal(null)}
+                  className="w-full h-10 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-md shadow-blue-600/30 cursor-pointer active:scale-95 transition-all"
+                >
+                  I Acknowledge
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 7. FOOTER */}
       <div className="text-center text-[10px] text-slate-400 space-y-0.5 pt-1">
-        <p>electraEMF Health & Safety © 2003 – 2024</p>
+        <p>electraEMF Pro & Environmental Safety © 2003 – 2024</p>
         <p>Licensed Technical, Medical & Legal Experts • NYC Metro, NJ, CT, PA, DE</p>
       </div>
     </div>
